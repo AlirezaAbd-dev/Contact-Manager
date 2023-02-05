@@ -1,5 +1,8 @@
 import { Box, Slide } from "@mui/material";
+import Image from "next/image";
 import { useEffect, useState } from "react";
+
+import thinkingManImage from "../../assets/man-taking-note.png";
 
 const EditContactSideImage = () => {
   const [loading, setLoading] = useState(false);
@@ -31,11 +34,13 @@ const EditContactSideImage = () => {
           },
         }}
       >
-        <img
-          src={require("../../assets/man-taking-note.png")}
+        <Image
+          layout="responsive"
+          src={thinkingManImage}
           alt="man taking note"
-          width="100%"
-          style={{ opacity: 0.5 }}
+          width={1000}
+          height={350}
+          style={{ opacity: 0.5, width: "100%" }}
         />
       </Box>
     </Slide>

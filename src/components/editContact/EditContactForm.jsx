@@ -1,6 +1,6 @@
 import { Box, Button, TextField } from "@mui/material";
-import Grid from "@mui/material/Unstable_Grid2/Grid2";
-import { Link } from "react-router-dom";
+import Grid from "@mui/material/Unstable_Grid2";
+import Link from "next/link";
 
 const groups = [
   {
@@ -51,7 +51,7 @@ const EditContactForm = () => {
                 </Box>
                 <Box display="flex" gap={1} width="100%">
                   <Link
-                    to="/"
+                    href="/"
                     style={{
                       textDecoration: "none",
                     }}
