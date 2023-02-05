@@ -1,5 +1,5 @@
 import { Box, Button, TextField } from "@mui/material";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 const SignInForm = ({ page }) => {
   return (
@@ -9,7 +9,7 @@ const SignInForm = ({ page }) => {
         <TextField fullWidth label="رمز عبور" />
       </Box>
       <Link
-        to="/"
+        href="/"
         style={{
           textDecoration: "none",
         }}
