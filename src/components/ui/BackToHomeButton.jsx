@@ -1,10 +1,10 @@
 import { Button } from "@mui/material";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 const BackToHomeButton = () => {
   return (
     <Link
-      to="/"
+      href="/"
       style={{
         textDecoration: "none",
       }}
