@@ -1,7 +1,10 @@
-import { Box, Button, Slide, TextField } from "@mui/material";
-import Grid from "@mui/material/Unstable_Grid2/Grid2";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Slide from "@mui/material/Slide";
+import TextField from "@mui/material/TextField";
+import Grid from "@mui/material/Unstable_Grid2";
+import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 
 const groups = [
   {
@@ -45,7 +48,7 @@ const AddContactForm = () => {
         transitionDelay: formLoading ? "400ms" : "0ms",
       }}
     >
-      <Grid xs={12} sm={12} md={5}>
+      <Grid xs={12} sm={12} md={7}>
         <Box display="flex" flexDirection="column" gap={2} mt={2} px={5}>
           <TextField label="نام و نام خانوادگی" />
           <TextField label="آدرس تصویر" />
@@ -75,7 +78,7 @@ const AddContactForm = () => {
             mb={4}
           >
             <Link
-              to="/"
+              href="/"
               style={{
                 textDecoration: "none",
               }}

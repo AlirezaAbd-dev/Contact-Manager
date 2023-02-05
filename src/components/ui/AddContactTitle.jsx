@@ -1,5 +1,4 @@
 import { Box, Divider, Slide, Typography } from "@mui/material";
-import { green } from "@mui/material/colors";
 import { useEffect, useState } from "react";
 
 const AddContactTitle = ({color, children}) => {
