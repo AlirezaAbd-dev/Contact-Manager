@@ -1,3 +1,4 @@
+"use client";
 import { Box, Slide } from "@mui/material";
 import { useEffect, useState } from "react";
 
@@ -34,7 +35,7 @@ const ViewContactCard = (props) => {
             lg: "60%",
           },
           p: 2,
-          mb: 4
+          mb: 4,
         }}
       >
         {props.children}

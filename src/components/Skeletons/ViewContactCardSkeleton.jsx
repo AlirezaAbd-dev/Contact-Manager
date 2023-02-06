@@ -1,3 +1,4 @@
+"use client";
 import { Box, Skeleton } from "@mui/material";
 import ViewContactCard from "../viewContact/ViewContactCard";
 import BackToHomeButton from "../ui/BackToHomeButton";

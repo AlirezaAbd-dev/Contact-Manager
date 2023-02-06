@@ -1,6 +1,7 @@
+"use client"
 import { Logout } from "@mui/icons-material";
 import { IconButton, Tooltip } from "@mui/material";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const LogoutButton = ({ showLogout }) => {
   const router = useRouter();

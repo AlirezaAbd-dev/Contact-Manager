@@ -1,3 +1,4 @@
+"use client"
 import { ContactsRounded } from "@mui/icons-material";
 import { Box, Typography, useTheme } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";

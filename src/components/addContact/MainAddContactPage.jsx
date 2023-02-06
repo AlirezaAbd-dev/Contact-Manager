@@ -1,13 +1,14 @@
+"use client";
 import { Box } from "@mui/material";
-import Grid from "@mui/material/Unstable_Grid2/Grid2";
+import Grid from "@mui/material/Unstable_Grid2";
 
-import AddContactSideImage from "../components/ui/AddContactSideImage";
-import AddContactForm from "../components/addContact/AddContactForm";
-import AddContactTitle from "../components/ui/AddContactTitle";
+import AddContactSideImage from "../ui/AddContactSideImage";
+import AddContactForm from "../addContact/AddContactForm";
+import AddContactTitle from "../ui/AddContactTitle";
 import { green } from "@mui/material/colors";
-import MainContainer from "../containers/MainContainer";
+import MainContainer from "../../containers/MainContainer";
 
-const AddContact = () => {
+const MainAddContactPage = () => {
   return (
     <MainContainer>
       {/* TITLE */}
@@ -21,6 +22,7 @@ const AddContact = () => {
               sm: "column-reverse",
               md: "row",
             },
+            justifyContent: "space-between",
           }}
         >
           {/* FORM */}
@@ -34,4 +36,4 @@ const AddContact = () => {
   );
 };
 
-export default AddContact;
+export default MainAddContactPage;

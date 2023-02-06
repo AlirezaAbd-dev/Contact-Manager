@@ -1,3 +1,4 @@
+"use client";
 import { Avatar } from "@mui/material";
 
 const ViewContactAvatar = () => {

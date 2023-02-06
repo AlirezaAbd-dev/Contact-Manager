@@ -1,3 +1,4 @@
+"use client"
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { theme } from "./theme/theme";
 import rtlPlugin from "stylis-plugin-rtl";
@@ -5,7 +6,7 @@ import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import { prefixer } from "stylis";
 import Header from "@/components/navbar/Header";
-import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
 
 // Create rtl cache
 const cacheRtl = createCache({
@@ -14,15 +15,15 @@ const cacheRtl = createCache({
 });
 
 const MainLayout = ({ children }) => {
-  const router = useRouter();
+  const pathname = usePathname();
 
   return (
     <ThemeProvider theme={theme}>
       <CacheProvider value={cacheRtl}>
         <CssBaseline />
         <Header
-          showSearch={router.pathname === "/" ? true : false}
-          showLogout={router.pathname === "/" ? true : false}
+          showSearch={pathname === "/" ? true : false}
+          showLogout={pathname === "/" ? true : false}
         />
         {children}
       </CacheProvider>

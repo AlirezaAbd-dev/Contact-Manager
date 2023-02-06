@@ -1,9 +1,10 @@
+"use client"
 import { Pagination, Stack, useMediaQuery, useTheme } from "@mui/material";
 
 const ContactsPagination = () => {
   const theme = useTheme();
 
-  const isSmDown = useMediaQuery(theme.breakpoints.down("sm"));
+  const isSmDown = useMediaQuery(theme.breakpoints.down("md"));
   return (
     <Stack mb={4}>
       <Pagination

@@ -1,3 +1,4 @@
+"use client"
 import { Slide } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import { useEffect, useState } from "react";

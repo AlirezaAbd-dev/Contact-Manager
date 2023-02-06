@@ -1,3 +1,4 @@
+"use client"
 import {
   ArrowLeftRounded,
   Delete,
@@ -21,8 +22,9 @@ import { grey } from "@mui/material/colors";
 
 import { useStore } from "../../zustand/store";
 import Link from "next/link";
+import Image from "next/image";
 
-const ContactCard = () => {
+const ContactCard = ({user}) => {
   const setIsModalOpen = useStore((state) => state.setIsModalOpen);
 
   return (
@@ -38,14 +40,14 @@ const ContactCard = () => {
         }}
       >
         <CardActionArea>
-          <CardMedia
-            component="img"
-            height="200px"
-            image="https://avatars.githubusercontent.com/u/98334060?v=4"
-            alt="profile"
-          />
           <CardContent>
-            <Box
+            <Image src={user.avatar} alt={user.username} width={500} height={200} style={{
+              height: 200,
+              width: '100%',
+              objectFit: 'cover',
+              marginBottom: '10px'
+            }} />
+                    <Box
               display="flex"
               flexDirection="column"
               alignItems="flex-start"
@@ -58,20 +60,24 @@ const ContactCard = () => {
               <Typography display="inline" variant="body2" color="black">
                 <ArrowLeftRounded fontSize="medium" color="error" />
                 نام و نام خانوادگی :{" "}
-                <span style={{ fontWeight: "bold" }}>علیرضا عابدی</span>
+                <span style={{ fontWeight: "bold" }}>
+                  {user.name}
+                  </span>
               </Typography>
               <Divider width="100%" color={grey[600]} />
               <Typography display="inline" variant="body2" color="black">
                 <ArrowLeftRounded fontSize="medium" color="error" />
                 شماره موبایل :{" "}
-                <span style={{ fontWeight: "bold" }}>09123456789</span>
+                <span style={{ fontWeight: "bold" }}>
+                  {user.phone.replace("+","")}
+                  </span>
               </Typography>
               <Divider width="100%" color={grey[600]} />
               <Typography display="inline" variant="body2" color="black">
                 <ArrowLeftRounded fontSize="medium" color="error" />
                 ایمیل :{" "}
                 <span style={{ fontWeight: "bold" }}>
-                  alireza.abedi@gmail.com
+                  {user.email}
                 </span>
               </Typography>
             </Box>

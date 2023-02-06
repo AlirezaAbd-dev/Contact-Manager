@@ -1,3 +1,4 @@
+"use client";
 import MainContainer from "@/containers/MainContainer";
 import ViewContactCard from "@/components/viewContact/ViewContactCard";
 import ViewContactAvatar from "@/components/viewContact/ViewContactAvatar";
@@ -5,7 +6,7 @@ import ViewContactInfo from "@/components/viewContact/ViewContactInfo";
 import BackToHomeButton from "@/components/ui/BackToHomeButton";
 import ViewContactCardSkeleton from "@/components/Skeletons/ViewContactCardSkeleton";
 
-const ViewContact = () => {
+const MainViewContactPage = () => {
   return (
     <MainContainer>
       {true && (
@@ -27,4 +28,4 @@ const ViewContact = () => {
   );
 };
 
-export default ViewContact;
+export default MainViewContactPage;

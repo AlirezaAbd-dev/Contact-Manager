@@ -1,3 +1,4 @@
+"use client"
 import { AppBar, Slide, Toolbar } from "@mui/material";
 import { useEffect, useState } from "react";
 
