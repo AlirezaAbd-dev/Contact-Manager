@@ -1,11 +1,13 @@
+"use client";
 import { Typography } from "@mui/material";
-import MainContainer from "@/containers/MainContainer";
 import { useState } from "react";
+
+import MainContainer from "@/containers/MainContainer";
 import SignInCard from "@/components/signIn/SignInCard";
 import SignInTabs from "@/components/signIn/SignInTabs";
 import SignInForm from "@/components/signIn/SignInForm";
 
-const SignIn = () => {
+const MainSignInPage = () => {
   const [page, setPage] = useState(0);
 
   const pageHandler = (_e, newValue) => {
@@ -29,4 +31,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default MainSignInPage;

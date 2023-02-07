@@ -1,20 +1,9 @@
 import MainContactPage from "@/components/contacts/MainContactPage";
 
-const getData = async () => {
-  const response = await fetch("https://jsonplaceholder.ir/users", {
-    method: "GET",
-    next: {
-      revalidate: 30,
-    },
-  });
-
-  const data =await response.json()
-
-  return data
-};
+import { getAllContacts } from "@/services/contactServices";
 
 const Contacts = async () => {
-const data= await getData()
+  const data = await getAllContacts();
 
   return <MainContactPage data={data} />;
 };

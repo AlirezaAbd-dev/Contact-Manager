@@ -11,7 +11,6 @@ import MainContainer from "@/containers/MainContainer";
 import AddContactTitle from "@/components/ui/AddContactTitle";
 
 const MainEditContactPage = ({data}) => {
-    console.log(data);
   return (
     <MainContainer>
       {/* TITLE */}
@@ -26,10 +25,10 @@ const MainEditContactPage = ({data}) => {
         <EditContactCard>
           <Grid container width="100%" p={1}>
             {/* AVATAR */}
-            <EditContactAvatar />
+            <EditContactAvatar avatarSrc={data.avatar} alt={data.username}/>
 
             {/* FORM */}
-            <EditContactForm />
+            <EditContactForm contact={data}/>
           </Grid>
         </EditContactCard>
 

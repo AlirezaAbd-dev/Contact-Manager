@@ -26,16 +26,19 @@ const groups = [
   },
 ];
 
-const EditContactForm = () => {
+const EditContactForm = ({ contact }) => {
   return (
     <Grid xs={12} sm={12} md={8} lg={8} p={1}>
       <Box width="100%" display="flex" flexDirection="column" gap={1}>
-        <TextField label="نام و نام خانوادگی" />
-        <TextField label="آدرس تصویر" />
-        <TextField label="شماره موبایل" />
-        <TextField label="آدرس ایمیل" />
+        <TextField label="نام و نام خانوادگی" defaultValue={contact.name} />
+        <TextField label="آدرس تصویر" defaultValue={contact.avatar} />
+        <TextField
+          label="شماره موبایل"
+          defaultValue={contact.phone.replace("+", " ")}
+        />
+        <TextField label="آدرس ایمیل" defaultValue={contact.email} />
         <Box display="flex" gap={2}>
-          <TextField label="شغل" />
+          <TextField label="شغل" defaultValue={contact.company} />
           <TextField
             select
             label="انتخاب گروه"

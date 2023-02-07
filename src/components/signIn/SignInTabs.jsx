@@ -1,3 +1,4 @@
+"use client";
 import { Box, Tab, Tabs } from "@mui/material";
 
 const SignInTabs = ({ page, pageHandler }) => {
