@@ -59,6 +59,7 @@ const EditContactForm = ({ contact }) => {
             style={{
               textDecoration: "none",
             }}
+            prefetch={false}
           >
             <Button variant="contained" color="error">
               انصراف

@@ -15,6 +15,7 @@ const SignInForm = ({ page }) => {
         style={{
           textDecoration: "none",
         }}
+        prefetch={false}
       >
         <Button variant="contained" color="secondary">
           {page === 0 ? "ورود" : "ثبت نام"}
