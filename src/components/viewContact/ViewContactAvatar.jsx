@@ -11,7 +11,14 @@ const ViewContactAvatar = ({ imageSrc, alt }) => {
         height: "auto",
       }}
     >
-      <Image src={imageSrc} alt={alt} width={300} height={300} layout="responsive" />
+      <Image
+        src={imageSrc}
+        alt={alt}
+        width={300}
+        height={300}
+        layout="responsive"
+        priority
+      />
     </Avatar>
   );
 };

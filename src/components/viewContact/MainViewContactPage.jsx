@@ -1,15 +1,25 @@
 "use client";
+import { Suspense, lazy } from "react";
+
 import MainContainer from "@/containers/MainContainer";
-import ViewContactCard from "@/components/viewContact/ViewContactCard";
 import ViewContactAvatar from "@/components/viewContact/ViewContactAvatar";
 import ViewContactInfo from "@/components/viewContact/ViewContactInfo";
 import BackToHomeButton from "@/components/ui/BackToHomeButton";
 import ViewContactCardSkeleton from "@/components/Skeletons/ViewContactCardSkeleton";
 
+const ViewContactCard = lazy(() =>
+  import("@/components/viewContact/ViewContactCard")
+);
+
 const MainViewContactPage = ({ contact }) => {
   return (
     <MainContainer>
-      {true && (
+      <Suspense
+        fallback={
+          // SKELETON CARD
+          <ViewContactCardSkeleton />
+        }
+      >
         <ViewContactCard>
           {/* AVATAR */}
           <ViewContactAvatar imageSrc={contact.avatar} alt={contact.username} />
@@ -20,10 +30,7 @@ const MainViewContactPage = ({ contact }) => {
           {/* BUTTON */}
           <BackToHomeButton />
         </ViewContactCard>
-      )}
-
-      {/* SKELETON CARD */}
-      {false && <ViewContactCardSkeleton />}
+      </Suspense>
     </MainContainer>
   );
 };
