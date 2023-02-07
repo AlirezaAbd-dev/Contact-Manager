@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import {
   ArrowLeftRounded,
   Delete,
@@ -24,7 +24,7 @@ import { useStore } from "../../zustand/store";
 import Link from "next/link";
 import Image from "next/image";
 
-const ContactCard = ({user}) => {
+const ContactCard = ({ user }) => {
   const setIsModalOpen = useStore((state) => state.setIsModalOpen);
 
   return (
@@ -41,13 +41,19 @@ const ContactCard = ({user}) => {
       >
         <CardActionArea>
           <CardContent>
-            <Image src={user.avatar} alt={user.username} width={500} height={200} style={{
-              height: 200,
-              width: '100%',
-              objectFit: 'cover',
-              marginBottom: '10px'
-            }} />
-                    <Box
+            <Image
+              src={user.avatar}
+              alt={user.username}
+              width={500}
+              height={200}
+              style={{
+                height: 200,
+                width: "100%",
+                objectFit: "cover",
+                marginBottom: "10px",
+              }}
+            />
+            <Box
               display="flex"
               flexDirection="column"
               alignItems="flex-start"
@@ -60,25 +66,20 @@ const ContactCard = ({user}) => {
               <Typography display="inline" variant="body2" color="black">
                 <ArrowLeftRounded fontSize="medium" color="error" />
                 نام و نام خانوادگی :{" "}
-                <span style={{ fontWeight: "bold" }}>
-                  {user.name}
-                  </span>
+                <span style={{ fontWeight: "bold" }}>{user.name}</span>
               </Typography>
               <Divider width="100%" color={grey[600]} />
               <Typography display="inline" variant="body2" color="black">
                 <ArrowLeftRounded fontSize="medium" color="error" />
                 شماره موبایل :{" "}
                 <span style={{ fontWeight: "bold" }}>
-                  {user.phone.replace("+","")}
-                  </span>
+                  {user.phone.replace("+", "")}
+                </span>
               </Typography>
               <Divider width="100%" color={grey[600]} />
               <Typography display="inline" variant="body2" color="black">
                 <ArrowLeftRounded fontSize="medium" color="error" />
-                ایمیل :{" "}
-                <span style={{ fontWeight: "bold" }}>
-                  {user.email}
-                </span>
+                ایمیل : <span style={{ fontWeight: "bold" }}>{user.email}</span>
               </Typography>
             </Box>
           </CardContent>
@@ -93,7 +94,7 @@ const ContactCard = ({user}) => {
             </Tooltip>
 
             <Tooltip arrow title="ویرایش مخاطب">
-              <Link href="/editContact/0">
+              <Link href={`/editContact/${user.id}`} prefetch={false}>
                 <Button color="warning">
                   <Edit />
                 </Button>
@@ -101,7 +102,7 @@ const ContactCard = ({user}) => {
             </Tooltip>
 
             <Tooltip arrow title="جزئیات">
-              <Link href="/contact/0">
+              <Link href={`/contact/${user.id}`} prefetch={false}>
                 <Button color="info">
                   <RemoveRedEye />
                 </Button>

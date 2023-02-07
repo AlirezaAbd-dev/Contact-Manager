@@ -6,16 +6,16 @@ import ViewContactInfo from "@/components/viewContact/ViewContactInfo";
 import BackToHomeButton from "@/components/ui/BackToHomeButton";
 import ViewContactCardSkeleton from "@/components/Skeletons/ViewContactCardSkeleton";
 
-const MainViewContactPage = () => {
+const MainViewContactPage = ({ contact }) => {
   return (
     <MainContainer>
       {true && (
         <ViewContactCard>
           {/* AVATAR */}
-          <ViewContactAvatar />
+          <ViewContactAvatar imageSrc={contact.avatar} alt={contact.username} />
 
           {/* INFORMATION */}
-          <ViewContactInfo />
+          <ViewContactInfo contact={contact} />
 
           {/* BUTTON */}
           <BackToHomeButton />

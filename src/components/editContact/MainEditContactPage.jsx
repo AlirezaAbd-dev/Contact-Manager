@@ -1,5 +1,7 @@
+"use client"
 import { Box } from "@mui/material";
 import { yellow } from "@mui/material/colors";
+
 import EditContactSideImage from "@/components/ui/EditContactSideImage";
 import Grid from "@mui/material/Unstable_Grid2";
 import EditContactForm from "@/components/editContact/EditContactForm";
@@ -8,7 +10,8 @@ import EditContactCard from "@/components/editContact/EditContactCard";
 import MainContainer from "@/containers/MainContainer";
 import AddContactTitle from "@/components/ui/AddContactTitle";
 
-const EditContact = () => {
+const MainEditContactPage = ({data}) => {
+    console.log(data);
   return (
     <MainContainer>
       {/* TITLE */}
@@ -37,4 +40,4 @@ const EditContact = () => {
   );
 };
 
-export default EditContact;
+export default MainEditContactPage;

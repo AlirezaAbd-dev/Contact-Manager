@@ -34,7 +34,7 @@ const AddContactButton = () => {
           transitionDelay: buttonLoading ? "300ms" : "0ms",
         }}
       >
-        <Link style={{ textDecoration: "none" }} href="/addContact">
+        <Link style={{ textDecoration: "none" }} href="/addContact" prefetch={false}>
           <Button variant="contained" color="secondary">
             ساخت مخاطب جدید <AddCircleRounded sx={{ mx: 1 }} />
           </Button>

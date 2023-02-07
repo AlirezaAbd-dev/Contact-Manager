@@ -1,3 +1,4 @@
+"use client";
 import { Box, Slide } from "@mui/material";
 import { useEffect, useState } from "react";
 

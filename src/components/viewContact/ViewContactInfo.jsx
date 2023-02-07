@@ -2,7 +2,7 @@
 import { Box, Divider, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
-const ViewContactInfo = () => {
+const ViewContactInfo = ({ contact }) => {
   return (
     <Box
       display="flex"
@@ -16,6 +16,7 @@ const ViewContactInfo = () => {
       sx={{ overflowX: "hidden" }}
     >
       <Typography
+        variant="h1"
         display="flex"
         flexDirection="column"
         gap={2}
@@ -26,20 +27,20 @@ const ViewContactInfo = () => {
       >
         <Typography display="inline" variant="body2" color="black">
           نام و نام خانوادگی :{" "}
-          <span style={{ fontWeight: "bold" }}>علیرضا عابدی</span>
+          <span style={{ fontWeight: "bold" }}>{contact.name}</span>
         </Typography>
         <Divider width="100%" color={grey[600]} />
         <Typography display="inline" variant="body2" color="black">
-          شماره موبایل : <span style={{ fontWeight: "bold" }}>09123456789</span>
+          شماره موبایل :{" "}
+          <span style={{ fontWeight: "bold" }}>{contact.phone.replace("+",' ')}</span>
         </Typography>
         <Divider width="100%" color={grey[600]} />
         <Typography display="inline" variant="body2" color="black">
-          ایمیل :{" "}
-          <span style={{ fontWeight: "bold" }}>alireza.abedi@gmail.com</span>
+          ایمیل : <span style={{ fontWeight: "bold" }}>{contact.email}</span>
         </Typography>
         <Divider width="100%" color={grey[600]} />
         <Typography display="inline" variant="body2" color="black">
-          شغل : <span style={{ fontWeight: "bold" }}>برنامه نویس</span>
+          شغل : <span style={{ fontWeight: "bold" }}>{contact.company}</span>
         </Typography>
         <Divider width="100%" color={grey[600]} />
         <Typography display="inline" variant="body2" color="black">

@@ -1,15 +1,18 @@
 "use client";
 import { Avatar } from "@mui/material";
+import Image from "next/image";
 
-const ViewContactAvatar = () => {
+const ViewContactAvatar = ({ imageSrc, alt }) => {
   return (
     <Avatar
-      src="https://avatars.githubusercontent.com/u/98334060?v=4"
+      variant="circular"
       sx={{
         width: "40%",
         height: "auto",
       }}
-    />
+    >
+      <Image src={imageSrc} alt={alt} width={300} height={300} layout="responsive" />
+    </Avatar>
   );
 };
 

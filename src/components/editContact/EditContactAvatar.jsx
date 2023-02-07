@@ -1,3 +1,4 @@
+"use client";
 import Grid from "@mui/material/Unstable_Grid2";
 import { Avatar, Skeleton } from "@mui/material";
 
