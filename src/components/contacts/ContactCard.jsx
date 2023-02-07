@@ -44,14 +44,14 @@ const ContactCard = ({ user }) => {
             <Image
               src={user.avatar}
               alt={user.username}
-              width={500}
+              width={400}
               height={200}
               style={{
-                height: 200,
-                width: "100%",
+                maxWidth: "100%",
                 objectFit: "cover",
                 marginBottom: "10px",
               }}
+              priority
             />
             <Box
               display="flex"

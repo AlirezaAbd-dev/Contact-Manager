@@ -22,21 +22,21 @@ const MainContactPage = ({ data }) => {
       {/* CONTACTS CARDS */}
       <Box width="100%" pt={5}>
         <Grid container>
-          {data.map((user) => (
-            <Suspense key={user.id}
-              fallback={
-                <>
-                  <MainContactsCardSkeleton />
-                  <MainContactsCardSkeleton />
-                  <MainContactsCardSkeleton />
-                  <MainContactsCardSkeleton />
-                  <MainContactsCardSkeleton />
-                </>
-              }
-            >
+          <Suspense
+            fallback={
+              <>
+                <MainContactsCardSkeleton />
+                <MainContactsCardSkeleton />
+                <MainContactsCardSkeleton />
+                <MainContactsCardSkeleton />
+                <MainContactsCardSkeleton />
+              </>
+            }
+          >
+            {data.map((user) => (
               <ContactCard key={user.id} user={user} />
-            </Suspense>
-          ))}
+            ))}
+          </Suspense>
 
           {/* CONTACT CARD SKELETON */}
           {false && (
