@@ -1,51 +1,18 @@
-import {useState, useEffect} from "react";
-import {SearchRounded} from "@mui/icons-material";
-import {Autocomplete, Box, CircularProgress, IconButton, Input} from "@mui/material";
+import {useState} from "react";
+import {Autocomplete, Box} from "@mui/material";
 import TextField from "@mui/material/TextField"
 import Grid from "@mui/material/Unstable_Grid2";
-import axios from "axios";
-import useSWR from "swr"
 import {useRouter} from "next/navigation";
+import RecentActorsOutlinedIcon from '@mui/icons-material/RecentActorsOutlined';
 
-const fetcher = (url) => axios.get(url).then(res => res.data.map((data => ({
-    id: data.id,
-    name: data.name,
-    username: data.username
-}))))
-
-const SearchBar = () => {
+const SearchBar = ({data}) => {
     const [open, setOpen] = useState(false);
-    const [options, setOptions] = useState([]);
-    const loading = open && options.length === 0;
+    const [options] = useState(data.map(option => ({
+        id: option.id,
+        name: option.name
+    })));
 
     const router = useRouter()
-
-    const {data, isLoading} = useSWR('https://jsonplaceholder.ir/users', fetcher)
-
-    useEffect(() => {
-        let active = true;
-
-        if (!loading) {
-            return undefined;
-        }
-
-        (async () => {
-
-            if (active) {
-                setOptions([]);
-            }
-        })();
-
-        return () => {
-            active = false;
-        };
-    }, [loading]);
-
-    useEffect(() => {
-        if (!open) {
-            setOptions(data);
-        }
-    }, [open, data]);
 
     const onSubmitHandler = (_e, value) => {
         if (value) {
@@ -65,37 +32,29 @@ const SearchBar = () => {
                 }}
             >
                 <Autocomplete
+                    sx={{my: 1}}
+                    disablePortal
                     id="search-contacts"
                     onChange={onSubmitHandler}
                     fullWidth
-                    open={open}
-                    onOpen={() => {
-                        setOpen(true);
-                    }}
-                    onClose={() => {
-                        setOpen(false);
-                    }}
-                    isOptionEqualToValue={(option, value) => option.username === value.username}
                     getOptionLabel={(option) => option.name}
                     options={options}
-                    loading={loading}
                     renderInput={(params) => {
-                        return (
-                            <TextField
-                                {...params}
-                                label="جستجوی مخاطب"
-                                InputProps={{
-                                    ...params.InputProps,
-                                    endAdornment: (
-                                        <>
-                                            {loading ? <CircularProgress color="inherit" size={20}/> : null}
-                                            {params.InputProps.endAdornment}
-                                        </>
-                                    ),
-                                }}
-                            />
-                        )
+                        return <TextField
+                            {...params}
+                            label="جستجوی مخاطب"
+                        />
                     }}
+                    renderOption={(props, option) => (
+                        <Box component="li" sx={{bgcolor: 'background.default'}}{...props}>
+                            <RecentActorsOutlinedIcon
+                                width="20"
+                                sx={{mr: 2, flexShrink: 0}}
+                                alt={option.name}
+                            />
+                            {option.name}
+                        </Box>
+                    )}
                 />
             </Box>
         </Grid>

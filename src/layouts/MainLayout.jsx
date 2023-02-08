@@ -14,7 +14,7 @@ const cacheRtl = createCache({
   stylisPlugins: [prefixer, rtlPlugin],
 });
 
-const MainLayout = ({ children }) => {
+const MainLayout = ({ data, children }) => {
   const pathname = usePathname();
 
   return (
@@ -22,6 +22,7 @@ const MainLayout = ({ children }) => {
       <CacheProvider value={cacheRtl}>
         <CssBaseline />
         <Header
+            data={data}
           showSearch={pathname === "/"}
           showLogout={pathname === "/"}
         />

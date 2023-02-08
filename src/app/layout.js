@@ -2,12 +2,15 @@ import "../styles/globals.css"
 import "../assets/css/style.css"
 import MainLayout from "@/layouts/MainLayout";
 
-const Layout = ({ children }) => {
+import {getAllContacts} from "@/services/contactServices";
+
+const Layout = async ({ children }) => {
+    const data =await getAllContacts()
   return (
     <html lang="fa">
       <head />
       <body dir="rtl">
-        <MainLayout>{children}</MainLayout>
+        <MainLayout data={data}>{children}</MainLayout>
       </body>
     </html>
   );

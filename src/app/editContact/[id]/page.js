@@ -1,6 +1,6 @@
 import MainEditContactPage from "@/components/editContact/MainEditContactPage";
 
-import { getContactById } from "@/services/contactServices";
+import {getAllContacts, getContactById} from "@/services/contactServices";
 
 const EditContact = async ({ params: { id } }) => {
   const data = await getContactById(id);
@@ -9,3 +9,11 @@ const EditContact = async ({ params: { id } }) => {
 };
 
 export default EditContact;
+
+export const generateStaticParams = async () => {
+  const data = await getAllContacts()
+
+  return data.map(data => ({
+    id: data.id.toString()
+  }))
+}

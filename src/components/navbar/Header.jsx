@@ -5,7 +5,7 @@ import Grid from "@mui/material/Unstable_Grid2";
 import NavbarContainer from "../../containers/NavbarContainer";
 import LogoutButton from "./LogoutButton";
 
-const Header = ({ showSearch, showLogout = false }) => {
+const Header = ({ showSearch, showLogout = false, data }) => {
   return (
     <NavbarContainer>
       <LogoutButton showLogout={showLogout} />
@@ -25,7 +25,7 @@ const Header = ({ showSearch, showLogout = false }) => {
         container
       >
         <Logo showSearch={showSearch} />
-        {showSearch && <SearchBar />}
+        {showSearch && <SearchBar data={data} />}
       </Grid>
     </NavbarContainer>
   );
