@@ -6,5 +6,4 @@ export const getContactById = async (id) => {
 
 export const getAllContacts = async () => {
     return await axios.get("https://jsonplaceholder.ir/users").then(res=> res.data)
-
 };

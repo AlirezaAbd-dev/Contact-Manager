@@ -11,6 +11,9 @@ const Logo = ({ showSearch }) => {
       xs={!showSearch ? 12 : 0}
       sm={!showSearch ? 12 : 0}
       md={!showSearch ? 12 : 6}
+      sx={{
+          m: "auto 0"
+      }}
     >
       <Box
         display="flex"
