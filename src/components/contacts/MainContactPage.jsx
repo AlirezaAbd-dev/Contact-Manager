@@ -1,7 +1,7 @@
 "use client";
-import { Suspense, lazy } from "react";
+import {Suspense, lazy} from "react";
 import Grid from "@mui/material/Unstable_Grid2";
-import { Box } from "@mui/material";
+import {Box} from "@mui/material";
 
 import AddContactButton from "../contacts/AddContactButton";
 import MainContainer from "../../containers/MainContainer";
@@ -11,52 +11,47 @@ import MainContactsCardSkeleton from "../Skeletons/MainContactsCardSkeleton";
 
 const ContactCard = lazy(() => import("../contacts/ContactCard"));
 
-import NotFoundGif from "../ui/NotFoundGif";
+// import NotFoundGif from "../ui/NotFoundGif";
 
-const MainContactPage = ({ data }) => {
-  return (
-    <MainContainer>
-      {/* ADD CONTACT BUTTON */}
-      <AddContactButton />
+const MainContactPage = ({data}) => {
 
-      {/* CONTACTS CARDS */}
-      <Box width="100%" pt={5}>
-        <Grid container>
-          <Suspense
-            fallback={
-              <>
-                <MainContactsCardSkeleton />
-                <MainContactsCardSkeleton />
-                <MainContactsCardSkeleton />
-                <MainContactsCardSkeleton />
-                <MainContactsCardSkeleton />
-              </>
-            }
-          >
-            {data.map((user) => (
-              <ContactCard key={user.id} user={user} />
-            ))}
-          </Suspense>
+    const contactCardSkeleton = (
+        <>
+            <MainContactsCardSkeleton/>
+            <MainContactsCardSkeleton/>
+            <MainContactsCardSkeleton/>
+            <MainContactsCardSkeleton/>
+            <MainContactsCardSkeleton/>
+        </>
+    )
 
-          {/* CONTACT CARD SKELETON */}
-          {false && (
-            <>
-              <MainContactsCardSkeleton />
-              <MainContactsCardSkeleton />
-              <MainContactsCardSkeleton />
-              <MainContactsCardSkeleton />
-              <MainContactsCardSkeleton />
-            </>
-          )}
+    return (
+        <MainContainer>
+            {/* ADD CONTACT BUTTON */}
+            <AddContactButton/>
 
-          {/* LOADING GIF */}
-          {false && <NotFoundGif />}
-        </Grid>
-      </Box>
-      <ContactsPagination />
-      <DeleteConfirmDialog />
-    </MainContainer>
-  );
+            {/* CONTACTS CARDS */}
+            <Box width="100%" pt={5}>
+                <Grid container>
+                    <Suspense
+                        fallback={
+                            // CONTACT CARD SKELETON
+                            contactCardSkeleton
+                        }
+                    >
+                        {data.map((user) => (
+                            <ContactCard key={user.id} user={user}/>
+                        ))}
+                    </Suspense>
+
+                    {/* LOADING GIF */}
+                    {/*<NotFoundGif/>*/}
+                </Grid>
+            </Box>
+            <ContactsPagination/>
+            <DeleteConfirmDialog/>
+        </MainContainer>
+    );
 };
 
 export default MainContactPage;

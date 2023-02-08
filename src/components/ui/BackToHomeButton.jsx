@@ -9,7 +9,6 @@ const BackToHomeButton = () => {
       style={{
         textDecoration: "none",
       }}
-      prefetch={false}
     >
       <Button
         variant="contained"

@@ -26,11 +26,11 @@ const AddContactSideImage = () => {
     >
       <Grid xs={12} sm={12} md={5}>
         <Image
-        layout="responsive"
           src={thinkingManImage}
           alt="Man taking note"
           height={600}
-          width={900}
+          width={1000}
+          priority
           style={{
             width: "100%",
             height: "auto",
