@@ -22,8 +22,8 @@ const MainLayout = ({ children }) => {
       <CacheProvider value={cacheRtl}>
         <CssBaseline />
         <Header
-          showSearch={pathname === "/" ? true : false}
-          showLogout={pathname === "/" ? true : false}
+          showSearch={pathname === "/"}
+          showLogout={pathname === "/"}
         />
         {children}
       </CacheProvider>

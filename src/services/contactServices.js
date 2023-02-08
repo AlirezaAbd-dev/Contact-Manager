@@ -1,25 +1,10 @@
+import axios from "axios"
+
 export const getContactById = async (id) => {
-  const response = await fetch(`https://jsonplaceholder.ir/users/${id}`, {
-    method: "GET",
-    next: {
-      revalidate: 10,
-    },
-  });
-
-  const data = await response.json();
-
-  return data;
+    return await axios.get(`https://jsonplaceholder.ir/users/${id}`).then(res=> res.data)
 };
 
 export const getAllContacts = async () => {
-  const response = await fetch("https://jsonplaceholder.ir/users", {
-    method: "GET",
-    next: {
-      revalidate: 30,
-    },
-  });
+    return await axios.get("https://jsonplaceholder.ir/users").then(res=> res.data)
 
-  const data = await response.json();
-
-  return data;
 };
