@@ -3,17 +3,17 @@ import "../assets/css/style.css"
 import MainLayout from "@/layouts/MainLayout";
 
 import {getAllContacts} from "@/services/contactServices";
+import AnalyticsWrapper from "@/app/Analytics";
 
-const Layout = async ({ children }) => {
-    const data =await getAllContacts()
-  return (
-    <html lang="fa">
-      <head />
-      <body dir="rtl">
+const Layout = async ({children}) => {
+    const data = await getAllContacts()
+    return (<html lang="fa">
+    <head/>
+    <body dir="rtl">
         <MainLayout data={data}>{children}</MainLayout>
-      </body>
-    </html>
-  );
+        <AnalyticsWrapper/>
+    </body>
+    </html>);
 };
 
 export default Layout;
