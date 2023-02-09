@@ -8,7 +8,6 @@ const EditContact = async ({ params: { id } }) => {
   return <MainEditContactPage data={data} />;
 };
 
-export default EditContact;
 
 export const generateStaticParams = async () => {
   const data = await getAllContacts()
@@ -17,3 +16,5 @@ export const generateStaticParams = async () => {
     id: data.id.toString()
   }))
 }
+
+export default EditContact;

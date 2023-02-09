@@ -2,9 +2,7 @@
 import Grid from "@mui/material/Unstable_Grid2";
 import Skeleton from "@mui/material/Skeleton";
 import Image from "next/image";
-import {Suspense, lazy} from "react";
-
-const Avatar = lazy(() => import("@mui/material/Avatar"));
+import Avatar from "@mui/material/Avatar"
 
 const EditContactAvatar = ({avatarSrc, alt}) => {
     const skeleton = (
@@ -29,7 +27,7 @@ const EditContactAvatar = ({avatarSrc, alt}) => {
 
     return (
         <Grid xs={12} sm={12} md={4} lg={4} p={1}>
-            <Suspense fallback={skeleton}>
+            {!avatarSrc ? skeleton : (
                 <Avatar
                     variant="circular"
                     sx={{
@@ -55,7 +53,7 @@ const EditContactAvatar = ({avatarSrc, alt}) => {
                         }}
                     />
                 </Avatar>
-            </Suspense>
+            )}
         </Grid>
     );
 };
