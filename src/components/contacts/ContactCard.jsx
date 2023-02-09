@@ -11,6 +11,7 @@ import {grey} from "@mui/material/colors";
 import {useStore} from "../../zustand/store";
 import Link from "next/link";
 import Image from "next/image";
+import Skeleton from "@mui/material/Skeleton";
 
 const ContactCard = ({user: {username, avatar, name, phone, email, id}}) => {
     const setIsModalOpen = useStore((state) => state.setIsModalOpen);
@@ -32,16 +33,21 @@ const ContactCard = ({user: {username, avatar, name, phone, email, id}}) => {
                         display: 'flex',
                         justifyContent: 'center'
                     }}>
-                        <Image
-                            src={avatar}
-                            alt={username}
-                            width={400}
-                            height={200}
-                            priority
-                            style={{
-                                objectFit: "cover"
-                            }}
-                        />
+                        {!avatar ? <Skeleton variant='rectangular' animation={false} sx={{
+                            width: '100%',
+                            height: '200px'
+                        }}/> : (
+                            <Image
+                                src={avatar}
+                                alt={username}
+                                width={400}
+                                height={200}
+                                priority
+                                style={{
+                                    objectFit: "cover"
+                                }}
+                            />
+                        )}
                     </CardMedia>
                     <Box
                         display="flex"
