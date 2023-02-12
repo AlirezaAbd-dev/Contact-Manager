@@ -34,12 +34,13 @@ const ContactCard = ({
 }) => {
   const setIsModalOpen = useStore((state) => state.setIsModalOpen);
   const [imageIsLoaded, setImageIsLoaded] = useState(false);
+  console.log(avatar);
 
   React.createElement("image", {
     src: avatar,
     onLoad: () => {
       setImageIsLoaded(true);
-    },
+    }
   });
 
   return (
@@ -68,7 +69,7 @@ const ContactCard = ({
               {!imageIsLoaded ? (
                 <Skeleton
                   variant="rectangular"
-                  animation={false}
+                  animation="wave"
                   sx={{
                     width: "100%",
                     height: "200px",

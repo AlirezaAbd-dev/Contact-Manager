@@ -15,15 +15,15 @@ const ContactCard = lazy(() => import("./ContactCard"));
 // import NotFoundGif from "../ui/NotFoundGif";
 
 const MainContactPage = ({ data }: { data: contactType[] }) => {
-  const contactCardSkeleton = (
-    <>
-      <MainContactsCardSkeleton />
-      <MainContactsCardSkeleton />
-      <MainContactsCardSkeleton />
-      <MainContactsCardSkeleton />
-      <MainContactsCardSkeleton />
-    </>
-  );
+  // const contactCardSkeleton = (
+  //   <>
+  //     <MainContactsCardSkeleton />
+  //     <MainContactsCardSkeleton />
+  //     <MainContactsCardSkeleton />
+  //     <MainContactsCardSkeleton />
+  //     <MainContactsCardSkeleton />
+  //   </>
+  // );
 
   return (
     <MainContainer>
@@ -33,16 +33,16 @@ const MainContactPage = ({ data }: { data: contactType[] }) => {
       {/* CONTACTS CARDS */}
       <Box width="100%" pt={5}>
         <Grid container>
-          <Suspense
+          {/* <Suspense
             fallback={
               // CONTACT CARD SKELETON
               contactCardSkeleton
             }
-          >
+          > */}
             {data.map((user) => (
               <ContactCard key={user.id} user={user} />
             ))}
-          </Suspense>
+          {/* </Suspense> */}
 
           {/* LOADING GIF */}
           {/*<NotFoundGif/>*/}
