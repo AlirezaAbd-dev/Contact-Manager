@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import {
   ArrowLeftRounded,
   Delete,
@@ -32,6 +33,13 @@ const ContactCard = ({
   user: contactType;
 }) => {
   const setIsModalOpen = useStore((state) => state.setIsModalOpen);
+  const [imageIsLoaded, setImageIsLoaded] = useState(false);
+
+  const img = document.createElement("img");
+  img.src = avatar;
+  img.onload = () => {
+    setImageIsLoaded(true);
+  };
 
   return (
     <Grid xs={12} sm={12} md={4} lg={4} xl={4} mb={5}>
@@ -56,7 +64,7 @@ const ContactCard = ({
                 justifyContent: "center",
               }}
             >
-              {!avatar ? (
+              {!imageIsLoaded ? (
                 <Skeleton
                   variant="rectangular"
                   animation={false}
