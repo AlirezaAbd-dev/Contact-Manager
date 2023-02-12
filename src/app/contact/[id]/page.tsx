@@ -1,6 +1,6 @@
 import MainViewContactPage from "../../../components/viewContact/MainViewContactPage";
 
-import { getContactById } from "../../../services/contactServices";
+import { getAllContacts, getContactById } from "../../../services/contactServices";
 
 export const fetchCache = "force-cache";
 export const revalidate = 10;
@@ -20,10 +20,10 @@ const ViewContact = async ({
 
 export default ViewContact;
 
-// export const generateStaticParams = async () => {
-//     const data = await getAllContacts()
+export const generateStaticParams = async () => {
+    const data = await getAllContacts()
 
-//     return data.map(data => ({
-//         id: data.id.toString()
-//     }))
-// }
+    return data.map(data => ({
+        id: data.id.toString()
+    }))
+}
