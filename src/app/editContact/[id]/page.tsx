@@ -2,6 +2,8 @@ import MainEditContactPage from "../../../components/editContact/MainEditContact
 
 import {getAllContacts, getContactById} from "../../../services/contactServices";
 
+export const dynamic = "force-dynamic"
+
 const EditContact = async ({ params: { id } }: {params: {id: number}}) => {
   const data = await getContactById(id);
 
@@ -9,12 +11,12 @@ const EditContact = async ({ params: { id } }: {params: {id: number}}) => {
 };
 
 
-export const generateStaticParams = async () => {
-  const data = await getAllContacts()
+// export const generateStaticParams = async () => {
+//   const data = await getAllContacts()
 
-  return data.map(data => ({
-    id: data.id.toString()
-  }))
-}
+//   return data.map(data => ({
+//     id: data.id.toString()
+//   }))
+// }
 
 export default EditContact;

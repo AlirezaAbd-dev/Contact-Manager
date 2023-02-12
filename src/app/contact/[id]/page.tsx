@@ -2,6 +2,8 @@ import MainViewContactPage from "../../../components/viewContact/MainViewContact
 
 import {getAllContacts, getContactById} from "../../../services/contactServices";
 
+export const dynamic = "force-dynamic"
+
 const ViewContact = async ({params: {id}}) => {
     const data = await getContactById(id);
 
@@ -10,10 +12,10 @@ const ViewContact = async ({params: {id}}) => {
 
 export default ViewContact;
 
-export const generateStaticParams = async () => {
-    const data = await getAllContacts()
+// export const generateStaticParams = async () => {
+//     const data = await getAllContacts()
 
-    return data.map(data => ({
-        id: data.id.toString()
-    }))
-}
+//     return data.map(data => ({
+//         id: data.id.toString()
+//     }))
+// }
