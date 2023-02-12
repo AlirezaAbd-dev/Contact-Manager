@@ -37,7 +37,7 @@ const EditContactSideImage = () => {
             >
                 <Image
                     priority
-                    src={thinkingManImage}
+                    src={thinkingManImage.src}
                     alt="man taking note"
                     width={1000}
                     height={350}

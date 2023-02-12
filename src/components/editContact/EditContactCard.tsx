@@ -1,8 +1,8 @@
 "use client";
 import { Box, Slide } from "@mui/material";
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 
-const EditContactCard = ({ children }) => {
+const EditContactCard = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
