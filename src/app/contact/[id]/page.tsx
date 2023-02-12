@@ -2,7 +2,9 @@ import MainViewContactPage from "../../../components/viewContact/MainViewContact
 
 import { getContactById } from "../../../services/contactServices";
 
-export const dynamic = "force-dynamic";
+export const fetchCache = "force-cache";
+export const revalidate = 10;
+export const dynamicParams = false;
 
 const ViewContact = async ({
   params: { id },
