@@ -35,7 +35,7 @@ const ContactCard = ({
   const setIsModalOpen = useStore((state) => state.setIsModalOpen);
   const [imageIsLoaded, setImageIsLoaded] = useState(false);
 
-  const imageRef = useRef<HTMLImageElement>(null);
+  const imageRef = useRef<HTMLImageElement>();
 
   imageRef.current.src = avatar;
   imageRef.current.onload = () => {
