@@ -2,7 +2,8 @@ import MainContactPage from "../components/contacts/MainContactPage";
 
 import { getAllContacts } from "../services/contactServices";
 
-export const revalidate = 30;
+export const revalidate = 60;
+export const fetchCache = "default-cache";
 
 const Contacts = async () => {
   const data = await getAllContacts();
