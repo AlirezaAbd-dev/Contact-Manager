@@ -3,7 +3,7 @@ import { ContactsRounded } from "@mui/icons-material";
 import { Box, Typography, useTheme } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 
-const Logo = ({ showSearch }) => {
+const Logo = ({ showSearch }:{showSearch: boolean}) => {
   const theme = useTheme();
 
   return (
@@ -34,7 +34,7 @@ const Logo = ({ showSearch }) => {
         }}
       >
         <Typography display="inline" variant="h6" color="text.primary">
-          <ContactsRounded fontSize="10px" color="primary" /> وب اپلیکیشن مدیریت{" "}
+          <ContactsRounded fontSize="medium" color="primary" /> وب اپلیکیشن مدیریت{" "}
           <span style={{ color: theme.palette.primary.main }}>مخاطبین</span>
         </Typography>
       </Box>
