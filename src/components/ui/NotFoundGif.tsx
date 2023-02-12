@@ -19,7 +19,7 @@ const NotFoundGif = () => {
         مخاطبی یافت نشد...
       </Typography>
       <img
-        src={loadingImage}
+        src={loadingImage.src}
         alt="not found"
         style={{
           margin: "0 auto",
