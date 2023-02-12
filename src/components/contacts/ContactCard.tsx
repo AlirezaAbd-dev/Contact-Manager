@@ -33,17 +33,6 @@ const ContactCard = ({
   user: contactType;
 }) => {
   const setIsModalOpen = useStore((state) => state.setIsModalOpen);
-  const [imageIsLoaded, setImageIsLoaded] = useState(false);
-
-  const imageRef = useRef<HTMLImageElement>();
-
-  imageRef.current.src= avatar
-  
-  React.useEffect(()=>{
-    imageRef.current.onload=()=>{
-      setImageIsLoaded(true)
-    }
-  },[])
 
   return (
     <Grid xs={12} sm={12} md={4} lg={4} xl={4} mb={5}>
@@ -68,7 +57,7 @@ const ContactCard = ({
                 justifyContent: "center",
               }}
             >
-              {!imageIsLoaded ? (
+               {/* (
                 <Skeleton
                   variant="rectangular"
                   animation="wave"
@@ -77,9 +66,8 @@ const ContactCard = ({
                     height: "200px",
                   }}
                 />
-              ) : (
+              )   */}
                 <NextImage
-                  ref={imageRef}
                   src={avatar}
                   alt={username}
                   width={400}
@@ -88,8 +76,8 @@ const ContactCard = ({
                   style={{
                     objectFit: "cover",
                   }}
+                  
                 />
-              )}
             </CardMedia>
             <Box
               display="flex"
