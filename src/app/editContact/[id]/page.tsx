@@ -2,7 +2,7 @@ import MainEditContactPage from "../../../components/editContact/MainEditContact
 
 import {getAllContacts, getContactById} from "../../../services/contactServices";
 
-const EditContact = async ({ params: { id } }) => {
+const EditContact = async ({ params: { id } }: {params: {id: number}}) => {
   const data = await getContactById(id);
 
   return <MainEditContactPage data={data} />;

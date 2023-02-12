@@ -1,4 +1,4 @@
-import {getContactById} from "@/services/contactServices";
+import {getContactById} from "../../../services/contactServices";
 
 const ContactHead = async ({params: {id}}) => {
     const {name} = await getContactById(id)
