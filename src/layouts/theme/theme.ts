@@ -4,9 +4,15 @@ import { createTheme } from "@mui/material";
 declare module "@mui/material/styles/createPalette" {
   interface Palette {
     accent: {
-      main?: string;
+      main: string;
     };
     greenAccent: {
+      main: string;
+    };
+    card: {
+      main: string;
+    };
+    navbar: {
       main: string;
     };
   }

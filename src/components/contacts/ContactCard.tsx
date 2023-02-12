@@ -24,9 +24,12 @@ import { useStore } from "../../zustand/store";
 import Link from "next/link";
 import Image from "next/image";
 import Skeleton from "@mui/material/Skeleton";
+import { contactType } from "../../services/contactServices";
 
 const ContactCard = ({
   user: { username, avatar, name, phone, email, id },
+}: {
+  user: contactType;
 }) => {
   const setIsModalOpen = useStore((state) => state.setIsModalOpen);
 
