@@ -23,7 +23,7 @@ import { grey } from "@mui/material/colors";
 
 import { useStore } from "../../zustand/store";
 import Link from "next/link";
-import Image from "next/image";
+import NextImage from "next/image";
 import Skeleton from "@mui/material/Skeleton";
 import { contactType } from "../../services/contactServices";
 
@@ -34,14 +34,12 @@ const ContactCard = ({
 }) => {
   const setIsModalOpen = useStore((state) => state.setIsModalOpen);
   const [imageIsLoaded, setImageIsLoaded] = useState(false);
-  console.log(avatar);
 
-  React.createElement("image", {
-    src: avatar,
-    onLoad: () => {
-      setImageIsLoaded(true);
-    }
-  });
+  const img = new Image()
+  img.src = avatar
+  img.onload=()=>{
+    setImageIsLoaded(true)
+  }
 
   return (
     <Grid xs={12} sm={12} md={4} lg={4} xl={4} mb={5}>
@@ -76,7 +74,7 @@ const ContactCard = ({
                   }}
                 />
               ) : (
-                <Image
+                <NextImage
                   src={avatar}
                   alt={username}
                   width={400}
