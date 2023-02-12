@@ -1,14 +1,14 @@
 "use client"
 import { Box } from "@mui/material";
 import { yellow } from "@mui/material/colors";
-
-import EditContactSideImage from "@/components/ui/EditContactSideImage";
 import Grid from "@mui/material/Unstable_Grid2";
-import EditContactForm from "@/components/editContact/EditContactForm";
-import EditContactAvatar from "@/components/editContact/EditContactAvatar";
-import EditContactCard from "@/components/editContact/EditContactCard";
-import MainContainer from "@/containers/MainContainer";
-import AddContactTitle from "@/components/ui/AddContactTitle";
+
+import EditContactSideImage from "../ui/EditContactSideImage";
+import EditContactForm from "../editContact/EditContactForm";
+import EditContactAvatar from "../editContact/EditContactAvatar";
+import EditContactCard from "../editContact/EditContactCard";
+import AddContactTitle from "../ui/AddContactTitle";
+import MainContainer from "../../containers/MainContainer";
 
 const MainEditContactPage = ({data}) => {
   return (

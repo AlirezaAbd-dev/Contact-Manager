@@ -1,11 +1,11 @@
 "use client";
 import { Box } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
+import { green } from "@mui/material/colors";
 
 import AddContactSideImage from "../ui/AddContactSideImage";
 import AddContactForm from "./AddContactForm";
 import AddContactTitle from "../ui/AddContactTitle";
-import { green } from "@mui/material/colors";
 import MainContainer from "../../containers/MainContainer";
 
 const MainAddContactPage = () => {

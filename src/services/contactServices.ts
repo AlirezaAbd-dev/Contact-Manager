@@ -1,6 +1,6 @@
 import axios from "axios"
 
-export const getContactById = async (id) => {
+export const getContactById = async (id:string) => {
     return await axios.get(`https://jsonplaceholder.ir/users/${id}`)
         .then(res => res.data)
         .catch(err => console.log(err.message))

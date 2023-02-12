@@ -1,4 +1,4 @@
-import MainSignInPage from "@/components/signIn/MainSignInPage";
+import MainSignInPage from "../../components/signIn/MainSignInPage";
 
 const SignIn = () => {
   return <MainSignInPage />;

@@ -29,20 +29,25 @@ const ViewContactInfo = ({ contact }) => {
           نام و نام خانوادگی :{" "}
           <span style={{ fontWeight: "bold" }}>{contact.name}</span>
         </Typography>
-        <Divider width="100%" color={grey[600]} />
+        <Divider color={grey[600]} sx={{ width: "100%" }} />
+        
         <Typography display="inline" variant="body2" color="black">
           شماره موبایل :{" "}
-          <span style={{ fontWeight: "bold" }}>{contact.phone.replace("+",' ')}</span>
+          <span style={{ fontWeight: "bold" }}>
+            {contact.phone.replace("+", " ")}
+          </span>
         </Typography>
-        <Divider width="100%" color={grey[600]} />
+        <Divider color={grey[600]} sx={{ width: "100%" }} />
         <Typography display="inline" variant="body2" color="black">
           ایمیل : <span style={{ fontWeight: "bold" }}>{contact.email}</span>
         </Typography>
-        <Divider width="100%" color={grey[600]} />
+        <Divider color={grey[600]} sx={{ width: "100%" }} />
+
         <Typography display="inline" variant="body2" color="black">
           شغل : <span style={{ fontWeight: "bold" }}>{contact.company}</span>
         </Typography>
-        <Divider width="100%" color={grey[600]} />
+        <Divider color={grey[600]} sx={{ width: "100%" }} />
+
         <Typography display="inline" variant="body2" color="black">
           گروه : <span style={{ fontWeight: "bold" }}>همکار</span>
         </Typography>

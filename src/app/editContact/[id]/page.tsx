@@ -1,6 +1,6 @@
-import MainEditContactPage from "@/components/editContact/MainEditContactPage";
+import MainEditContactPage from "../../../components/editContact/MainEditContactPage";
 
-import {getAllContacts, getContactById} from "@/services/contactServices";
+import {getAllContacts, getContactById} from "../../../services/contactServices";
 
 const EditContact = async ({ params: { id } }) => {
   const data = await getContactById(id);

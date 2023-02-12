@@ -1,10 +1,10 @@
-"use client"
+"use client";
+import { useEffect, useState } from "react";
 import { Slide } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
-import { useEffect, useState } from "react";
+import Image from "next/image";
 
 import thinkingManImage from "../../assets/man-taking-note.png";
-import Image from "next/image";
 
 const AddContactSideImage = () => {
   const [imageLoading, setImageLoading] = useState(false);

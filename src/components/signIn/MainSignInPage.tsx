@@ -1,11 +1,11 @@
 "use client";
-import { Typography } from "@mui/material";
 import { useState } from "react";
+import { Typography } from "@mui/material";
 
-import MainContainer from "@/containers/MainContainer";
-import SignInCard from "@/components/signIn/SignInCard";
-import SignInTabs from "@/components/signIn/SignInTabs";
-import SignInForm from "@/components/signIn/SignInForm";
+import MainContainer from "../../containers/MainContainer";
+import SignInCard from "./SignInCard";
+import SignInTabs from "./SignInTabs";
+import SignInForm from "./SignInForm";
 
 const MainSignInPage = () => {
   const [page, setPage] = useState(0);

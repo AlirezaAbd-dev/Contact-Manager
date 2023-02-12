@@ -1,4 +1,4 @@
-import MainAddContactPage from "@/components/addContact/MainAddContactPage";
+import MainAddContactPage from "../../components/addContact/MainAddContactPage";
 
 const AddContact = () => {
   return <MainAddContactPage />;
