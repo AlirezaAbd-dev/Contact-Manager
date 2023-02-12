@@ -1,15 +1,20 @@
-import {getContactById} from "../../../services/contactServices";
+import { notFound, redirect } from "next/navigation";
+import { getContactById } from "../../../services/contactServices";
 
-const EditContactHead = async ({params: {id}}) => {
-    const {name} = await getContactById(id)
+const EditContactHead = async ({ params: { id } }) => {
+  const { name } = await getContactById(id);
 
-    const titleName = `ویرایش مخاطب | ${name}`
+  if (!name) {
+    return;
+  }
 
-    return (
-        <>
-            <title>{titleName}</title>
-        </>
-    );
+  const titleName = `ویرایش مخاطب | ${name}`;
+
+  return (
+    <>
+      <title>{titleName}</title>
+    </>
+  );
 };
 
 export default EditContactHead;
