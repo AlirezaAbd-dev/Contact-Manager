@@ -9,6 +9,7 @@ import {
 // export const dynamic = "force-dynamic";
 export const revalidate = 10;
 export const fetchCache = "force-cache";
+export const dynamicParams = false
 
 const EditContact = async ({ params: { id } }: { params: { id: number } }) => {
   const data = await getContactById(id);
