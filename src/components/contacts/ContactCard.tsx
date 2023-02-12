@@ -33,13 +33,7 @@ const ContactCard = ({
   user: contactType;
 }) => {
   const setIsModalOpen = useStore((state) => state.setIsModalOpen);
-  const [imageIsLoaded, setImageIsLoaded] = useState(false);
-
-  const img = new Image()
-  img.src = avatar
-  img.onload=()=>{
-    setImageIsLoaded(true)
-  }
+  const [imageIsLoaded, setImageIsLoaded] = useState(true);
 
   return (
     <Grid xs={12} sm={12} md={4} lg={4} xl={4} mb={5}>
@@ -80,6 +74,7 @@ const ContactCard = ({
                   width={400}
                   height={200}
                   priority
+
                   style={{
                     objectFit: "cover",
                   }}
