@@ -1,14 +1,20 @@
-"use client"
-import {create} from "zustand";
+"use client";
+import { create } from "zustand";
 
-export const useStore = create((set) => {
+type storeType = {
+  isModalOpen: boolean;
+  setIsModalOpen: () => void;
+  setIsModalClose: () => void;
+};
+
+export const useStore = create<storeType>()((set) => {
   return {
     isModalOpen: false,
-    setIsModalOpen:()=>{
-      set({isModalOpen: true})
+    setIsModalOpen: () => {
+      set({ isModalOpen: true });
     },
-    setIsModalClose:()=>{
-      set({isModalOpen: false})
-    }
+    setIsModalClose: () => {
+      set({ isModalOpen: false });
+    },
   };
 });
