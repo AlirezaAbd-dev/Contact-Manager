@@ -1,5 +1,32 @@
 import { createTheme } from "@mui/material";
 
+
+declare module "@mui/material/styles/createPalette" {
+  interface Palette {
+    accent: {
+      main?: string;
+    };
+    greenAccent: {
+      main: string;
+    };
+  }
+  interface PaletteOptions {
+    accent?: {
+      main?: string;
+    };
+    greenAccent?: {
+      main?: string;
+    };
+    card?: {
+      main?: string;
+    };
+    navbar?: {
+      main?: string;
+    };
+  }
+  export default function createPalette(palette: PaletteOptions): Palette;
+}
+
 export const theme = createTheme({
   direction: "rtl",
   palette: {
@@ -13,8 +40,8 @@ export const theme = createTheme({
     accent: {
       main: "#b0b0b1",
     },
-    greenAccent:{
-      main:'#12ff23'
+    greenAccent: {
+      main: "#12ff23",
     },
     card: {
       main: "#44475a",
