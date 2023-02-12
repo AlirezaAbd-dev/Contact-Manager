@@ -5,6 +5,7 @@ const EditContactHead = async ({ params: { id } }) => {
   const { name } = await getContactById(id);
 
   if (!name) {
+    notFound()
     return;
   }
 

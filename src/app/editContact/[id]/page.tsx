@@ -14,6 +14,7 @@ const EditContact = async ({ params: { id } }: { params: { id: number } }) => {
   const data = await getContactById(id);
 
   if (!data) {
+    notFound()
     return;
   }
 
