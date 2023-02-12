@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import {
   ArrowLeftRounded,
   Delete,
@@ -35,12 +35,12 @@ const ContactCard = ({
   const setIsModalOpen = useStore((state) => state.setIsModalOpen);
   const [imageIsLoaded, setImageIsLoaded] = useState(false);
 
-  const imageRef = useRef<HTMLImageElement>();
-
-  imageRef.current.src = avatar;
-  imageRef.current.onload = () => {
-    setImageIsLoaded(true);
-  };
+  React.createElement("image", {
+    src: "avatar",
+    onLoad: () => {
+      setImageIsLoaded(true);
+    },
+  });
 
   return (
     <Grid xs={12} sm={12} md={4} lg={4} xl={4} mb={5}>
@@ -76,7 +76,6 @@ const ContactCard = ({
                 />
               ) : (
                 <Image
-                  ref={imageRef}
                   src={avatar}
                   alt={username}
                   width={400}
