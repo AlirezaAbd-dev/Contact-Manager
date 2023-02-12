@@ -36,7 +36,7 @@ const ContactCard = ({
   const [imageIsLoaded, setImageIsLoaded] = useState(false);
 
   React.createElement("image", {
-    src: "avatar",
+    src: avatar,
     onLoad: () => {
       setImageIsLoaded(true);
     },
