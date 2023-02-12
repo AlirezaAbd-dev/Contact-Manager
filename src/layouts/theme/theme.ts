@@ -44,7 +44,7 @@ export const theme = createTheme({
       main: "#F273BC",
     },
     accent: {
-      main: "#b0b0b1",
+      main: "#44457f",
     },
     greenAccent: {
       main: "#12ff23",

@@ -24,7 +24,7 @@ import { grey } from "@mui/material/colors";
 import { useStore } from "../../zustand/store";
 import Link from "next/link";
 import NextImage from "next/image";
-import Skeleton from "@mui/material/Skeleton";
+// import Skeleton from "@mui/material/Skeleton";
 import { contactType } from "../../services/contactServices";
 
 const ContactCard = ({
