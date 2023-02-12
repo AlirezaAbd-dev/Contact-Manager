@@ -1,11 +1,22 @@
-"use client"
+"use client";
+import Grid from "@mui/material/Unstable_Grid2";
+
 import Logo from "./Logo";
 import SearchBar from "./SearchBar";
-import Grid from "@mui/material/Unstable_Grid2";
 import NavbarContainer from "../../containers/NavbarContainer";
 import LogoutButton from "./LogoutButton";
 
-const Header = ({ showSearch, showLogout = false, data }) => {
+import { contactType } from "../../services/contactServices";
+
+const Header = ({
+  showSearch,
+  showLogout = false,
+  data,
+}: {
+  showSearch: boolean;
+  showLogout: boolean;
+  data: contactType[];
+}) => {
   return (
     <NavbarContainer>
       <LogoutButton showLogout={showLogout} />

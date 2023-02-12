@@ -2,7 +2,9 @@
 import { Box, Divider, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
-const ViewContactInfo = ({ contact }) => {
+import { contactType } from "../../services/contactServices";
+
+const ViewContactInfo = ({ contact }: { contact: contactType }) => {
   return (
     <Box
       display="flex"
@@ -30,7 +32,7 @@ const ViewContactInfo = ({ contact }) => {
           <span style={{ fontWeight: "bold" }}>{contact.name}</span>
         </Typography>
         <Divider color={grey[600]} sx={{ width: "100%" }} />
-        
+
         <Typography display="inline" variant="body2" color="black">
           شماره موبایل :{" "}
           <span style={{ fontWeight: "bold" }}>

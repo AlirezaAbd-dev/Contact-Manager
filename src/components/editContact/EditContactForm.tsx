@@ -2,6 +2,7 @@
 import { Box, Button, TextField } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import Link from "next/link";
+import { contactType } from "../../services/contactServices";
 
 const groups = [
   {
@@ -26,7 +27,7 @@ const groups = [
   },
 ];
 
-const EditContactForm = ({ contact }) => {
+const EditContactForm = ({ contact }: { contact: contactType }) => {
   return (
     <Grid xs={12} sm={12} md={8} lg={8} p={1}>
       <Box width="100%" display="flex" flexDirection="column" gap={1}>

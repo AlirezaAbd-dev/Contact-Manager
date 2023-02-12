@@ -1,6 +1,6 @@
 import axios from "axios";
 
-type contactType = {
+export type contactType = {
   id: number;
   name: string;
   username: string;

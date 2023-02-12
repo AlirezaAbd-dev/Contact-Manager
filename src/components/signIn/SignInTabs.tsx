@@ -1,7 +1,14 @@
-"use client";
+"use client"
+import { ChangeEvent } from "react";
 import { Box, Tab, Tabs } from "@mui/material";
 
-const SignInTabs = ({ page, pageHandler }) => {
+const SignInTabs = ({
+  page,
+  pageHandler,
+}: {
+  page: number;
+  pageHandler: (e:ChangeEvent, newValue: number) => void;
+}) => {
   return (
     <Box
       sx={{

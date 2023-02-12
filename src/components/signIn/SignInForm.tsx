@@ -3,7 +3,7 @@ import { Box, Button } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Link from "next/link";
 
-const SignInForm = ({ page }) => {
+const SignInForm = ({ page }: { page: number }) => {
   return (
     <>
       <Box width="80%" my={2} display="flex" flexDirection="column" gap={2}>

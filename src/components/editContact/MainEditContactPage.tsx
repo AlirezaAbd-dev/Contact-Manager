@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { Box } from "@mui/material";
 import { yellow } from "@mui/material/colors";
 import Grid from "@mui/material/Unstable_Grid2";
@@ -9,8 +9,9 @@ import EditContactAvatar from "../editContact/EditContactAvatar";
 import EditContactCard from "../editContact/EditContactCard";
 import AddContactTitle from "../ui/AddContactTitle";
 import MainContainer from "../../containers/MainContainer";
+import { contactType } from "../../services/contactServices";
 
-const MainEditContactPage = ({data}) => {
+const MainEditContactPage = ({ data }: { data: contactType }) => {
   return (
     <MainContainer>
       {/* TITLE */}
@@ -25,10 +26,10 @@ const MainEditContactPage = ({data}) => {
         <EditContactCard>
           <Grid container width="100%" p={1}>
             {/* AVATAR */}
-            <EditContactAvatar avatarSrc={data.avatar} alt={data.username}/>
+            <EditContactAvatar avatarSrc={data.avatar} alt={data.username} />
 
             {/* FORM */}
-            <EditContactForm contact={data}/>
+            <EditContactForm contact={data} />
           </Grid>
         </EditContactCard>
 

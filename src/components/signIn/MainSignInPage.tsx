@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { Typography } from "@mui/material";
 
 import MainContainer from "../../containers/MainContainer";
@@ -10,7 +10,7 @@ import SignInForm from "./SignInForm";
 const MainSignInPage = () => {
   const [page, setPage] = useState(0);
 
-  const pageHandler = (_e, newValue) => {
+  const pageHandler = (_e: ChangeEvent, newValue: number) => {
     setPage(newValue);
   };
 

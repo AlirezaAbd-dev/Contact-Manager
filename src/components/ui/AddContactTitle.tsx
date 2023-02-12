@@ -1,8 +1,14 @@
-"use client"
-import { useEffect, useState } from "react";
+"use client";
+import { ReactNode, useEffect, useState } from "react";
 import { Box, Divider, Slide, Typography } from "@mui/material";
 
-const AddContactTitle = ({color, children}) => {
+const AddContactTitle = ({
+  color,
+  children,
+}: {
+  color: string;
+  children: ReactNode;
+}) => {
   const [titleLoading, setTitleLoading] = useState<boolean>();
 
   useEffect(() => {
@@ -27,7 +33,7 @@ const AddContactTitle = ({color, children}) => {
             {children}
           </Typography>
         </Box>
-        <Divider color={color} sx={{width: '100%'}}/>
+        <Divider color={color} sx={{ width: "100%" }} />
       </Box>
     </Slide>
   );

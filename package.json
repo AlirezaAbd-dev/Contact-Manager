@@ -30,8 +30,9 @@
     "zustand": "^4.3.2"
   },
   "devDependencies": {
-    "@types/node": "18.13.0",
     "@mui/types": "^7.2.3",
+    "@types/node": "18.13.0",
+    "@types/stylis": "^4.0.2",
     "typescript": "4.9.5"
   }
 }

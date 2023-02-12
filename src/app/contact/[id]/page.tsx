@@ -1,13 +1,19 @@
 import MainViewContactPage from "../../../components/viewContact/MainViewContactPage";
 
-import {getAllContacts, getContactById} from "../../../services/contactServices";
+import { getContactById } from "../../../services/contactServices";
 
-export const dynamic = "force-dynamic"
+export const dynamic = "force-dynamic";
 
-const ViewContact = async ({params: {id}}) => {
-    const data = await getContactById(id);
+const ViewContact = async ({
+  params: { id },
+}: {
+  params: {
+    id: number;
+  };
+}) => {
+  const data = await getContactById(id);
 
-    return <MainViewContactPage contact={data}/>;
+  return <MainViewContactPage contact={data} />;
 };
 
 export default ViewContact;
