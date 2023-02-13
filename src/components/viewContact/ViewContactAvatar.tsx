@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { Avatar } from "@mui/material";
 import Image from "next/image";
 import Skeleton from "@mui/material/Skeleton";
@@ -10,9 +11,11 @@ const ViewContactAvatar = ({
   imageSrc: string;
   alt: string;
 }) => {
+  const [isImageLoading, setIsImageLoading] = useState();
+
   return (
     <>
-      {!imageSrc ? (
+      {!isImageLoading && (
         <Skeleton
           variant="circular"
           sx={{
@@ -28,28 +31,31 @@ const ViewContactAvatar = ({
             },
           }}
         />
-      ) : (
-        <Avatar
-          variant="circular"
-          sx={{
-            width: "40%",
-            height: "auto",
-          }}
-        >
-          <Image
-            src={imageSrc}
-            alt={alt}
-            width={300}
-            height={300}
-            priority
-            style={{
-              width: "100%",
-              height: "auto",
-              objectFit: "fill",
-            }}
-          />
-        </Avatar>
       )}
+      <Avatar
+        variant="circular"
+        sx={{
+          display: isImageLoading ? "block" : "none",
+          width: "40%",
+          height: "auto",
+        }}
+      >
+        <Image
+          src={imageSrc}
+          alt={alt}
+          width={300}
+          height={300}
+          priority
+          style={{
+            width: "100%",
+            height: "auto",
+            objectFit: "fill",
+          }}
+          onLoad={() => {
+            setIsImageLoading(imageSrc);
+          }}
+        />
+      </Avatar>
     </>
   );
 };

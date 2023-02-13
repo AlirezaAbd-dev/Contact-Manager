@@ -1,5 +1,5 @@
 "use client";
-import { Suspense, lazy } from "react";
+import { lazy } from "react";
 import Grid from "@mui/material/Unstable_Grid2";
 import { Box } from "@mui/material";
 
@@ -7,7 +7,6 @@ import AddContactButton from "./AddContactButton";
 import MainContainer from "../../containers/MainContainer";
 import DeleteConfirmDialog from "./DeleteConfirmDialog";
 import ContactsPagination from "./ContactsPagination";
-import MainContactsCardSkeleton from "../Skeletons/MainContactsCardSkeleton";
 import { contactType } from "../../services/contactServices";
 
 const ContactCard = lazy(() => import("./ContactCard"));
@@ -15,15 +14,6 @@ const ContactCard = lazy(() => import("./ContactCard"));
 // import NotFoundGif from "../ui/NotFoundGif";
 
 const MainContactPage = ({ data }: { data: contactType[] }) => {
-  // const contactCardSkeleton = (
-  //   <>
-  //     <MainContactsCardSkeleton />
-  //     <MainContactsCardSkeleton />
-  //     <MainContactsCardSkeleton />
-  //     <MainContactsCardSkeleton />
-  //     <MainContactsCardSkeleton />
-  //   </>
-  // );
 
   return (
     <MainContainer>
@@ -33,16 +23,9 @@ const MainContactPage = ({ data }: { data: contactType[] }) => {
       {/* CONTACTS CARDS */}
       <Box width="100%" pt={5}>
         <Grid container>
-          {/* <Suspense
-            fallback={
-              // CONTACT CARD SKELETON
-              contactCardSkeleton
-            }
-          > */}
             {data.map((user) => (
               <ContactCard key={user.id} user={user} />
             ))}
-          {/* </Suspense> */}
 
           {/* LOADING GIF */}
           {/*<NotFoundGif/>*/}
