@@ -24,7 +24,7 @@ import { grey } from "@mui/material/colors";
 import { useStore } from "../../zustand/store";
 import Link from "next/link";
 import NextImage from "next/image";
-// import Skeleton from "@mui/material/Skeleton";
+import Skeleton from "@mui/material/Skeleton";
 import { contactType } from "../../services/contactServices";
 
 const ContactCard = ({
@@ -33,14 +33,7 @@ const ContactCard = ({
   user: contactType;
 }) => {
   const setIsModalOpen = useStore((state) => state.setIsModalOpen);
-  const [avatarSrc, setAvatarSrc] = useState("");
-
-  React.createElement("img", {
-    src: avatar,
-    onLoadedData: () => {
-      setAvatarSrc(avatar);
-    },
-  });
+  const [avatarSrc, setAvatarSrc] = useState<string | null>(null);
 
   return (
     <Grid xs={12} sm={12} md={4} lg={4} xl={4} mb={5}>
@@ -65,7 +58,7 @@ const ContactCard = ({
                 justifyContent: "center",
               }}
             >
-              {/* (
+              {!avatarSrc && (
                 <Skeleton
                   variant="rectangular"
                   animation="wave"
@@ -74,15 +67,20 @@ const ContactCard = ({
                     height: "200px",
                   }}
                 />
-              )   */}
+              )}
               <NextImage
-                src={avatarSrc}
+                src={avatar}
                 alt={username}
                 width={400}
                 height={200}
                 priority
                 style={{
+                  width: avatarSrc ? "100%" : "0px",
+                  height: avatarSrc ? "200px" : "0px",
                   objectFit: "cover",
+                }}
+                onLoad={() => {
+                  setAvatarSrc(avatar);
                 }}
               />
             </CardMedia>
