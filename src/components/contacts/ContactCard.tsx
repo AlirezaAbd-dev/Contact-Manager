@@ -37,8 +37,7 @@ const ContactCard = ({
 
   React.createElement("img", {
     src: avatar,
-    onLoad: () => {
-      console.log(avatar);
+    onLoadedData: () => {
       setAvatarSrc(avatar);
     },
   });
