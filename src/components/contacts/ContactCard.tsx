@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import {
   ArrowLeftRounded,
   Delete,
@@ -33,6 +33,14 @@ const ContactCard = ({
   user: contactType;
 }) => {
   const setIsModalOpen = useStore((state) => state.setIsModalOpen);
+  const [avatarSrc, setAvatarSrc] = useState("");
+
+  React.createElement("img", {
+    src: avatar,
+    onLoad: () => {
+      setAvatarSrc(avatar);
+    },
+  });
 
   return (
     <Grid xs={12} sm={12} md={4} lg={4} xl={4} mb={5}>
@@ -57,7 +65,7 @@ const ContactCard = ({
                 justifyContent: "center",
               }}
             >
-               {/* (
+              {/* (
                 <Skeleton
                   variant="rectangular"
                   animation="wave"
@@ -67,17 +75,16 @@ const ContactCard = ({
                   }}
                 />
               )   */}
-                <NextImage
-                  src={avatar}
-                  alt={username}
-                  width={400}
-                  height={200}
-                  priority
-                  style={{
-                    objectFit: "cover",
-                  }}
-                  
-                />
+              <NextImage
+                src={avatarSrc}
+                alt={username}
+                width={400}
+                height={200}
+                priority
+                style={{
+                  objectFit: "cover",
+                }}
+              />
             </CardMedia>
             <Box
               display="flex"
