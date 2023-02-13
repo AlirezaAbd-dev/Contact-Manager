@@ -11,7 +11,7 @@ const ViewContactAvatar = ({
   imageSrc: string;
   alt: string;
 }) => {
-  const [isImageLoading, setIsImageLoading] = useState();
+  const [isImageLoading, setIsImageLoading] = useState<string | null>();
 
   return (
     <>

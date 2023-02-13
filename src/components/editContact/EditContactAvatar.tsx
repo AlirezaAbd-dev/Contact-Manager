@@ -12,7 +12,7 @@ const EditContactAvatar = ({
   avatarSrc: string;
   alt: string;
 }) => {
-  const [isLoadingSrc, setIsLoadingSrc] = useState(null);
+  const [isLoadingSrc, setIsLoadingSrc] = useState<string | null>();
 
   const skeleton = (
     <Skeleton
