@@ -7,6 +7,7 @@ const MainHead = () => {
                 name="description"
                 content="به وبسایت مدیریت مخاطبین خوش آمدید. شما میتوانید از طریق این وبسایت مخاطبین خود را ذخیره و مدیریت کنید."
             />
+            <meta name="author" content="علیرضا عابدی" />
             <link rel="icon" href="/favicon.ico"/>
         </>
     );
