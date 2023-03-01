@@ -9,15 +9,13 @@ import {
 export const fetchCache = "force-cache";
 export const revalidate = 10;
 export const dynamicParams = false;
-export const metadata: Metadata = {
-  description: "از طریق این صفحه میتوانید جزئیات مخاطب مورد نظر خود را ببینید.",
-};
 
-export const generateMetadata = async ({params}): Promise<Metadata> => {
+export const generateMetadata = async ({ params }): Promise<Metadata> => {
   const name = await getContactById(+params.id).then((res) => res.name);
 
   return {
     title: `مدیریت مخاطبین | ${name}`,
+    description: `از طریق این صفحه میتوانید جزئیات مخاطب مورد نظر خود را ببینید. صفحه نمایش مخاطب ${name}`,
   };
 };
 
