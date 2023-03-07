@@ -11,10 +11,9 @@ import { contactType } from "../../services/contactServices";
 
 const ContactCard = lazy(() => import("./ContactCard"));
 
-// import NotFoundGif from "../ui/NotFoundGif";
+import NotFoundGif from "../ui/NotFoundGif";
 
 const MainContactPage = ({ data }: { data: contactType[] }) => {
-
   return (
     <MainContainer>
       {/* ADD CONTACT BUTTON */}
@@ -23,12 +22,17 @@ const MainContactPage = ({ data }: { data: contactType[] }) => {
       {/* CONTACTS CARDS */}
       <Box width="100%" pt={5}>
         <Grid container>
-            {data.map((user) => (
-              <ContactCard key={user.id} user={user} />
-            ))}
+          {data?.map((user) => (
+            <ContactCard key={user.id} user={user} />
+          ))}
 
-          {/* LOADING GIF */}
-          {/*<NotFoundGif/>*/}
+          {!data ||
+            (data === null && (
+              <>
+                {/* LOADING GIF */}
+                <NotFoundGif />
+              </>
+            ))}
         </Grid>
       </Box>
       <ContactsPagination />

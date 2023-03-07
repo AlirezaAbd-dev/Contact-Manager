@@ -1,4 +1,5 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import Image from "next/image";
 import loadingImage from "../../assets/no-found.gif";
 
 const NotFoundGif = () => {
@@ -18,12 +19,15 @@ const NotFoundGif = () => {
       <Typography variant={isSmDown ? "h6" : "h4"} mb={2} color="warning.main">
         مخاطبی یافت نشد...
       </Typography>
-      <img
+      <Image
         src={loadingImage.src}
         alt="not found"
+        width={500}
+        height={500}
         style={{
           margin: "0 auto",
           width: isSmDown ? "50%" : "30%",
+          height: "auto",
         }}
       />
     </Box>

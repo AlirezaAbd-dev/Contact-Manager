@@ -8,9 +8,8 @@ import { useRouter } from "next/navigation";
 import { contactType } from "../../services/contactServices";
 
 const SearchBar = ({ data }: { data: contactType[] }) => {
-
   const [options] = useState(
-    data.map((option) => ({
+    data?.map((option) => ({
       id: option.id,
       name: option.name,
     }))

@@ -29,7 +29,7 @@ export const getContactById = async (id: number): Promise<contactType> => {
 
 export const getAllContacts = async (): Promise<contactType[]> => {
   return await axios
-    .get("https://jsonplaceholder.ir/users",)
+    .get("https://jsonplaceholder.ir/users")
     .then((res) => res.data)
     .catch((err) => console.log(err.message));
 };
