@@ -4,19 +4,16 @@ import bcrypt from "bcrypt";
 
 import client from "../../serveruUtils/databaseClient/client";
 import userCollection from "../../serveruUtils/collection/userCollection";
+import signInValidation from "../../serveruUtils/validations/signInValidation";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   await client.connect();
 
+  const saltRound: number = +process.env.SALT!;
+  const passwordPlaneText = process.env.PLANE_TEXT_HASH!;
+
   if (req.method === "POST") {
-    const bodyValidation = z.object({
-      email: z.string({
-        required_error: "email feild is required!",
-      }),
-      password: z.string({
-        required_error: "password feild is required!",
-      }),
-    });
+    const bodyValidation = signInValidation;
 
     const success = bodyValidation.safeParse(req.body)?.success;
 
@@ -36,11 +33,17 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         .send({ message: "این ایمیل قبلا استفاده شده است!" });
     }
 
-    
+    const hashPassword = await bcrypt.hash(passwordPlaneText, saltRound);
 
-    client.close();
+    const addedUser = await userCollection.insertOne({
+      email: req.body.email,
+      password: hashPassword,
+      contacts: [],
+    });
 
-    return res.send({ text: "yoyo" });
+    await client.close();
+
+    return res.send({ addedUser });
   }
 };
 
