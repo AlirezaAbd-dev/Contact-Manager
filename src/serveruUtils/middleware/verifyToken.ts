@@ -1,5 +1,6 @@
-import { CustomNextRequest } from "../../pages/api/contacts";
 import jwt from "jsonwebtoken";
+
+import { CustomNextRequest } from "../../../types";
 
 export default function (req: CustomNextRequest) {
   const jwtSecret = process.env.JWT_SECRET_KEY!;

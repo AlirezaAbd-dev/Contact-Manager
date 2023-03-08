@@ -1,17 +1,8 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextApiResponse } from "next";
+
+import { CustomNextRequest } from "../../../../types";
 import userCollection from "../../../serveruUtils/collection/userCollection";
 import verifyToken from "../../../serveruUtils/middleware/verifyToken";
-
-export interface CustomNextRequest extends NextApiRequest {
-  headers: {
-    "x-authentication-token": string;
-  };
-  body: {
-    user: {
-      email: string;
-    };
-  };
-}
 
 const handler = async (req: CustomNextRequest, res: NextApiResponse) => {
   let request: CustomNextRequest;
