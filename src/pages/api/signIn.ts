@@ -42,7 +42,7 @@ const handler = async (req: NextRequest, res: NextApiResponse) => {
 
     const hashPassword = await bcrypt.hash(req.body.password, saltRound);
 
-    const addedUser = await userCollection.insertOne({
+    await userCollection.insertOne({
       email: req.body.email,
       password: hashPassword,
       contacts: [],
