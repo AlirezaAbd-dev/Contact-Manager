@@ -14,7 +14,13 @@ interface NextRequest extends NextApiRequest {
 }
 
 const handler = async (req: NextRequest, res: NextApiResponse) => {
-  await client.connect();
+  try {
+    await client.connect();
+  } catch (err) {
+    return res
+      .status(500)
+      .send({ message: "اتصال با دیتابیس با خطا مواجه شد!" });
+  }
 
   const saltRound: number = +process.env.SALT!;
   const jwtSecret = process.env.JWT_SECRET_KEY!;
@@ -55,7 +61,8 @@ const handler = async (req: NextRequest, res: NextApiResponse) => {
       jwtSecret
     );
 
-    return res.send({ token });
+    res.setHeader("x-authentication-token", token);
+    return res.send({ message: "ثبت نام با موفقیت انجام شد." });
   }
 };
 
