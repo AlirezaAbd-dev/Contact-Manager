@@ -1,16 +1,23 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { z } from "zod";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 import client from "../../serveruUtils/databaseClient/client";
 import userCollection from "../../serveruUtils/collection/userCollection";
 import signInValidation from "../../serveruUtils/validations/signInValidation";
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+interface NextRequest extends NextApiRequest {
+  body: {
+    email: string;
+    password: string;
+  };
+}
+
+const handler = async (req: NextRequest, res: NextApiResponse) => {
   await client.connect();
 
   const saltRound: number = +process.env.SALT!;
-  const passwordPlaneText = process.env.PLANE_TEXT_HASH!;
+  const jwtSecret = process.env.JWT_SECRET_KEY!;
 
   if (req.method === "POST") {
     const bodyValidation = signInValidation;
@@ -33,7 +40,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         .send({ message: "این ایمیل قبلا استفاده شده است!" });
     }
 
-    const hashPassword = await bcrypt.hash(passwordPlaneText, saltRound);
+    const hashPassword = await bcrypt.hash(req.body.password, saltRound);
 
     const addedUser = await userCollection.insertOne({
       email: req.body.email,
@@ -43,7 +50,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     await client.close();
 
-    return res.send({ addedUser });
+    const token = jwt.sign(
+      JSON.stringify({ email: req.body.email }),
+      jwtSecret
+    );
+
+    return res.send({ token });
   }
 };
 
