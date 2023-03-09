@@ -6,15 +6,17 @@ import client from "../../../serveruUtils/databaseClient/client";
 import verifyToken from "../../../serveruUtils/middleware/verifyToken";
 
 const handler = async (req: CustomNextRequest, res: NextApiResponse) => {
-    try {
-        await client.connect();
-      } catch (err) {
-        return res
-          .status(500)
-          .send({ message: "اتصال با دیتابیس با خطا مواجه شد!" });
-      }
+  try {
+    await client.connect();
+  } catch (err) {
+    return res
+      .status(500)
+      .send({ message: "اتصال با دیتابیس با خطا مواجه شد!" });
+  }
 
   if (req.method === "GET") {
+    const page = req.query.page;
+
     let request: CustomNextRequest;
     try {
       request = verifyToken(req);
@@ -34,7 +36,24 @@ const handler = async (req: CustomNextRequest, res: NextApiResponse) => {
     }
 
     await client.close();
-    return res.status(200).send({ contacts: user.contacts });
+    
+    if (page === "0" || !page) {
+      return res.status(200).send({ contacts: user.contacts });
+    } else {
+      const numberOfItemInEveryPage = 12;
+      const amountOfPages = Math.ceil(
+        user.contacts.length / numberOfItemInEveryPage
+      );
+
+      const paginatedContacts = user.contacts.slice(
+        +page - 1,
+        numberOfItemInEveryPage * +page - 1
+      );
+
+      return res
+        .status(200)
+        .send({ contacts: paginatedContacts, pagesNumber: amountOfPages });
+    }
   }
 };
 

@@ -1,6 +1,9 @@
 import { NextApiRequest } from "next";
 
 export interface CustomNextRequest extends NextApiRequest {
+  query:{
+    page?: string 
+  },
   headers: {
     "x-authentication-token": string;
   };
