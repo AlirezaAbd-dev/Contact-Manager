@@ -80,7 +80,14 @@ const handler = async (req: CustomAddContactRequest, res: NextApiResponse) => {
     }
 
     await client.close();
-    return res.send({ message: "done" });
+    return res.send({
+      _id: user.value?._id,
+      fullname,
+      email,
+      phone,
+      job,
+      image,
+    });
   }
 };
 
