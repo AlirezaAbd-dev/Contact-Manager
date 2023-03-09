@@ -36,7 +36,7 @@ const handler = async (req: CustomNextRequest, res: NextApiResponse) => {
     }
 
     await client.close();
-    
+
     if (page === "0" || !page) {
       return res.status(200).send({ contacts: user.contacts });
     } else {
@@ -54,6 +54,9 @@ const handler = async (req: CustomNextRequest, res: NextApiResponse) => {
         .status(200)
         .send({ contacts: paginatedContacts, pagesNumber: amountOfPages });
     }
+  } else {
+    client.close();
+    return res.status(404).send("404 Not Found");
   }
 };
 

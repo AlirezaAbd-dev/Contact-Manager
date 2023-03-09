@@ -1,9 +1,11 @@
+import { ObjectId } from "mongoose";
 import { NextApiRequest } from "next";
 
 export interface CustomNextRequest extends NextApiRequest {
-  query:{
-    page?: string 
-  },
+  query: {
+    page?: string;
+    _id?: string;
+  };
   headers: {
     "x-authentication-token": string;
   };
