@@ -1,9 +1,9 @@
-import { ObjectId } from "mongoose";
 import { NextApiRequest } from "next";
 
 export interface CustomNextRequest extends NextApiRequest {
   query: {
     page?: string;
+    search?: "false" | "true";
     _id?: string;
   };
   headers: {

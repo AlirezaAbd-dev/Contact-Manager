@@ -15,6 +15,7 @@ const handler = async (req: CustomNextRequest, res: NextApiResponse) => {
   }
 
   if (req.method === "GET") {
+    const search = req.query.search || "false";
     const page = req.query.page;
 
     let request: CustomNextRequest;
@@ -38,7 +39,16 @@ const handler = async (req: CustomNextRequest, res: NextApiResponse) => {
     await client.close();
 
     if (page === "0" || !page) {
-      return res.status(200).send({ contacts: user.contacts });
+      if (search !== "true") {
+        return res.status(200).send({ contacts: user.contacts });
+      } else {
+        return res.status(200).send({
+          contacts: user.contacts.map((contact) => ({
+            _id: contact._id,
+            fullname: contact.fullname,
+          })),
+        });
+      }
     } else {
       const numberOfItemInEveryPage = 12;
       const amountOfPages = Math.ceil(
