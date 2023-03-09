@@ -1,7 +1,10 @@
-import { ObjectId } from "mongodb";
+import { ObjectId, WithId } from "mongodb";
 import { NextApiResponse } from "next";
+
 import { CustomAddContactRequest, CustomNextRequest } from "../../../../types";
-import userCollection from "../../../serveruUtils/collection/userCollection";
+import userCollection, {
+  UserCollectiontype,
+} from "../../../serveruUtils/collection/userCollection";
 import client from "../../../serveruUtils/databaseClient/client";
 import verifyToken from "../../../serveruUtils/middleware/verifyToken";
 import addContactValidation from "../../../serveruUtils/validations/addContactValidation";
@@ -43,7 +46,13 @@ const handler = async (req: CustomAddContactRequest, res: NextApiResponse) => {
 
     const userEmail = request.body.user.email;
 
-    const findUser = await userCollection.findOne({ email: userEmail });
+    let findUser: WithId<UserCollectiontype> | null;
+    try {
+      findUser = await userCollection.findOne({ email: userEmail });
+    } catch {
+      await client.close();
+      return res.status(404).send({ message: "کاربر مورد نظر یافت نشد!" });
+    }
 
     const isUserExisted = findUser?.contacts.find(
       (contact) => contact.fullname === req.body.fullname

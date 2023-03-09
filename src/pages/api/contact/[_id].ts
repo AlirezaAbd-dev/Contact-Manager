@@ -1,14 +1,16 @@
+import { WithId } from "mongodb";
 import { NextApiResponse } from "next";
-import { ObjectId } from "mongodb";
 
 import { CustomNextRequest } from "../../../../types";
-import userCollection from "../../../serveruUtils/collection/userCollection";
+import userCollection, {
+  UserCollectiontype,
+} from "../../../serveruUtils/collection/userCollection";
 import client from "../../../serveruUtils/databaseClient/client";
 import verifyToken from "../../../serveruUtils/middleware/verifyToken";
 
 const handler = async (req: CustomNextRequest, res: NextApiResponse) => {
-  if (req.method === "DELETE") {
-    const id = req.query._id;
+  if (req.method === "GET") {
+    const contactId = req.query._id;
 
     try {
       await client.connect();
@@ -28,26 +30,27 @@ const handler = async (req: CustomNextRequest, res: NextApiResponse) => {
         .send({ message: "شما به این صفحه درسترسی ندارید!" });
     }
 
-    const userEmail = request.body.user.email;
+    const userEmail = req.body.user.email;
 
+    let findUser: WithId<UserCollectiontype> | null;
     try {
-      await userCollection.updateOne(
-        { email: userEmail },
-        {
-          $pull: {
-            contacts: {
-              _id: new ObjectId(id),
-            },
-          },
-        }
-      );
-    } catch (err) {
+      findUser = await userCollection.findOne({ email: userEmail });
+    } catch {
+      await client.close();
+      return res.status(404).send({ message: "کاربر مورد نظر یافت نشد!" });
+    }
+
+    const contact = findUser?.contacts.find(
+      (contact) => contact._id.toString() === contactId
+    );
+
+    if (!contact) {
       await client.close();
       return res.status(404).send({ message: "مخاطب مورد نظر یافت نشد!" });
     }
 
     await client.close();
-    return res.status(200).send({ message: "مخاطب با موفقیت حذف شد." });
+    res.status(202).send({ contact });
   }
 };
 

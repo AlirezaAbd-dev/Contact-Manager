@@ -1,7 +1,7 @@
 import { ObjectId } from "mongodb";
 import client from "../databaseClient/client";
 
-interface UserCollectiontype {
+export interface UserCollectiontype {
   email: string;
   password: string;
   contacts: {
