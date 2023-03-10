@@ -10,7 +10,9 @@ import verifyToken from "../../../serveruUtils/middleware/verifyToken";
 import addContactValidation from "../../../serveruUtils/validations/addContactValidation";
 
 const handler = async (req: CustomAddContactRequest, res: NextApiResponse) => {
+  // Check Request Method
   if (req.method === "POST") {
+    // Database Connection
     try {
       await client.connect();
     } catch (err) {
@@ -21,6 +23,7 @@ const handler = async (req: CustomAddContactRequest, res: NextApiResponse) => {
 
     const { fullname, image, phone, email, job } = req.body;
 
+    // Validate Request Body
     const isBodyValid = addContactValidation.safeParse({
       fullname,
       image,
@@ -29,23 +32,26 @@ const handler = async (req: CustomAddContactRequest, res: NextApiResponse) => {
       job,
     });
 
-    if (!isBodyValid) {
+    if (!isBodyValid.success) {
       await client.close();
-      return res.status(400).send({ message: "لطفا تمام فیلد ها را پر کنید!" });
+      return res
+        .status(400)
+        .send({ message: "لطفا تمام فیلد ها را به درستی وارد کنید!" });
     }
 
-    let request: CustomNextRequest;
-    try {
-      request = verifyToken(req);
-    } catch (err) {
+    // Validate Request JsonWebToken
+    const verifiedUser = verifyToken(req);
+
+    if (!verifiedUser || !verifiedUser.email) {
       await client.close();
       return res
         .status(500)
         .send({ message: "شما به این صفحه درسترسی ندارید!" });
     }
 
-    const userEmail = request.body.user.email;
+    const userEmail = verifiedUser.email;
 
+    // Finding User From Database
     let findUser: WithId<UserCollectiontype> | null;
     try {
       findUser = await userCollection.findOne({ email: userEmail });
@@ -54,6 +60,7 @@ const handler = async (req: CustomAddContactRequest, res: NextApiResponse) => {
       return res.status(404).send({ message: "کاربر مورد نظر یافت نشد!" });
     }
 
+    // Checking If Contact Exists Then Client Should Use Another fullname Value Or Continue
     const isUserExisted = findUser?.contacts.find(
       (contact) => contact.fullname === req.body.fullname
     );
@@ -65,6 +72,7 @@ const handler = async (req: CustomAddContactRequest, res: NextApiResponse) => {
         .send({ message: "نام این مخاطب در لیست شما وجود دارد!" });
     }
 
+    // Add Contact To Contacts
     const user = await userCollection.findOneAndUpdate(
       { email: userEmail },
       {
@@ -88,7 +96,9 @@ const handler = async (req: CustomAddContactRequest, res: NextApiResponse) => {
         .send({ message: "خطا در برقراری ارتباط با پایگاه داده!" });
     }
 
+    // Closing Connection To Database
     await client.close();
+    // Sending New Contact's Data As Response
     return res.send({
       _id: user.value?._id,
       fullname,
@@ -97,6 +107,10 @@ const handler = async (req: CustomAddContactRequest, res: NextApiResponse) => {
       job,
       image,
     });
+  } else {
+    // req.method !== "POST"
+    await client.close();
+    return res.status(404).send("404 Not Found");
   }
 };
 

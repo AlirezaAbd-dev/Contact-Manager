@@ -20,7 +20,7 @@ const handler = async (req: CustomNextRequest, res: NextApiResponse) => {
     const search = req.query.search || "false";
     const page = req.query.page;
 
-    // Validate Request Body
+    // Validate Request JsonWebToken
     const verifiedUser = verifyToken(req);
 
     if (!verifiedUser || !verifiedUser.email) {

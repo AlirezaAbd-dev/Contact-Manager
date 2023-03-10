@@ -23,7 +23,7 @@ const handler = async (req: CustomNextRequest, res: NextApiResponse) => {
         .send({ message: "اتصال با دیتابیس با خطا مواجه شد!" });
     }
 
-    // Validate Request Body
+    // Validate Request JsonWebToken
     const verifiedUser = verifyToken(req);
 
     if (!verifiedUser || !verifiedUser.email) {
@@ -59,7 +59,7 @@ const handler = async (req: CustomNextRequest, res: NextApiResponse) => {
 
     // Send Contact As Response
     res.status(202).send({ contact });
-  }else{
+  } else {
     // req.method !== "GET"
     await client.close();
     return res.status(404).send("404 Not Found");
