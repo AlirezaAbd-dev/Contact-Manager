@@ -14,25 +14,28 @@ interface NextRequest extends NextApiRequest {
 }
 
 const handler = async (req: NextRequest, res: NextApiResponse) => {
-  // Database Connection
-  try {
-    await client.connect();
-  } catch (err) {
-    return res
-      .status(500)
-      .send({ message: "اتصال با دیتابیس با خطا مواجه شد!" });
-  }
-
   // Environment Variables
   const saltRound: number = +process.env.SALT!;
   const jwtSecret = process.env.JWT_SECRET_KEY!;
 
   // Check The Request Method
   if (req.method === "POST") {
+    // Database Connection
+    try {
+      await client.connect();
+    } catch (err) {
+      // Closing Connection With Database
+      await client.close();
+      return res
+        .status(500)
+        .send({ message: "اتصال با دیتابیس با خطا مواجه شد!" });
+    }
     // Validating Request Body
     const success = signInValidation.safeParse(req.body)?.success;
 
     if (!success) {
+      // Closing Connection With Database
+      await client.close();
       return res
         .status(400)
         .send({ message: "لطفا فیلدها را به درستی پر کنید!" });
@@ -44,6 +47,8 @@ const handler = async (req: NextRequest, res: NextApiResponse) => {
       .toArray();
 
     if (findUser.length !== 0) {
+      // Closing Connection With Database
+      await client.close();
       return res
         .status(404)
         .send({ message: "این ایمیل قبلا استفاده شده است!" });
@@ -65,12 +70,13 @@ const handler = async (req: NextRequest, res: NextApiResponse) => {
       jwtSecret
     );
 
+    // Closing Connection With Database
+    await client.close();
+
     // Sending Response
     res.setHeader("x-authentication-token", token);
     return res.send({ message: "ثبت نام با موفقیت انجام شد." });
   }
-  // Closing Connection With Database
-  await client.close();
 };
 
 export default handler;

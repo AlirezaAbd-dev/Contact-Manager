@@ -14,20 +14,20 @@ interface NextRequest extends NextApiRequest {
 }
 
 const handler = async (req: NextRequest, res: NextApiResponse) => {
-  // Database Connection
-  try {
-    await client.connect();
-  } catch (err) {
-    return res
-      .status(500)
-      .send({ message: "اتصال با دیتابیس با خطا مواجه شد!" });
-  }
-
   // Environment Variables
   const jwtSecret = process.env.JWT_SECRET_KEY!;
 
   // Check The Request Method
   if (req.method === "POST") {
+    // Database Connection
+    try {
+      await client.connect();
+    } catch (err) {
+      return res
+        .status(500)
+        .send({ message: "اتصال با دیتابیس با خطا مواجه شد!" });
+    }
+
     // Validating Request Body
     const success = signInValidation.safeParse(req.body)?.success;
 
@@ -73,7 +73,6 @@ const handler = async (req: NextRequest, res: NextApiResponse) => {
   }
   // Closing Connection With Database
   await client.close();
-  console.log("Database Disconnected");
 };
 
 export default handler;
