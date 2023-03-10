@@ -14,6 +14,7 @@ interface NextRequest extends NextApiRequest {
 }
 
 const handler = async (req: NextRequest, res: NextApiResponse) => {
+  // Database Connection
   try {
     await client.connect();
   } catch (err) {
@@ -22,13 +23,14 @@ const handler = async (req: NextRequest, res: NextApiResponse) => {
       .send({ message: "اتصال با دیتابیس با خطا مواجه شد!" });
   }
 
+  // Environment Variables
   const saltRound: number = +process.env.SALT!;
   const jwtSecret = process.env.JWT_SECRET_KEY!;
 
+  // Check The Request Method
   if (req.method === "POST") {
-    const bodyValidation = signInValidation;
-
-    const success = bodyValidation.safeParse(req.body)?.success;
+    // Validating Request Body
+    const success = signInValidation.safeParse(req.body)?.success;
 
     if (!success) {
       return res
@@ -36,6 +38,7 @@ const handler = async (req: NextRequest, res: NextApiResponse) => {
         .send({ message: "لطفا فیلدها را به درستی پر کنید!" });
     }
 
+    // Search For User In Database
     const findUser = await userCollection
       .find({ email: req.body.email })
       .toArray();
@@ -46,24 +49,28 @@ const handler = async (req: NextRequest, res: NextApiResponse) => {
         .send({ message: "این ایمیل قبلا استفاده شده است!" });
     }
 
+    // Hashing Password
     const hashPassword = await bcrypt.hash(req.body.password, saltRound);
 
+    // Creating User In Database In case There Is No Similar User
     await userCollection.insertOne({
       email: req.body.email,
       password: hashPassword,
       contacts: [],
     });
 
-    await client.close();
-
+    // Creating JsonWebToken
     const token = jwt.sign(
       JSON.stringify({ email: req.body.email }),
       jwtSecret
     );
 
+    // Sending Response
     res.setHeader("x-authentication-token", token);
     return res.send({ message: "ثبت نام با موفقیت انجام شد." });
   }
+  // Closing Connection With Database
+  await client.close();
 };
 
 export default handler;
