@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import { sign } from "jsonwebtoken";
 
 import client from "../../serveruUtils/databaseClient/client";
 import userCollection from "../../serveruUtils/collection/userCollection";
@@ -62,10 +62,7 @@ const handler = async (req: NextRequest, res: NextApiResponse) => {
     }
 
     // Creating JsonWebToken
-    const token = jwt.sign(
-      JSON.stringify({ email: req.body.email }),
-      jwtSecret
-    );
+    const token = sign(JSON.stringify({ email: req.body.email }), jwtSecret);
 
     // Sending Response
     res.setHeader("x-authentication-token", token);
