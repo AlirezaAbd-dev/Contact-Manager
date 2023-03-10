@@ -1,6 +1,6 @@
 import { ObjectId, WithId } from "mongodb";
 import { NextApiResponse } from "next";
-import { CustomAddContactRequest, CustomNextRequest } from "../../../../types";
+import { CustomAddContactRequest } from "../../../../types";
 import userCollection, {
   UserCollectiontype,
 } from "../../../serveruUtils/collection/userCollection";
