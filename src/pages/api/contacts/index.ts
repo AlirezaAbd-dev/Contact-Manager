@@ -21,16 +21,16 @@ const handler = async (req: CustomNextRequest, res: NextApiResponse) => {
     const page = req.query.page;
 
     // Validate Request Body
-    const request = verifyToken(req);
+    const verifiedUser = verifyToken(req);
 
-    if (!request || !request.email) {
+    if (!verifiedUser || !verifiedUser.email) {
       await client.close();
       return res
         .status(500)
         .send({ message: "شما به این صفحه درسترسی ندارید!" });
     }
 
-    const userEmail = request.email;
+    const userEmail = verifiedUser.email;
 
     // Find User In Database
     const user = await userCollection.findOne({ email: userEmail });
@@ -75,7 +75,7 @@ const handler = async (req: CustomNextRequest, res: NextApiResponse) => {
     }
   } else {
     // req.method !== "GET"
-    client.close();
+    await client.close();
     return res.status(404).send("404 Not Found");
   }
 };
