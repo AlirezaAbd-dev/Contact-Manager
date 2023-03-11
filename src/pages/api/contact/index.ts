@@ -2,7 +2,6 @@ import { NextApiResponse } from "next";
 
 import { CustomAddContactRequest } from "../../../../types";
 import addContact from "../../../serveruUtils/controllers/addContact";
-import client from "../../../serveruUtils/databaseClient/client";
 
 const handler = async (req: CustomAddContactRequest, res: NextApiResponse) => {
   // Check Request Method
