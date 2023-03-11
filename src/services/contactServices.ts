@@ -73,7 +73,7 @@ export const addContactService = async (
     image: string;
   }
 ) => {
-  return await axios.post(`${URL}/addContact`, data, {
+  return await axios.post(`${URL}/contact`, data, {
     headers: { "x-authentication-token": token },
   });
 };
@@ -89,7 +89,7 @@ export const editContactService = async (
     image: string;
   }
 ) => {
-  return await axios.put(`${URL}/editContact/${contactId}`, data, {
+  return await axios.put(`${URL}/contact/${contactId}`, data, {
     headers: { "x-authentication-token": token },
   });
 };
@@ -98,7 +98,7 @@ export const deleteContactService = async (
   token: string,
   contactId: string
 ) => {
-  return await axios.delete(`${URL}/deleteContact/${contactId}`, {
+  return await axios.delete(`${URL}/contact/${contactId}`, {
     headers: { "x-authentication-token": token },
   });
 };
