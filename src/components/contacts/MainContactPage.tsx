@@ -12,8 +12,11 @@ import { contactType } from "../../services/contactServices";
 const ContactCard = lazy(() => import("./ContactCard"));
 
 import NotFoundGif from "../ui/NotFoundGif";
+import useLocalStorage from "../../hooks/useLocalStorage";
 
 const MainContactPage = ({ data }: { data: contactType[] }) => {
+  const token = useLocalStorage("user-token");
+
   return (
     <MainContainer>
       {/* ADD CONTACT BUTTON */}
