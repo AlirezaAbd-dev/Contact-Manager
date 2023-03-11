@@ -1,18 +1,16 @@
-import { WithId } from "mongodb";
+import { ObjectId } from "mongodb";
 import { NextApiResponse } from "next";
 import { CustomAddContactRequest } from "../../../types";
-import userCollection, {
-  UserCollectiontype,
-} from "../collection/userCollection";
+import userCollection from "../collection/userCollection";
 import client from "../databaseClient/client";
 import verifyToken from "../middleware/verifyToken";
 
-const singleContact = async (
+const deleteContact = async (
   req: CustomAddContactRequest,
   res: NextApiResponse
 ) => {
   // Getting Queries From URL
-  const contactId = req.query._id;
+  const id = req.query._id;
 
   // Database Connection
   try {
@@ -33,21 +31,19 @@ const singleContact = async (
 
   const userEmail = verifiedUser.email;
 
-  // Finding User In Database
-  let findUser: WithId<UserCollectiontype> | null;
+  // Delete The Chosen Cintact From Contacts In Database With $pull Query
   try {
-    findUser = await userCollection.findOne({ email: userEmail });
-  } catch {
-    await client.close();
-    return res.status(404).send({ message: "کاربر مورد نظر یافت نشد!" });
-  }
-
-  // Find Specific Contact Form Contacts
-  const contact = findUser?.contacts.find(
-    (contact) => contact._id.toString() === contactId
-  );
-
-  if (!contact) {
+    await userCollection.updateOne(
+      { email: userEmail },
+      {
+        $pull: {
+          contacts: {
+            _id: new ObjectId(id),
+          },
+        },
+      }
+    );
+  } catch (err) {
     await client.close();
     return res.status(404).send({ message: "مخاطب مورد نظر یافت نشد!" });
   }
@@ -55,8 +51,8 @@ const singleContact = async (
   // Closing Database Connection
   await client.close();
 
-  // Send Contact As Response
-  res.status(202).send({ contact });
+  // Sending Success Message As Response
+  return res.status(200).send({ message: "مخاطب با موفقیت حذف شد." });
 };
 
-export default singleContact;
+export default deleteContact;
