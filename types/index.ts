@@ -28,3 +28,11 @@ export interface CustomAddContactRequest extends CustomNextRequest {
     job: string;
   };
 }
+
+// Its For signIn And login API Routes
+export interface NextRequest extends NextApiRequest {
+  body: {
+    email: string;
+    password: string;
+  };
+}
