@@ -23,18 +23,18 @@ export type contactType = {
 const URL = process.env.NEXT_PUBLIC_API_URL!;
 
 export const signInService = async (email: string, password: string) => {
-  return await axios.post(URL + "/signIn", { email, password });
+  return await axios.post(URL + "/api/signIn", { email, password });
 };
 
 export const loginService = async (email: string, password: string) => {
-  return await axios.post(URL + "/login", { email, password });
+  return await axios.post(URL + "/api/login", { email, password });
 };
 
 export const getPaginatedContactsService = async (
   token: string,
   page: number = 0
 ) => {
-  return await axios.get(`${URL}/contacts?page=${page}`, {
+  return await axios.get(`${URL}/api/contacts?page=${page}`, {
     headers: {
       "x-authentication-token": token,
     },
@@ -45,7 +45,7 @@ export const getContactsForSearchService = async (
   token: string,
   search?: "true"
 ) => {
-  return await axios.get(`${URL}/contacts?search=${search}`, {
+  return await axios.get(`${URL}/api/contacts?search=${search}`, {
     headers: {
       "x-authentication-token": token,
     },
@@ -56,7 +56,7 @@ export const getSingleContactService = async (
   token: string,
   contactId: string
 ) => {
-  return await axios.get(`${URL}/contact/${contactId}`, {
+  return await axios.get(`${URL}/api/contact/${contactId}`, {
     headers: {
       "x-authentication-token": token,
     },
@@ -73,7 +73,7 @@ export const addContactService = async (
     image: string;
   }
 ) => {
-  return await axios.post(`${URL}/contact`, data, {
+  return await axios.post(`${URL}/api/contact`, data, {
     headers: { "x-authentication-token": token },
   });
 };
@@ -89,7 +89,7 @@ export const editContactService = async (
     image: string;
   }
 ) => {
-  return await axios.put(`${URL}/contact/${contactId}`, data, {
+  return await axios.put(`${URL}/api/contact/${contactId}`, data, {
     headers: { "x-authentication-token": token },
   });
 };
@@ -98,7 +98,7 @@ export const deleteContactService = async (
   token: string,
   contactId: string
 ) => {
-  return await axios.delete(`${URL}/contact/${contactId}`, {
+  return await axios.delete(`${URL}/api/contact/${contactId}`, {
     headers: { "x-authentication-token": token },
   });
 };

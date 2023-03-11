@@ -10,6 +10,7 @@ import { prefixer } from "stylis";
 import { theme } from "./theme/theme";
 import Header from "../components/navbar/Header";
 import { contactType } from "../services/contactServices";
+import { ToastContainer } from "react-toastify";
 
 // Create rtl cache
 const cacheRtl = createCache({
@@ -34,6 +35,18 @@ const MainLayout = ({
           data={data}
           showSearch={pathname === "/"}
           showLogout={pathname === "/"}
+        />
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
         />
         {children}
       </CacheProvider>

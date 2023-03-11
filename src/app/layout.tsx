@@ -1,5 +1,7 @@
 import "../styles/globals.css";
 import "../assets/css/style.css";
+import 'react-toastify/dist/ReactToastify.css';
+
 import MainLayout from "../layouts/MainLayout";
 
 import { getAllContacts } from "../services/contactServices";
