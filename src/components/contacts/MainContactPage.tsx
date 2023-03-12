@@ -1,5 +1,5 @@
 "use client";
-import { lazy, useEffect } from "react";
+import { lazy } from "react";
 import Grid from "@mui/material/Unstable_Grid2";
 import { Box } from "@mui/material";
 import useSWR from "swr";
@@ -45,7 +45,7 @@ const MainContactPage = () => {
     data,
     error,
   }: { data: ContactsPaginatedType; error: any; isLoading: boolean } = useSWR(
-    [`${URL}/api/contacts?page=${1}`, token],
+    [`${URL}/api/contacts?page=${pageQuery || 1}`, token],
     fetcher
   );
 
@@ -65,16 +65,15 @@ const MainContactPage = () => {
             <ContactCard key={user._id} user={user} />
           ))}
 
-          {!data ||
-            (data === null && (
-              <>
-                {/* LOADING GIF */}
-                <NotFoundGif />
-              </>
-            ))}
+          {data?.contacts.length === 0 && (
+            <>
+              {/* LOADING GIF */}
+              <NotFoundGif />
+            </>
+          )}
         </Grid>
       </Box>
-      {data && (
+      {data?.contacts.length >= 2 && (
         <ContactsPagination
           page={pageQuery ? +pageQuery : 1}
           count={data?.pagesNumber}

@@ -1,6 +1,6 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import Image from "next/image";
-import loadingImage from "../../assets/no-found.gif";
+import loadingImage from "../../assets/404_test_1a.gif";
 
 const NotFoundGif = () => {
   const theme = useTheme();

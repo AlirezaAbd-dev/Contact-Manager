@@ -60,8 +60,8 @@ const contacts = async (req: CustomNextRequest, res: NextApiResponse) => {
     );
 
     const paginatedContacts = user.contacts.slice(
-      +page - 1,
-      numberOfItemInEveryPage * +page - 1
+      (+page - 1) * numberOfItemInEveryPage,
+      numberOfItemInEveryPage * +page
     );
 
     // Sending Paginated Data As Response
