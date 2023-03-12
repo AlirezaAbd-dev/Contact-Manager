@@ -73,7 +73,7 @@ const MainContactPage = () => {
           )}
         </Grid>
       </Box>
-      {data?.contacts.length >= 2 && (
+      {data?.contacts.length >= 12 && (
         <ContactsPagination
           page={pageQuery ? +pageQuery : 1}
           count={data?.pagesNumber}
