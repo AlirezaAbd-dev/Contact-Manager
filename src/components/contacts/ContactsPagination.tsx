@@ -1,7 +1,13 @@
-"use client"
+"use client";
 import { Pagination, Stack, useMediaQuery, useTheme } from "@mui/material";
 
-const ContactsPagination = () => {
+const ContactsPagination = ({
+  count,
+  page,
+}: {
+  count?: number;
+  page: number;
+}) => {
   const theme = useTheme();
 
   const isSmDown = useMediaQuery(theme.breakpoints.down("md"));
@@ -10,7 +16,8 @@ const ContactsPagination = () => {
       <Pagination
         showFirstButton
         showLastButton
-        count={10}
+        count={count}
+        page={page}
         size={isSmDown ? "small" : "large"}
         sx={{ direction: "ltr" }}
       />

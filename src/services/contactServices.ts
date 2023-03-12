@@ -20,6 +20,19 @@ export type contactType = {
   company: string;
 };
 
+export interface Contact {
+  _id: string;
+  fullname: string;
+  email: string;
+  phone: string;
+  job: string;
+  image: string;
+}
+export interface ContactsPaginatedType {
+  contacts: Contact[];
+  pagesNumber: number;
+}
+
 const URL = process.env.NEXT_PUBLIC_API_URL!;
 
 export const signInService = async (email: string, password: string) => {
@@ -33,7 +46,7 @@ export const loginService = async (email: string, password: string) => {
 export const getPaginatedContactsService = async (
   token: string,
   page: number = 0
-) => {
+): Promise<ContactsPaginatedType> => {
   return await axios.get(`${URL}/api/contacts?page=${page}`, {
     headers: {
       "x-authentication-token": token,

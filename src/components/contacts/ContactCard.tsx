@@ -25,12 +25,12 @@ import { useStore } from "../../zustand/store";
 import Link from "next/link";
 import NextImage from "next/image";
 import Skeleton from "@mui/material/Skeleton";
-import { contactType } from "../../services/contactServices";
+import { Contact } from "../../services/contactServices";
 
 const ContactCard = ({
-  user: { username, avatar, name, phone, email, id },
+  user: { fullname, image, phone, email, _id },
 }: {
-  user: contactType;
+  user: Contact;
 }) => {
   const setIsModalOpen = useStore((state) => state.setIsModalOpen);
   const [avatarSrc, setAvatarSrc] = useState<string | null>(null);
@@ -69,8 +69,8 @@ const ContactCard = ({
                 />
               )}
               <NextImage
-                src={avatar}
-                alt={username}
+                src={image}
+                alt={fullname}
                 width={400}
                 height={200}
                 priority
@@ -80,7 +80,7 @@ const ContactCard = ({
                   objectFit: "cover",
                 }}
                 onLoad={() => {
-                  setAvatarSrc(avatar);
+                  setAvatarSrc(image);
                 }}
               />
             </CardMedia>
@@ -97,7 +97,7 @@ const ContactCard = ({
               <Typography display="inline" variant="body2" color="black">
                 <ArrowLeftRounded fontSize="medium" color="error" />
                 نام و نام خانوادگی :{" "}
-                <span style={{ fontWeight: "bold" }}>{name}</span>
+                <span style={{ fontWeight: "bold" }}>{fullname}</span>
               </Typography>
               <Divider color={grey[600]} sx={{ width: "100%" }} />
               <Typography display="inline" variant="body2" color="black">
@@ -125,7 +125,7 @@ const ContactCard = ({
             </Tooltip>
 
             <Tooltip arrow title="ویرایش مخاطب">
-              <Link href={`/editContact/${id}`}>
+              <Link href={`/editContact/${_id}`}>
                 <Button color="warning">
                   <Edit />
                 </Button>
@@ -133,7 +133,7 @@ const ContactCard = ({
             </Tooltip>
 
             <Tooltip arrow title="جزئیات">
-              <Link href={`/contact/${id}`}>
+              <Link href={`/contact/${_id}`}>
                 <Button color="info">
                   <RemoveRedEye />
                 </Button>
