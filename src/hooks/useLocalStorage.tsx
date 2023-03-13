@@ -11,7 +11,7 @@ export default function useLocalStorage(tokenName: string) {
     if (localtoken) {
       setToken(localtoken);
     } else {
-      router.replace("/login");
+      router.replace("/signIn");
     }
   }, []);
 

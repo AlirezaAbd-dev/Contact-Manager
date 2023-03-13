@@ -1,10 +1,11 @@
 "use client";
 import { lazy } from "react";
 import Grid from "@mui/material/Unstable_Grid2";
-import { Box } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 import useSWR from "swr";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
+import { Triangle } from "react-loader-spinner";
 
 import AddContactButton from "./AddContactButton";
 import MainContainer from "../../containers/MainContainer";
@@ -35,6 +36,7 @@ const fetcher = ([url, token]: [string, string]) => {
 };
 
 const MainContactPage = () => {
+  const theme = useTheme();
   const token = useLocalStorage("user-token");
 
   const searchParams = useSearchParams();
@@ -44,6 +46,7 @@ const MainContactPage = () => {
   const {
     data,
     error,
+    isLoading,
   }: { data: ContactsPaginatedType; error: any; isLoading: boolean } = useSWR(
     [`${URL}/api/contacts?page=${pageQuery || 1}`, token],
     fetcher
@@ -60,10 +63,20 @@ const MainContactPage = () => {
 
       {/* CONTACTS CARDS */}
       <Box width="100%" pt={5}>
-        <Grid container>
+        <Grid container display="flex" justifyContent="center">
           {data?.contacts?.map((user) => (
             <ContactCard key={user._id} user={user} />
           ))}
+
+          {isLoading && (
+            <Triangle
+              height="150"
+              width="150"
+              color={theme.palette.primary.main}
+              ariaLabel="triangle-loading"
+              visible={true}
+            />
+          )}
 
           {data?.contacts.length === 0 && (
             <>
