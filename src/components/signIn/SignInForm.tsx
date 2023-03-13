@@ -95,7 +95,7 @@ const SignInForm = ({ page }: { page: number }) => {
           error={!!formik.errors.email && formik.touched.email}
           helperText={formik.touched.email && formik.errors?.email}
           onBlur={formik.handleBlur}
-          label="نام کاربری"
+          label="ایمیل"
         />
         <TextField
           name="password"
@@ -109,7 +109,7 @@ const SignInForm = ({ page }: { page: number }) => {
           InputProps={{
             endAdornment: (
               <IconButton onClick={() => setIsPassword((prev) => !prev)}>
-                {isPassword ? <RemoveRedEye /> : <VisibilityOff />}
+                {!isPassword ? <RemoveRedEye /> : <VisibilityOff />}
               </IconButton>
             ),
           }}

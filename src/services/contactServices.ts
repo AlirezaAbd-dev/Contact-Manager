@@ -43,22 +43,25 @@ export const loginService = async (email: string, password: string) => {
   return await axios.post("/api/login", { email, password });
 };
 
-export const getPaginatedContactsService = async (
-  token: string,
-  page: number = 0
-): Promise<ContactsPaginatedType> => {
-  return await axios.get(`${URL}/api/contacts?page=${page}`, {
-    headers: {
-      "x-authentication-token": token,
-    },
-  });
+export const getPaginatedContactsFetcher = ([url, token]: [string, string]) => {
+  if (token) {
+    return axios
+      .get(url, {
+        headers: {
+          "x-authentication-token": token,
+        },
+      })
+      .then((res) => res.data);
+  } else {
+    null;
+  }
 };
 
 export const getContactsForSearchService = async (
   token: string,
   search?: "true"
 ) => {
-  return await axios.get(`${URL}/api/contacts?search=${search}`, {
+  return await axios.get(`/api/contacts?search=${search}`, {
     headers: {
       "x-authentication-token": token,
     },
@@ -69,7 +72,7 @@ export const getSingleContactService = async (
   token: string,
   contactId: string
 ) => {
-  return await axios.get(`${URL}/api/contact/${contactId}`, {
+  return await axios.get(`/api/contact/${contactId}`, {
     headers: {
       "x-authentication-token": token,
     },
@@ -86,7 +89,7 @@ export const addContactService = async (
     image: string;
   }
 ) => {
-  return await axios.post(`${URL}/api/contact`, data, {
+  return await axios.post(`/api/contact`, data, {
     headers: { "x-authentication-token": token },
   });
 };
@@ -102,7 +105,7 @@ export const editContactService = async (
     image: string;
   }
 ) => {
-  return await axios.put(`${URL}/api/contact/${contactId}`, data, {
+  return await axios.put(`/api/contact/${contactId}`, data, {
     headers: { "x-authentication-token": token },
   });
 };
@@ -111,7 +114,7 @@ export const deleteContactService = async (
   token: string,
   contactId: string
 ) => {
-  return await axios.delete(`${URL}/api/contact/${contactId}`, {
+  return await axios.delete(`/api/contact/${contactId}`, {
     headers: { "x-authentication-token": token },
   });
 };

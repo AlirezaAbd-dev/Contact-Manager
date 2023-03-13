@@ -11,29 +11,13 @@ import AddContactButton from "./AddContactButton";
 import MainContainer from "../../containers/MainContainer";
 import DeleteConfirmDialog from "./DeleteConfirmDialog";
 import ContactsPagination from "./ContactsPagination";
-import { ContactsPaginatedType } from "../../services/contactServices";
+import { ContactsPaginatedType, getPaginatedContactsFetcher } from "../../services/contactServices";
 
 const ContactCard = lazy(() => import("./ContactCard"));
 
 import NotFoundGif from "../ui/NotFoundGif";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { toast } from "react-toastify";
-
-const URL = process.env.NEXT_PUBLIC_API_URL!;
-
-const fetcher = ([url, token]: [string, string]) => {
-  if (token) {
-    return axios
-      .get(url, {
-        headers: {
-          "x-authentication-token": token,
-        },
-      })
-      .then((res) => res.data);
-  } else {
-    null;
-  }
-};
 
 const MainContactPage = () => {
   const theme = useTheme();
@@ -49,7 +33,7 @@ const MainContactPage = () => {
     isLoading,
   }: { data: ContactsPaginatedType; error: any; isLoading: boolean } = useSWR(
     [`/api/contacts?page=${pageQuery || 1}`, token],
-    fetcher
+    getPaginatedContactsFetcher
   );
 
   if (error) {
