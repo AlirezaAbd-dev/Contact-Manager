@@ -43,11 +43,6 @@ const ContactCard = ({
       lg={4}
       xl={4}
       mb={5}
-      sx={{
-        "& .muirtl-46bh2p-MuiCardContent-root": {
-          p: 0,
-        },
-      }}
     >
       <CardItem
         sx={{
@@ -59,6 +54,9 @@ const ContactCard = ({
           m: "0 auto",
           "&.MuiPaper-root": {
             borderRadius: "30px",
+          },
+          "& .muirtl-46bh2p-MuiCardContent-root": {
+            p: 0,
           },
         }}
       >
