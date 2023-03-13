@@ -36,11 +36,11 @@ export interface ContactsPaginatedType {
 const URL = process.env.NEXT_PUBLIC_API_URL!;
 
 export const signInService = async (email: string, password: string) => {
-  return await axios.post(URL + "/api/signIn", { email, password });
+  return await axios.post("/api/signIn", { email, password });
 };
 
 export const loginService = async (email: string, password: string) => {
-  return await axios.post(URL + "/api/login", { email, password });
+  return await axios.post("/api/login", { email, password });
 };
 
 export const getPaginatedContactsService = async (
