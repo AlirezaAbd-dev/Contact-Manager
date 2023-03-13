@@ -48,7 +48,7 @@ const MainContactPage = () => {
     error,
     isLoading,
   }: { data: ContactsPaginatedType; error: any; isLoading: boolean } = useSWR(
-    [`${URL}/api/contacts?page=${pageQuery || 1}`, token],
+    [`/api/contacts?page=${pageQuery || 1}`, token],
     fetcher
   );
 
