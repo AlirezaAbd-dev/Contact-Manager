@@ -36,14 +36,7 @@ const ContactCard = ({
   const [avatarSrc, setAvatarSrc] = useState<string | null>(null);
 
   return (
-    <Grid
-      xs={12}
-      sm={12}
-      md={4}
-      lg={4}
-      xl={4}
-      mb={5}
-    >
+    <Grid xs={12} sm={12} md={4} lg={4} xl={4} mb={5}>
       <CardItem
         sx={{
           bgcolor: "card.main",
@@ -56,6 +49,9 @@ const ContactCard = ({
             borderRadius: "30px",
           },
           "& .muirtl-46bh2p-MuiCardContent-root": {
+            p: 0,
+          },
+          "& .MuiCardContent-root": {
             p: 0,
           },
         }}
