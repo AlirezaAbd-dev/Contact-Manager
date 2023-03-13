@@ -19,10 +19,8 @@ const cacheRtl = createCache({
 });
 
 const MainLayout = ({
-  data,
   children,
 }: {
-  data: contactType[];
   children: ReactNode;
 }) => {
   const pathname = usePathname();
@@ -32,7 +30,6 @@ const MainLayout = ({
       <CacheProvider value={cacheRtl}>
         <CssBaseline />
         <Header
-          data={data}
           showSearch={pathname === "/"}
           showLogout={pathname === "/"}
         />

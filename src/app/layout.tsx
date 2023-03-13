@@ -1,6 +1,6 @@
 import "../styles/globals.css";
 import "../assets/css/style.css";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 import MainLayout from "../layouts/MainLayout";
 
@@ -19,11 +19,10 @@ export const metadata: Metadata = {
 };
 
 const Layout = async ({ children }) => {
-  const data = await getAllContacts();
   return (
     <html lang="fa">
       <body dir="rtl">
-        <MainLayout data={data}>{children}</MainLayout>
+        <MainLayout>{children}</MainLayout>
         <AnalyticsWrapper />
       </body>
     </html>

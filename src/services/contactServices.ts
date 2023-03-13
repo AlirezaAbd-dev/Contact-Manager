@@ -20,6 +20,12 @@ export type contactType = {
   company: string;
 };
 
+export interface SearchContact {
+  contacts: {
+    _id: string;
+    fullname: string;
+  }[];
+}
 export interface Contact {
   _id: string;
   fullname: string;
@@ -43,7 +49,11 @@ export const loginService = async (email: string, password: string) => {
   return await axios.post("/api/login", { email, password });
 };
 
-export const getPaginatedContactsFetcher = ([url, token]: [string, string]) => {
+// `/api/contacts?page=${pageQuery || 1}`
+export const getPaginatedContactsFetcher = ([url, token]: [
+  string,
+  string
+]): Promise<ContactsPaginatedType[]> | null => {
   if (token) {
     return axios
       .get(url, {
@@ -53,19 +63,26 @@ export const getPaginatedContactsFetcher = ([url, token]: [string, string]) => {
       })
       .then((res) => res.data);
   } else {
-    null;
+    return null;
   }
 };
 
-export const getContactsForSearchService = async (
-  token: string,
-  search?: "true"
-) => {
-  return await axios.get(`/api/contacts?search=${search}`, {
-    headers: {
-      "x-authentication-token": token,
-    },
-  });
+// `/api/contacts?search=${search}`
+export const getContactsForSearchFetcher = ([url, token]: [
+  url: string,
+  token: string
+]): Promise<SearchContact> | null => {
+  if (token) {
+    return axios
+      .get(url, {
+        headers: {
+          "x-authentication-token": token,
+        },
+      })
+      .then((res) => res.data);
+  } else {
+    return null;
+  }
 };
 
 export const getSingleContactService = async (

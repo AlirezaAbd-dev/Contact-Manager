@@ -6,16 +6,13 @@ import SearchBar from "./SearchBar";
 import NavbarContainer from "../../containers/NavbarContainer";
 import LogoutButton from "./LogoutButton";
 
-import { contactType } from "../../services/contactServices";
 
 const Header = ({
   showSearch,
   showLogout = false,
-  data,
 }: {
   showSearch: boolean;
   showLogout: boolean;
-  data: contactType[];
 }) => {
   return (
     <NavbarContainer>
@@ -36,7 +33,7 @@ const Header = ({
         container
       >
         <Logo showSearch={showSearch} />
-        {showSearch && <SearchBar data={data} />}
+        {showSearch && <SearchBar />}
       </Grid>
     </NavbarContainer>
   );
