@@ -11,7 +11,10 @@ import AddContactButton from "./AddContactButton";
 import MainContainer from "../../containers/MainContainer";
 import DeleteConfirmDialog from "./DeleteConfirmDialog";
 import ContactsPagination from "./ContactsPagination";
-import { ContactsPaginatedType, getPaginatedContactsFetcher } from "../../services/contactServices";
+import {
+  ContactsPaginatedType,
+  getPaginatedContactsFetcher,
+} from "../../services/contactServices";
 
 const ContactCard = lazy(() => import("./ContactCard"));
 
@@ -27,11 +30,7 @@ const MainContactPage = () => {
 
   let pageQuery = searchParams?.get("page");
 
-  const {
-    data,
-    error,
-    isLoading,
-  }: { data: ContactsPaginatedType; error: any; isLoading: boolean } = useSWR(
+  const { data, error, isLoading } = useSWR(
     [`/api/contacts?page=${pageQuery || 1}`, token],
     getPaginatedContactsFetcher
   );
@@ -70,7 +69,7 @@ const MainContactPage = () => {
           )}
         </Grid>
       </Box>
-      {data?.contacts.length >= 12 && (
+      {data?.contacts?.length && data?.contacts.length >= 12 && (
         <ContactsPagination
           page={pageQuery ? +pageQuery : 1}
           count={data?.pagesNumber}

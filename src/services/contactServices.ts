@@ -53,7 +53,7 @@ export const loginService = async (email: string, password: string) => {
 export const getPaginatedContactsFetcher = ([url, token]: [
   string,
   string
-]): Promise<ContactsPaginatedType[]> | null => {
+]): Promise<ContactsPaginatedType> | null => {
   if (token) {
     return axios
       .get(url, {
