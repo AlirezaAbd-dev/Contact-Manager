@@ -36,7 +36,19 @@ const ContactCard = ({
   const [avatarSrc, setAvatarSrc] = useState<string | null>(null);
 
   return (
-    <Grid xs={12} sm={12} md={4} lg={4} xl={4} mb={5}>
+    <Grid
+      xs={12}
+      sm={12}
+      md={4}
+      lg={4}
+      xl={4}
+      mb={5}
+      sx={{
+        "& .muirtl-46bh2p-MuiCardContent-root": {
+          p: 0,
+        },
+      }}
+    >
       <CardItem
         sx={{
           bgcolor: "card.main",
@@ -45,6 +57,9 @@ const ContactCard = ({
             sm: "85%",
           },
           m: "0 auto",
+          "&.MuiPaper-root": {
+            borderRadius: "30px",
+          },
         }}
       >
         <CardActionArea>
@@ -52,7 +67,7 @@ const ContactCard = ({
             <CardMedia
               sx={{
                 width: "100%",
-                height: 200,
+                height: 250,
                 mb: 1,
                 display: "flex",
                 justifyContent: "center",
@@ -64,7 +79,7 @@ const ContactCard = ({
                   animation="wave"
                   sx={{
                     width: "100%",
-                    height: "200px",
+                    height: "250px",
                   }}
                 />
               )}
@@ -76,8 +91,9 @@ const ContactCard = ({
                 priority
                 style={{
                   width: avatarSrc ? "100%" : "0px",
-                  height: avatarSrc ? "200px" : "0px",
+                  height: avatarSrc ? "250px" : "0px",
                   objectFit: "cover",
+                  borderRadius: "0 0 30px 30px",
                 }}
                 onLoad={() => {
                   setAvatarSrc(image);
@@ -89,8 +105,10 @@ const ContactCard = ({
               flexDirection="column"
               alignItems="flex-start"
               bgcolor="accent.main"
-              width="100%"
+              width="auto"
               p={1}
+              m={1}
+              borderRadius={6}
               overflow="hidden"
               gap={0.5}
             >
