@@ -96,19 +96,28 @@ export const getSingleContactService = async (
   });
 };
 
-export const addContactService = async (
-  token: string,
-  data: {
-    fullname: string;
-    phone: string;
-    email: string;
-    job: string;
-    image: string;
+// /api/contact
+export const addContactMutation = (
+  [url, token]: [string, string | undefined],
+  {
+    arg: data,
+  }: {
+    arg: {
+      fullname: string;
+      phone: string;
+      email: string | undefined;
+      job: string | undefined;
+      image: string | undefined;
+    };
   }
 ) => {
-  return await axios.post(`/api/contact`, data, {
-    headers: { "x-authentication-token": token },
-  });
+  if (token) {
+    return axios.post(url, data, {
+      headers: { "x-authentication-token": token },
+    });
+  } else {
+    return null;
+  }
 };
 
 export const editContactService = async (

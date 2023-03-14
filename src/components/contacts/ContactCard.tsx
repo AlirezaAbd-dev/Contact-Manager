@@ -74,6 +74,7 @@ const ContactCard = ({
                   sx={{
                     width: "100%",
                     height: "250px",
+                    borderRadius: "30px",
                   }}
                 />
               )}
