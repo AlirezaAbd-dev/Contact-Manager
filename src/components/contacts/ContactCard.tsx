@@ -123,7 +123,8 @@ const ContactCard = ({
               <Divider color={grey[600]} sx={{ width: "100%" }} />
               <Typography display="inline" variant="body2" color="black">
                 <ArrowLeftRounded fontSize="medium" color="error" />
-                ایمیل : <span style={{ fontWeight: "bold" }}>{email}</span>
+                ایمیل :{" "}
+                <span style={{ fontWeight: "bold" }}>{email || "ندارد"}</span>
               </Typography>
             </Box>
           </CardContent>

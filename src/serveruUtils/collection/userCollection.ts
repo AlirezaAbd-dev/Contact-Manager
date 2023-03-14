@@ -7,10 +7,10 @@ export interface UserCollectiontype {
   contacts: {
     _id: ObjectId;
     fullname: string;
-    job: string;
-    email: string;
+    job: string | undefined;
+    email: string | undefined;
     phone: string;
-    image: string;
+    image: string | undefined;
   }[];
 }
 

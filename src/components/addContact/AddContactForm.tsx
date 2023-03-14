@@ -14,6 +14,7 @@ import { toFormikValidationSchema } from "zod-formik-adapter";
 import useSWRMutation from "swr/mutation";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { addContactMutation } from "../../services/contactServices";
+import { toast } from "react-toastify";
 
 const initialValues = {
   fullname: "",
@@ -39,6 +40,14 @@ const AddContactForm = () => {
   console.log(data);
 
   const theme = useTheme();
+
+  if (isMutating) {
+    toast.loading("در حال ارسال درخواست به سرور", { isLoading: isMutating });
+  }
+
+  if (error) {
+    toast.error(error.response.data.message);
+  }
 
   const formik = useFormik({
     initialValues,
