@@ -6,15 +6,22 @@ import Slide from "@mui/material/Slide";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Unstable_Grid2";
 import Link from "next/link";
-import { useTheme } from "@mui/material";
 import Image from "next/image";
+import { CircularProgress, useTheme } from "@mui/material";
 import { useFormik } from "formik";
-import addContactValidation from "../../validations/addContactValidation";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 import useSWRMutation from "swr/mutation";
+import { preload } from "swr";
 import useLocalStorage from "../../hooks/useLocalStorage";
-import { addContactMutation } from "../../services/contactServices";
+import {
+  addContactMutation,
+  getPaginatedContactsFetcher,
+} from "../../services/contactServices";
 import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
+import { LoadingButton } from "@mui/lab";
+
+import addContactValidation from "../../validations/addContactValidation";
 
 const initialValues = {
   fullname: "",
@@ -29,31 +36,38 @@ const AddContactForm = () => {
 
   const [formLoading, setFormLoading] = useState(false);
   const [imageSrc, setImageSrc] = useState<any>();
+  const router = useRouter();
 
   const { trigger, isMutating, error, data } = useSWRMutation(
     ["/api/contact", token],
     addContactMutation
   );
 
-  console.log(error);
-  console.log(isMutating);
-  console.log(data);
-
   const theme = useTheme();
 
-  if (isMutating) {
-    toast.loading("در حال ارسال درخواست به سرور", { isLoading: isMutating });
+  if (data) {
+    toast.success("مخاطب جدید با موفقیت ساخته شد");
+    // preload(["/api/contacts?page=1", token], getPaginatedContactsFetcher);
+    router.push("/");
   }
 
-  if (error) {
-    toast.error(error.response.data.message);
-  }
+  useEffect(() => {
+    if (error && !isMutating) {
+      toast.error(error.response.data.message);
+    }
+  }, [error]);
 
   const formik = useFormik({
     initialValues,
     validationSchema: toFormikValidationSchema(addContactValidation),
     onSubmit: (values) => {
-      trigger({ ...values, phone: values.phone.toString() });
+      trigger({
+        fullname: values.fullname,
+        email: values.email || undefined,
+        job: values.job || undefined,
+        image: values.image || undefined,
+        phone: values.phone.toString(),
+      });
     },
   });
 
@@ -190,9 +204,14 @@ const AddContactForm = () => {
                 انصراف
               </Button>
             </Link>
-            <Button type="submit" variant="contained">
+            <LoadingButton
+              loading={isMutating}
+              loadingIndicator={<CircularProgress size={20} />}
+              type="submit"
+              variant="contained"
+            >
               ساخت مخاطب
-            </Button>
+            </LoadingButton>
           </Box>
         </form>
       </Grid>

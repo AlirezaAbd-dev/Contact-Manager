@@ -29,10 +29,10 @@ export interface SearchContact {
 export interface Contact {
   _id: string;
   fullname: string;
-  email: string;
+  email?: string;
   phone: string;
-  job: string;
-  image: string;
+  job?: string;
+  image?: string;
 }
 export interface ContactsPaginatedType {
   contacts: Contact[];

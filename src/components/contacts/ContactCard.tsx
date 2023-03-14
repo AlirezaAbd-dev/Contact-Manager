@@ -78,22 +78,24 @@ const ContactCard = ({
                   }}
                 />
               )}
-              <NextImage
-                src={image}
-                alt={fullname}
-                width={400}
-                height={200}
-                priority
-                style={{
-                  width: avatarSrc ? "100%" : "0px",
-                  height: avatarSrc ? "250px" : "0px",
-                  objectFit: "cover",
-                  borderRadius: "0 0 30px 30px",
-                }}
-                onLoad={() => {
-                  setAvatarSrc(image);
-                }}
-              />
+              {image && (
+                <NextImage
+                  src={image}
+                  alt={fullname}
+                  width={400}
+                  height={200}
+                  priority
+                  style={{
+                    width: avatarSrc ? "100%" : "0px",
+                    height: avatarSrc ? "250px" : "0px",
+                    objectFit: "cover",
+                    borderRadius: "0 0 30px 30px",
+                  }}
+                  onLoad={() => {
+                    setAvatarSrc(image);
+                  }}
+                />
+              )}
             </CardMedia>
             <Box
               display="flex"
