@@ -19,7 +19,7 @@ const initialValues = {
   fullname: "",
   email: "",
   job: "",
-  phone: "",
+  phone: 0,
   image: "",
 };
 
@@ -44,7 +44,7 @@ const AddContactForm = () => {
     initialValues,
     validationSchema: toFormikValidationSchema(addContactValidation),
     onSubmit: (values) => {
-      trigger(values);
+      trigger({ ...values, phone: values.phone.toString() });
     },
   });
 
@@ -65,7 +65,16 @@ const AddContactForm = () => {
       }}
     >
       <Grid xs={12} sm={12} md={7}>
-        <Box display="flex" flexDirection="column" gap={2} mt={2} px={5}>
+        <form
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 10,
+            marginTop: 10,
+            padding: "0 20px 0 20px",
+          }}
+          onSubmit={formik.handleSubmit}
+        >
           {imageSrc && (
             <Box
               sx={{
@@ -172,9 +181,11 @@ const AddContactForm = () => {
                 انصراف
               </Button>
             </Link>
-            <Button variant="contained">ساخت مخاطب</Button>
+            <Button type="submit" variant="contained">
+              ساخت مخاطب
+            </Button>
           </Box>
-        </Box>
+        </form>
       </Grid>
     </Slide>
   );

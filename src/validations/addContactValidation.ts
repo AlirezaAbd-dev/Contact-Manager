@@ -10,12 +10,9 @@ export default z.object({
     .optional(),
   job: z.string().min(3).optional(),
   phone: z
-    .number()
+    .number({ required_error: "لطفا شماره تلفن را به درستی وارد نمایید!" })
     .min(8, {
-      message: "شماره تلفن باید حداقل 8 کاراکتر و حداکثر 12 کاراکتر باشد!",
-    })
-    .max(12, {
-      message: "شماره تلفن باید حداقل 8 کاراکتر و حداکثر 12 کاراکتر باشد!",
+      message: "شماره تلفن باید حداقل 8 کاراکتر باشد!",
     }),
   image: z
     .string()
