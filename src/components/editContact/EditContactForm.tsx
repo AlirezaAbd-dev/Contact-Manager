@@ -49,9 +49,9 @@ const EditContactForm = ({
   const formik = useFormik({
     initialValues: {
       fullname: contact.fullname,
-      email: contact.email,
-      job: contact.job,
-      image: contact.image,
+      email: contact.email || undefined,
+      job: contact.job || undefined,
+      image: contact.image || undefined,
       phone: +contact.phone,
     },
     validationSchema: toFormikValidationSchema(addContactValidation),
