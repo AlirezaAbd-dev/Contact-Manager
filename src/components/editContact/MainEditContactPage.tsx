@@ -15,6 +15,7 @@ import useLocalStorage from "../../hooks/useLocalStorage";
 import { getSingleContactFetcher } from "../../services/contactServices";
 import { toast } from "react-toastify";
 import { Triangle } from "react-loader-spinner";
+import { useRouter } from "next/navigation";
 
 const MainEditContactPage = ({ id }: { id: number }) => {
   const token = useLocalStorage("user-token");
@@ -23,6 +24,7 @@ const MainEditContactPage = ({ id }: { id: number }) => {
   const [imageUploaded, setImageUploaded] = useState<boolean>(false);
 
   const theme = useTheme();
+  const router = useRouter();
 
   const { data, error, isLoading } = useSWR(
     [`/api/contact/${id}`, token],
@@ -38,6 +40,10 @@ const MainEditContactPage = ({ id }: { id: number }) => {
   useEffect(() => {
     if (error) {
       toast.error(error.response.data.message);
+
+      if (error.response.status === 404) {
+        router.push("/");
+      }
     }
   }, [error]);
 

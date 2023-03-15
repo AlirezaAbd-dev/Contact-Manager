@@ -127,11 +127,13 @@ export const addContactMutation = (
       image?: string;
     };
   }
-) => {
+): Promise<Contact> | null => {
   if (token) {
-    return axios.post(url, data, {
-      headers: { "x-authentication-token": token },
-    });
+    return axios
+      .post(url, data, {
+        headers: { "x-authentication-token": token },
+      })
+      .then((res) => res.data)
   } else {
     return null;
   }

@@ -3,8 +3,7 @@ import { useState } from "react";
 import Grid from "@mui/material/Unstable_Grid2";
 import Skeleton from "@mui/material/Skeleton";
 import Image from "next/image";
-import Avatar from "@mui/material/Avatar";
-import { Button } from "@mui/material";
+import { Button, useMediaQuery, useTheme } from "@mui/material";
 
 const EditContactAvatar = ({
   avatarSrc,
@@ -16,6 +15,9 @@ const EditContactAvatar = ({
   imageUploaded: boolean;
 }) => {
   const [isLoadingSrc, setIsLoadingSrc] = useState<string | null>();
+
+  const theme = useTheme();
+  const isSmDown = useMediaQuery(theme.breakpoints.down("sm"));
 
   const skeleton = (
     <Skeleton
@@ -50,36 +52,25 @@ const EditContactAvatar = ({
       gap={2}
     >
       {!avatarSrc && skeleton}
-      <Avatar
-        variant="circular"
-        sx={{
+      <Image
+        priority
+        src={avatarSrc!}
+        alt={alt!}
+        width={500}
+        height={500}
+        style={{
           display: isLoadingSrc && avatarSrc ? "block" : "none",
-          width: {
-            xs: "70%",
-            sm: "70%",
-            md: "100%",
-          },
+          borderRadius: "100%",
+          width: isSmDown ? "70%" : "100%",
           height: "auto",
+          objectFit: "cover",
+          margin: "0 auto",
           aspectRatio: "1 / 1",
-          m: "0 auto",
         }}
-      >
-        <Image
-          priority
-          src={avatarSrc!}
-          alt={alt!}
-          width={500}
-          height={500}
-          style={{
-            width: "100%",
-            height: "auto",
-            objectFit: "cover",
-          }}
-          onLoad={() => {
-            setIsLoadingSrc(avatarSrc);
-          }}
-        />
-      </Avatar>
+        onLoad={() => {
+          setIsLoadingSrc(avatarSrc);
+        }}
+      />
       {imageUploaded && (
         <Button sx={{ borderRadius: "20px" }}>ثبت عکس پروفایل</Button>
       )}
