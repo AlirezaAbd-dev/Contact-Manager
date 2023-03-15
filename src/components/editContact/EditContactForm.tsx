@@ -1,9 +1,20 @@
 "use client";
 import { Box, Button, TextField } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
+import { useFormik } from "formik";
 import Link from "next/link";
 import { Dispatch } from "react";
+import { toFormikValidationSchema } from "zod-formik-adapter";
 import { Contact } from "../../services/contactServices";
+import addContactValidation from "../../validations/addContactValidation";
+
+const initialValues = {
+  fullname: "",
+  email: "",
+  job: "",
+  phone: 0,
+  image: "",
+};
 
 const EditContactForm = ({
   setImageSrc,
@@ -14,6 +25,12 @@ const EditContactForm = ({
   setImageUploaded: Dispatch<boolean>;
   contact: Contact | undefined;
 }) => {
+  const formik = useFormik({
+    initialValues,
+    validationSchema: toFormikValidationSchema(addContactValidation),
+    onSubmit(values) {},
+  });
+
   return (
     <Grid xs={12} sm={12} md={8} lg={8} p={1}>
       <Box width="100%" display="flex" flexDirection="column" gap={1}>
@@ -24,7 +41,8 @@ const EditContactForm = ({
         <TextField label="آدرس تصویر" defaultValue={contact?.image} />
         <TextField
           label="شماره موبایل"
-          defaultValue={contact?.phone.replace("+", " ")}
+          type="number"
+          defaultValue={+contact?.phone.replace("+", " ")!}
         />
         <TextField label="آدرس ایمیل" defaultValue={contact?.email} />
         <Box display="flex" alignItems="center" gap={2}>

@@ -6,7 +6,7 @@ export default z.object({
     .min(3),
   email: z
     .string()
-    .email({ message: "لطفا از آدرس ایمیل معتبر ایتفاده کنید!" })
+    .email({ message: "لطفا از آدرس ایمیل معتبر استفاده کنید!" })
     .optional(),
   job: z.string().min(3).optional(),
   phone: z
