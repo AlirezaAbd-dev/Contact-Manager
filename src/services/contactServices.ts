@@ -85,6 +85,23 @@ export const getContactsForSearchFetcher = ([url, token]: [
   }
 };
 
+// `/api/contact/${contactId}`
+export const getSingleContactFetcher = ([url, token]): Promise<{
+  contact: Contact;
+}> | null => {
+  if (token) {
+    return axios
+      .get(url, {
+        headers: {
+          "x-authentication-token": token,
+        },
+      })
+      .then((res) => res.data);
+  } else {
+    return null;
+  }
+};
+
 export const getSingleContactService = async (
   token: string,
   contactId: string
@@ -96,7 +113,7 @@ export const getSingleContactService = async (
   });
 };
 
-// /api/contact
+// `/api/contact`
 export const addContactMutation = (
   [url, token]: [string, string | undefined],
   {
@@ -105,9 +122,9 @@ export const addContactMutation = (
     arg: {
       fullname: string;
       phone: string;
-      email: string | undefined;
-      job: string | undefined;
-      image: string | undefined;
+      email?: string;
+      job?: string;
+      image?: string;
     };
   }
 ) => {

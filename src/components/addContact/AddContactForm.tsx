@@ -11,12 +11,8 @@ import { CircularProgress, useTheme } from "@mui/material";
 import { useFormik } from "formik";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 import useSWRMutation from "swr/mutation";
-import { preload } from "swr";
 import useLocalStorage from "../../hooks/useLocalStorage";
-import {
-  addContactMutation,
-  getPaginatedContactsFetcher,
-} from "../../services/contactServices";
+import { addContactMutation } from "../../services/contactServices";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { LoadingButton } from "@mui/lab";
@@ -47,7 +43,6 @@ const AddContactForm = () => {
 
   if (data) {
     toast.success("مخاطب جدید با موفقیت ساخته شد");
-    // preload(["/api/contacts?page=1", token], getPaginatedContactsFetcher);
     router.push("/");
   }
 
@@ -65,7 +60,6 @@ const AddContactForm = () => {
         fullname: values.fullname,
         email: values.email || undefined,
         job: values.job || undefined,
-        image: values.image || undefined,
         phone: values.phone.toString(),
       });
     },
@@ -163,29 +157,26 @@ const AddContactForm = () => {
               onBlur={formik.handleBlur}
               helperText={formik.touched.job && formik.errors.job}
             />
-            <label
-              htmlFor="image"
-              style={{
-                backgroundColor: theme.palette.secondary.main,
-                padding: "10px 18px 10px 18px",
-                color: "#111",
-                cursor: "pointer",
-                borderRadius: 10,
-              }}
+            <Button
+              variant="contained"
+              color="secondary"
+              sx={{ borderRadius: "20px" }}
             >
-              <input
-                id="image"
-                type="file"
-                accept=".jpg, .jpeg, .png"
-                name="image"
-                style={{ display: "none" }}
-                onChange={(e) => {
-                  e.target.files &&
-                    setImageSrc(URL.createObjectURL(e.target.files[0]));
-                }}
-              />
-              آپلود تصویر
-            </label>
+              <label htmlFor="image" style={{ padding: "3px 7px 3px 7px" }}>
+                <input
+                  id="image"
+                  type="file"
+                  accept=".jpg, .jpeg, .png"
+                  name="image"
+                  style={{ display: "none" }}
+                  onChange={(e) => {
+                    e.target.files &&
+                      setImageSrc(URL.createObjectURL(e.target.files[0]));
+                  }}
+                />
+                آپلود تصویر
+              </label>
+            </Button>
           </Box>
           <Box
             width="100%"
@@ -200,7 +191,11 @@ const AddContactForm = () => {
                 textDecoration: "none",
               }}
             >
-              <Button variant="contained" color="error">
+              <Button
+                variant="contained"
+                color="error"
+                sx={{ borderRadius: "20px" }}
+              >
                 انصراف
               </Button>
             </Link>
@@ -209,6 +204,7 @@ const AddContactForm = () => {
               loadingIndicator={<CircularProgress size={20} />}
               type="submit"
               variant="contained"
+              sx={{ borderRadius: "20px" }}
             >
               ساخت مخاطب
             </LoadingButton>

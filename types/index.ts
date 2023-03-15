@@ -22,10 +22,10 @@ export interface CustomAddContactRequest extends CustomNextRequest {
       email: string;
     };
     fullname: string;
-    image: string;
+    image?: string;
     phone: string;
-    email: string;
-    job: string;
+    email?: string;
+    job?: string;
   };
 }
 

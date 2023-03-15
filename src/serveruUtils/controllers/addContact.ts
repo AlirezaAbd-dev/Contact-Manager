@@ -21,12 +21,11 @@ const addContact = async (
       .send({ message: "اتصال با دیتابیس با خطا مواجه شد!" });
   }
 
-  const { fullname, image, phone, email, job } = req.body;
+  const { fullname, email, phone, job } = req.body;
 
   // Validate Request Body
   const isBodyValid = addContactValidation.safeParse({
     fullname,
-    image,
     phone,
     email,
     job,
@@ -81,7 +80,7 @@ const addContact = async (
           email,
           phone,
           job,
-          image,
+          image: ""
         },
       },
     }
@@ -103,7 +102,6 @@ const addContact = async (
     email,
     phone,
     job,
-    image,
   });
 };
 
