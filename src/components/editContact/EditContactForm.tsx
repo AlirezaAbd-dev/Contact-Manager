@@ -83,6 +83,7 @@ const EditContactForm = ({
           <TextField
             name="image"
             label="آدرس تصویر"
+            onChange={formik.handleChange}
             defaultValue={contact?.image}
             onBlur={formik.handleBlur}
             error={formik.touched.image && !!formik.errors.image}
@@ -91,6 +92,7 @@ const EditContactForm = ({
           <TextField
             name="phone"
             label="شماره موبایل"
+            onChange={formik.handleChange}
             type="number"
             defaultValue={+contact?.phone.replace("+", " ")!}
             onBlur={formik.handleBlur}
@@ -100,6 +102,7 @@ const EditContactForm = ({
           <TextField
             name="email"
             label="آدرس ایمیل"
+            onChange={formik.handleChange}
             defaultValue={contact?.email}
             onBlur={formik.handleBlur}
             error={formik.touched.email && !!formik.errors.email}
@@ -109,6 +112,7 @@ const EditContactForm = ({
             <TextField
               name="job"
               label="شغل"
+              onChange={formik.handleChange}
               defaultValue={contact?.job}
               onBlur={formik.handleBlur}
               error={formik.touched.job && !!formik.errors.job}
