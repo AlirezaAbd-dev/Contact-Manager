@@ -80,7 +80,9 @@ const EditContactAvatar = ({
           }}
         />
       </Avatar>
-      {imageUploaded && <Button>ثبت عکس پروفایل</Button>}
+      {imageUploaded && (
+        <Button sx={{ borderRadius: "20px" }}>ثبت عکس پروفایل</Button>
+      )}
     </Grid>
   );
 };

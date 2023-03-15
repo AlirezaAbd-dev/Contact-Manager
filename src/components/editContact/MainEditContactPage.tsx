@@ -12,9 +12,7 @@ import EditContactCard from "../editContact/EditContactCard";
 import AddContactTitle from "../ui/AddContactTitle";
 import MainContainer from "../../containers/MainContainer";
 import useLocalStorage from "../../hooks/useLocalStorage";
-import {
-  getSingleContactFetcher,
-} from "../../services/contactServices";
+import { getSingleContactFetcher } from "../../services/contactServices";
 import { toast } from "react-toastify";
 import { Triangle } from "react-loader-spinner";
 
@@ -78,6 +76,8 @@ const MainEditContactPage = ({ id }: { id: number }) => {
                 setImageSrc={setImageSrc}
                 setImageUploaded={setImageUploaded}
                 contact={data?.contact}
+                token={token}
+                contactId={id}
               />
             </Grid>
           </EditContactCard>

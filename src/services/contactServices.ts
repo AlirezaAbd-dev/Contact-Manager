@@ -137,20 +137,28 @@ export const addContactMutation = (
   }
 };
 
-export const editContactService = async (
-  token: string,
-  contactId: string,
-  data: {
-    fullname: string;
-    phone: string;
-    email: string;
-    job: string;
-    image: string;
+// `/api/contact/${contactId}`
+export const editContactMutation = (
+  [url, token]: [string, string],
+  {
+    arg: data,
+  }: {
+    arg: {
+      fullname: string;
+      phone: string;
+      email?: string;
+      job?: string;
+      image?: string;
+    };
   }
 ) => {
-  return await axios.put(`/api/contact/${contactId}`, data, {
-    headers: { "x-authentication-token": token },
-  });
+  if (token) {
+    return axios.put(url, data, {
+      headers: { "x-authentication-token": token },
+    });
+  } else {
+    return null;
+  }
 };
 
 export const deleteContactService = async (

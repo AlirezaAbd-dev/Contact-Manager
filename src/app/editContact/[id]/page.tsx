@@ -15,7 +15,7 @@ export const dynamicParams = true;
 //   };
 // };
 
-const EditContact = async ({ params: { id } }: { params: { id: number } }) => {
+const EditContact = ({ params: { id } }: { params: { id: number } }) => {
   return <MainEditContactPage id={id} />;
 };
 
