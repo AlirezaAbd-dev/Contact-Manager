@@ -27,6 +27,8 @@ import NextImage from "next/image";
 import Skeleton from "@mui/material/Skeleton";
 import { Contact } from "../../services/contactServices";
 
+import avatarPlaceholder from "../../assets/placeholder-avatar.png";
+
 const ContactCard = ({
   user: { fullname, image, phone, email, _id },
 }: {
@@ -67,7 +69,7 @@ const ContactCard = ({
                 justifyContent: "center",
               }}
             >
-              {!avatarSrc && (
+              {!avatarSrc && image && (
                 <Skeleton
                   variant="rectangular"
                   animation="wave"
@@ -78,12 +80,12 @@ const ContactCard = ({
                   }}
                 />
               )}
-              {image && (
+              {image ? (
                 <NextImage
                   src={image}
                   alt={fullname}
                   width={400}
-                  height={200}
+                  height={250}
                   priority
                   style={{
                     width: avatarSrc ? "100%" : "0px",
@@ -93,6 +95,20 @@ const ContactCard = ({
                   }}
                   onLoad={() => {
                     setAvatarSrc(image);
+                  }}
+                />
+              ) : (
+                <NextImage
+                  src={avatarPlaceholder.src}
+                  alt={fullname}
+                  width={400}
+                  height={250}
+                  priority
+                  style={{
+                    width: "100%",
+                    height: "250px",
+                    objectFit: "cover",
+                    borderRadius: "0 0 30px 30px",
                   }}
                 />
               )}

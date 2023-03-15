@@ -5,14 +5,18 @@ import Skeleton from "@mui/material/Skeleton";
 import Image from "next/image";
 import { Button, useMediaQuery, useTheme } from "@mui/material";
 
+import avatarPlaceholder from "../../assets/placeholder-avatar.png";
+
 const EditContactAvatar = ({
   avatarSrc,
   alt,
   imageUploaded,
+  image,
 }: {
-  avatarSrc: string | undefined;
-  alt: string | undefined;
+  avatarSrc?: string;
+  alt?: string;
   imageUploaded: boolean;
+  image?: string;
 }) => {
   const [isLoadingSrc, setIsLoadingSrc] = useState<string | null>();
 
@@ -51,26 +55,45 @@ const EditContactAvatar = ({
       alignItems="center"
       gap={2}
     >
-      {!avatarSrc && skeleton}
-      <Image
-        priority
-        src={avatarSrc!}
-        alt={alt!}
-        width={500}
-        height={500}
-        style={{
-          display: isLoadingSrc && avatarSrc ? "block" : "none",
-          borderRadius: "100%",
-          width: isSmDown ? "70%" : "100%",
-          height: "auto",
-          objectFit: "cover",
-          margin: "0 auto",
-          aspectRatio: "1 / 1",
-        }}
-        onLoad={() => {
-          setIsLoadingSrc(avatarSrc);
-        }}
-      />
+      {!avatarSrc && image && skeleton}
+      {image || imageUploaded ? (
+        <Image
+          priority
+          src={avatarSrc!}
+          alt={alt!}
+          width={500}
+          height={500}
+          style={{
+            display: isLoadingSrc && avatarSrc ? "block" : "none",
+            borderRadius: "100%",
+            width: isSmDown ? "70%" : "100%",
+            height: "auto",
+            objectFit: "cover",
+            margin: "0 auto",
+            aspectRatio: "1 / 1",
+          }}
+          onLoad={() => {
+            setIsLoadingSrc(avatarSrc);
+          }}
+        />
+      ) : (
+        <Image
+          priority
+          src={avatarPlaceholder.src}
+          alt={alt!}
+          width={500}
+          height={500}
+          style={{
+            display: "block",
+            borderRadius: "100%",
+            width: isSmDown ? "70%" : "100%",
+            height: "auto",
+            objectFit: "cover",
+            margin: "0 auto",
+            aspectRatio: "1 / 1",
+          }}
+        />
+      )}
       {imageUploaded && (
         <Button sx={{ borderRadius: "20px" }}>ثبت عکس پروفایل</Button>
       )}

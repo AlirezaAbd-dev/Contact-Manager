@@ -72,6 +72,7 @@ const MainEditContactPage = ({ id }: { id: number }) => {
             <Grid container width="100%" p={1}>
               {/* AVATAR */}
               <EditContactAvatar
+                image={data.contact.image}
                 avatarSrc={imageSrc!}
                 alt={data.contact.fullname!}
                 imageUploaded={imageUploaded}
