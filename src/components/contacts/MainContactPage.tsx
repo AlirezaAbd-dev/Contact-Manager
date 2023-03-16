@@ -3,7 +3,6 @@ import { lazy } from "react";
 import Grid from "@mui/material/Unstable_Grid2";
 import { Box, useTheme } from "@mui/material";
 import useSWR from "swr";
-import axios from "axios";
 import { useSearchParams } from "next/navigation";
 import { Triangle } from "react-loader-spinner";
 
@@ -12,7 +11,6 @@ import MainContainer from "../../containers/MainContainer";
 import DeleteConfirmDialog from "./DeleteConfirmDialog";
 import ContactsPagination from "./ContactsPagination";
 import {
-  ContactsPaginatedType,
   getPaginatedContactsFetcher,
 } from "../../services/contactServices";
 

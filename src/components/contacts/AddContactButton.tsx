@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { AddCircleRounded } from "@mui/icons-material";
 import { Box, Button, Slide } from "@mui/material";
@@ -35,7 +35,11 @@ const AddContactButton = () => {
         }}
       >
         <Link style={{ textDecoration: "none" }} href="/addContact">
-          <Button variant="contained" color="secondary">
+          <Button
+            variant="contained"
+            color="secondary"
+            sx={{ borderRadius: "15px" }}
+          >
             ساخت مخاطب جدید <AddCircleRounded sx={{ mx: 1 }} />
           </Button>
         </Link>
