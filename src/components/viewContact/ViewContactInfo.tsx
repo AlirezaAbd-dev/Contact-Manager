@@ -2,9 +2,9 @@
 import { Box, Divider, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
-import { contactType } from "../../services/contactServices";
+import { Contact, contactType } from "../../services/contactServices";
 
-const ViewContactInfo = ({ contact }: { contact: contactType }) => {
+const ViewContactInfo = ({ contact }: { contact: Contact }) => {
   return (
     <Box
       display="flex"
@@ -29,7 +29,7 @@ const ViewContactInfo = ({ contact }: { contact: contactType }) => {
       >
         <Typography display="inline" variant="body2" color="black">
           نام و نام خانوادگی :{" "}
-          <span style={{ fontWeight: "bold" }}>{contact.name}</span>
+          <span style={{ fontWeight: "bold" }}>{contact.fullname}</span>
         </Typography>
         <Divider color={grey[600]} sx={{ width: "100%" }} />
 
@@ -41,17 +41,12 @@ const ViewContactInfo = ({ contact }: { contact: contactType }) => {
         </Typography>
         <Divider color={grey[600]} sx={{ width: "100%" }} />
         <Typography display="inline" variant="body2" color="black">
-          ایمیل : <span style={{ fontWeight: "bold" }}>{contact.email}</span>
+          ایمیل : <span style={{ fontWeight: "bold" }}>{contact.email || "ندارد"}</span>
         </Typography>
         <Divider color={grey[600]} sx={{ width: "100%" }} />
 
         <Typography display="inline" variant="body2" color="black">
-          شغل : <span style={{ fontWeight: "bold" }}>{contact.company}</span>
-        </Typography>
-        <Divider color={grey[600]} sx={{ width: "100%" }} />
-
-        <Typography display="inline" variant="body2" color="black">
-          گروه : <span style={{ fontWeight: "bold" }}>همکار</span>
+          شغل : <span style={{ fontWeight: "bold" }}>{contact.job || "ندارد"}</span>
         </Typography>
       </Typography>
     </Box>

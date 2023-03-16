@@ -86,7 +86,10 @@ export const getContactsForSearchFetcher = ([url, token]: [
 };
 
 // `/api/contact/${contactId}`
-export const getSingleContactFetcher = ([url, token]): Promise<{
+export const getSingleContactFetcher = ([url, token]: [
+  string,
+  string
+]): Promise<{
   contact: Contact;
 }> | null => {
   if (token) {
@@ -133,7 +136,7 @@ export const addContactMutation = (
       .post(url, data, {
         headers: { "x-authentication-token": token },
       })
-      .then((res) => res.data)
+      .then((res) => res.data);
   } else {
     return null;
   }

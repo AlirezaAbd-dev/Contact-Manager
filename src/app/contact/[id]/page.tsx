@@ -6,37 +6,34 @@ import {
   getContactById,
 } from "../../../services/contactServices";
 
-export const fetchCache = "force-cache";
-export const revalidate = 10;
-export const dynamicParams = false;
+export const dynamic = "force-dynamic";
+export const dynamicParams = true;
 
-export const generateMetadata = async ({ params }): Promise<Metadata> => {
-  const name = await getContactById(+params.id).then((res) => res.name);
+// export const generateMetadata = async ({ params }): Promise<Metadata> => {
+//   const name = await getContactById(+params.id).then((res) => res.name);
 
-  return {
-    title: `مدیریت مخاطبین | ${name}`,
-    description: `از طریق این صفحه میتوانید جزئیات مخاطب مورد نظر خود را ببینید. صفحه نمایش مخاطب ${name}`,
-  };
-};
+//   return {
+//     title: `مدیریت مخاطبین | ${name}`,
+//     description: `از طریق این صفحه میتوانید جزئیات مخاطب مورد نظر خود را ببینید. صفحه نمایش مخاطب ${name}`,
+//   };
+// };
 
 const ViewContact = async ({
   params: { id },
 }: {
   params: {
-    id: number;
+    id: string;
   };
 }) => {
-  const data = await getContactById(id);
-
-  return <MainViewContactPage contact={data} />;
+  return <MainViewContactPage id={id} />;
 };
 
 export default ViewContact;
 
-export const generateStaticParams = async () => {
-  const data = await getAllContacts();
+// export const generateStaticParams = async () => {
+//   const data = await getAllContacts();
 
-  return data.map((data) => ({
-    id: data.id.toString(),
-  }));
-};
+//   return data.map((data) => ({
+//     id: data.id.toString(),
+//   }));
+// };

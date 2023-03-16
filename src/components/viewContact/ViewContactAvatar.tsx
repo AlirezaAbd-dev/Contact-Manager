@@ -4,18 +4,20 @@ import { Avatar } from "@mui/material";
 import Image from "next/image";
 import Skeleton from "@mui/material/Skeleton";
 
+import avatarPlaceholder from "../../assets/placeholder-avatar.png";
+
 const ViewContactAvatar = ({
   imageSrc,
   alt,
 }: {
-  imageSrc: string;
+  imageSrc?: string;
   alt: string;
 }) => {
   const [isImageLoading, setIsImageLoading] = useState<string | null>();
 
   return (
     <>
-      {!isImageLoading && (
+      {!isImageLoading && imageSrc && (
         <Skeleton
           variant="circular"
           sx={{
@@ -40,21 +42,37 @@ const ViewContactAvatar = ({
           height: "auto",
         }}
       >
-        <Image
-          src={imageSrc}
-          alt={alt}
-          width={300}
-          height={300}
-          priority
-          style={{
-            width: "100%",
-            height: "auto",
-            objectFit: "fill",
-          }}
-          onLoad={() => {
-            setIsImageLoading(imageSrc);
-          }}
-        />
+        {imageSrc && (
+          <Image
+            src={imageSrc}
+            alt={alt}
+            width={300}
+            height={300}
+            priority
+            style={{
+              width: "100%",
+              height: "auto",
+              objectFit: "fill",
+            }}
+            onLoad={() => {
+              setIsImageLoading(imageSrc);
+            }}
+          />
+        )}
+        {!imageSrc && (
+          <Image
+            src={avatarPlaceholder.src}
+            alt={alt}
+            width={300}
+            height={300}
+            priority
+            style={{
+              width: "100%",
+              height: "auto",
+              objectFit: "fill",
+            }}
+          />
+        )}
       </Avatar>
     </>
   );
