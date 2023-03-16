@@ -35,6 +35,7 @@ const ContactCard = ({
   user: Contact;
 }) => {
   const setIsModalOpen = useStore((state) => state.setIsModalOpen);
+  const setSelectedContactId = useStore((state) => state.setSelectedContactId);
   const [avatarSrc, setAvatarSrc] = useState<string | null>(null);
 
   return (
@@ -154,7 +155,10 @@ const ContactCard = ({
               <Button
                 color="error"
                 sx={{ borderRadius: "15px" }}
-                onClick={setIsModalOpen}
+                onClick={() => {
+                  setIsModalOpen();
+                  setSelectedContactId(_id);
+                }}
               >
                 <Delete />
               </Button>

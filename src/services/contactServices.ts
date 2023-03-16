@@ -166,25 +166,12 @@ export const editContactMutation = (
   }
 };
 
-export const deleteContactService = async (
-  token: string,
-  contactId: string
-) => {
-  return await axios.delete(`/api/contact/${contactId}`, {
-    headers: { "x-authentication-token": token },
-  });
-};
-
-export const getContactById = async (id: number): Promise<contactType> => {
-  return await axios
-    .get(`https://jsonplaceholder.ir/users/${id}`)
-    .then((res) => res.data)
-    .catch((err) => console.log(err.message));
-};
-
-export const getAllContacts = async (): Promise<contactType[]> => {
-  return await axios
-    .get("https://jsonplaceholder.ir/users")
-    .then((res) => res.data)
-    .catch((err) => console.log(err.message));
+export const deleteContactMutation = ([url, token]: [string, string]) => {
+  if (token) {
+    return axios.delete(url, {
+      headers: { "x-authentication-token": token },
+    });
+  } else {
+    return null;
+  }
 };

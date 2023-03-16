@@ -1,7 +1,8 @@
-"use client"
+"use client";
 
 import {
   Button,
+  CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
@@ -9,10 +10,39 @@ import {
 } from "@mui/material";
 import { useStore } from "../../zustand/store";
 import { grey } from "@mui/material/colors";
+import useSWRMutation from "swr/mutation";
+import useLocalStorage from "../../hooks/useLocalStorage";
+import { deleteContactMutation } from "../../services/contactServices";
+import { LoadingButton } from "@mui/lab";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 const DeleteConfirmDialog = () => {
+  const token = useLocalStorage("user-token");
   const isModalOpen = useStore((state) => state.isModalOpen);
   const setIsModalClose = useStore((state) => state.setIsModalClose);
+  const selectedContactId = useStore((state) => state.selectedContactId);
+
+  const { trigger, data, isMutating, error } = useSWRMutation(
+    [`/api/contact/${selectedContactId}`, token],
+    deleteContactMutation
+  );
+
+  useEffect(() => {
+    if (data) {
+      toast.success("مخاطب مورد نظر با موفقیت حذف شد");
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error.response.data.message);
+    }
+  }, [error]);
+
+  const deleteHandler = () => {
+    trigger();
+  };
 
   return (
     <Dialog
@@ -28,16 +58,16 @@ const DeleteConfirmDialog = () => {
         },
       }}
     >
-        <Typography
-          variant="h4"
-          sx={{
-            m: 3,
-            mb: 0,
-            color: "warning.main",
-          }}
-        >
-          پاک کردن مخاطب
-        </Typography>
+      <Typography
+        variant="h4"
+        sx={{
+          m: 3,
+          mb: 0,
+          color: "warning.main",
+        }}
+      >
+        پاک کردن مخاطب
+      </Typography>
       <DialogContent>
         مطمئنی که میخوای مخاطب علیرضا عابدی رو پاک کنی؟
       </DialogContent>
@@ -45,9 +75,15 @@ const DeleteConfirmDialog = () => {
         <Button variant="contained" color="error" onClick={setIsModalClose}>
           انصراف
         </Button>
-        <Button variant="contained" color="primary">
+        <LoadingButton
+          loading={isMutating}
+          loadingIndicator={<CircularProgress size={20} />}
+          variant="contained"
+          color="primary"
+          onClick={deleteHandler}
+        >
           مطمئن هستم
-        </Button>
+        </LoadingButton>
       </DialogActions>
     </Dialog>
   );

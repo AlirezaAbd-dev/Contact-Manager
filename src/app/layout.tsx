@@ -4,7 +4,6 @@ import "react-toastify/dist/ReactToastify.css";
 
 import MainLayout from "../layouts/MainLayout";
 
-import { getAllContacts } from "../services/contactServices";
 import AnalyticsWrapper from "./Analytics";
 import { Metadata } from "next";
 
