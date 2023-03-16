@@ -46,6 +46,7 @@ const ViewContactAvatar = ({
             borderRadius: "100%",
             width: "40%",
             height: "auto",
+            aspectRatio: "1 / 1",
             objectFit: "fill",
           }}
           onLoad={() => {
@@ -64,6 +65,7 @@ const ViewContactAvatar = ({
             borderRadius: "100%",
             width: "40%",
             height: "auto",
+            aspectRatio: "1 / 1",
             objectFit: "fill",
           }}
         />
