@@ -53,8 +53,9 @@ const DeleteConfirmDialog = () => {
       sx={{
         "& .MuiDialog-paper": {
           bgcolor: "navbar.main",
-          borderRadius: 4,
+          borderRadius: 10,
           boxShadow: `-5px 5px 10px 1px ${grey[900]}`,
+          p: 2,
         },
       }}
     >
@@ -72,7 +73,12 @@ const DeleteConfirmDialog = () => {
         مطمئنی که میخوای مخاطب علیرضا عابدی رو پاک کنی؟
       </DialogContent>
       <DialogActions>
-        <Button variant="contained" color="error" onClick={setIsModalClose}>
+        <Button
+          variant="contained"
+          color="error"
+          onClick={setIsModalClose}
+          sx={{ borderRadius: "20px" }}
+        >
           انصراف
         </Button>
         <LoadingButton
@@ -81,6 +87,7 @@ const DeleteConfirmDialog = () => {
           variant="contained"
           color="primary"
           onClick={deleteHandler}
+          sx={{ borderRadius: "20px" }}
         >
           مطمئن هستم
         </LoadingButton>

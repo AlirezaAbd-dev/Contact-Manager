@@ -38,7 +38,7 @@ const AddContactButton = () => {
           <Button
             variant="contained"
             color="secondary"
-            sx={{ borderRadius: "15px" }}
+            sx={{ borderRadius: "20px" }}
           >
             ساخت مخاطب جدید <AddCircleRounded sx={{ mx: 1 }} />
           </Button>

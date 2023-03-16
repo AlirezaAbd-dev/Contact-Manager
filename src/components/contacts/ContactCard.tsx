@@ -154,7 +154,7 @@ const ContactCard = ({
             <Tooltip arrow title="حذف مخاطب">
               <Button
                 color="error"
-                sx={{ borderRadius: "15px" }}
+                sx={{ borderRadius: "20px" }}
                 onClick={() => {
                   setIsModalOpen();
                   setSelectedContactId(_id);
@@ -166,7 +166,7 @@ const ContactCard = ({
 
             <Tooltip arrow title="ویرایش مخاطب">
               <Link href={`/editContact/${_id}`}>
-                <Button color="warning" sx={{ borderRadius: "15px" }}>
+                <Button color="warning" sx={{ borderRadius: "20px" }}>
                   <Edit />
                 </Button>
               </Link>
@@ -174,7 +174,7 @@ const ContactCard = ({
 
             <Tooltip arrow title="جزئیات">
               <Link href={`/contact/${_id}`}>
-                <Button color="info" sx={{ borderRadius: "15px" }}>
+                <Button color="info" sx={{ borderRadius: "20px" }}>
                   <RemoveRedEye />
                 </Button>
               </Link>
