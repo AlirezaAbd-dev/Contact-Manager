@@ -1,25 +1,5 @@
 import axios from "axios";
 
-export type contactType = {
-  id: number;
-  name: string;
-  username: string;
-  email: string;
-  password: string;
-  avatar: string;
-  address: {
-    country: string;
-    city: string;
-    street: string;
-    alley: string;
-    number: number;
-    geo: [object];
-  };
-  phone: string;
-  website: string;
-  company: string;
-};
-
 export interface SearchContact {
   contacts: {
     _id: string;
@@ -38,8 +18,6 @@ export interface ContactsPaginatedType {
   contacts: Contact[];
   pagesNumber: number;
 }
-
-const URL = process.env.NEXT_PUBLIC_API_URL!;
 
 export const signInService = async (email: string, password: string) => {
   return await axios.post("/api/signIn", { email, password });
@@ -105,17 +83,6 @@ export const getSingleContactFetcher = ([url, token]: [
   }
 };
 
-export const getSingleContactService = async (
-  token: string,
-  contactId: string
-) => {
-  return await axios.get(`/api/contact/${contactId}`, {
-    headers: {
-      "x-authentication-token": token,
-    },
-  });
-};
-
 // `/api/contact`
 export const addContactMutation = (
   [url, token]: [string, string | undefined],
@@ -166,6 +133,7 @@ export const editContactMutation = (
   }
 };
 
+// `/api/contact/:contactId`
 export const deleteContactMutation = ([url, token]: [string, string]) => {
   if (token) {
     return axios.delete(url, {

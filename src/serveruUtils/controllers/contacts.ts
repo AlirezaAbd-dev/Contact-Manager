@@ -23,7 +23,7 @@ const contacts = async (req: CustomNextRequest, res: NextApiResponse) => {
 
   if (!verifiedUser || !verifiedUser.email) {
     await client.close();
-    return res.status(500).send({ message: "شما به این صفحه درسترسی ندارید!" });
+    return res.status(401).json({ message: "شما به این صفحه درسترسی ندارید!" });
   }
 
   const userEmail = verifiedUser.email;
