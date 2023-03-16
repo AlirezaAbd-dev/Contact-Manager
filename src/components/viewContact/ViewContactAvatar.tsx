@@ -42,7 +42,7 @@ const ViewContactAvatar = ({
           height: "auto",
         }}
       >
-        {imageSrc && (
+        {imageSrc ? (
           <Image
             src={imageSrc}
             alt={alt}
@@ -58,8 +58,7 @@ const ViewContactAvatar = ({
               setIsImageLoading(imageSrc);
             }}
           />
-        )}
-        {!imageSrc && (
+        ) : (
           <Image
             src={avatarPlaceholder.src}
             alt={alt}

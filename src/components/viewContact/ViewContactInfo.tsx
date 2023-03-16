@@ -2,7 +2,7 @@
 import { Box, Divider, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
-import { Contact, contactType } from "../../services/contactServices";
+import { Contact} from "../../services/contactServices";
 
 const ViewContactInfo = ({ contact }: { contact: Contact }) => {
   return (

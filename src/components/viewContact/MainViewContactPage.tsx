@@ -11,6 +11,9 @@ import useLocalStorage from "../../hooks/useLocalStorage";
 import { getSingleContactFetcher } from "../../services/contactServices";
 import { Triangle } from "react-loader-spinner";
 import { useTheme } from "@mui/material";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 const ViewContactCard = dynamic(
   () => import("../../components/viewContact/ViewContactCard"),
@@ -25,11 +28,22 @@ const ViewContactCard = dynamic(
 const MainViewContactPage = ({ id }: { id: string }) => {
   const token = useLocalStorage("user-token");
   const theme = useTheme();
+  const router = useRouter();
 
   const { data, isLoading, error } = useSWR(
     [`/api/contact/${id}`, token],
     getSingleContactFetcher
   );
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error.response.data.message);
+
+      if (error.response.status === 404) {
+        router.replace("/");
+      }
+    }
+  }, [error]);
 
   return (
     <MainContainer>
