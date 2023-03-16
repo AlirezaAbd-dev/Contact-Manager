@@ -10,18 +10,23 @@ import {
 } from "@mui/material";
 import { useStore } from "../../zustand/store";
 import { grey } from "@mui/material/colors";
+import { mutate } from "swr";
 import useSWRMutation from "swr/mutation";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { deleteContactMutation } from "../../services/contactServices";
 import { LoadingButton } from "@mui/lab";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
+import { useSearchParams } from "next/navigation";
 
 const DeleteConfirmDialog = () => {
   const token = useLocalStorage("user-token");
   const isModalOpen = useStore((state) => state.isModalOpen);
   const setIsModalClose = useStore((state) => state.setIsModalClose);
   const selectedContactId = useStore((state) => state.selectedContactId);
+  const searchParams = useSearchParams();
+
+  let pageQuery = searchParams?.get("page");
 
   const { trigger, data, isMutating, error } = useSWRMutation(
     [`/api/contact/${selectedContactId}`, token],
@@ -31,12 +36,18 @@ const DeleteConfirmDialog = () => {
   useEffect(() => {
     if (data) {
       toast.success("مخاطب مورد نظر با موفقیت حذف شد");
+      setIsModalClose();
+      mutate([`/api/contacts?page=${pageQuery || 1}`, token]);
     }
   }, [data]);
 
   useEffect(() => {
     if (error) {
       toast.error(error.response.data.message);
+
+      if (error.response.status === 404) {
+        setIsModalClose();
+      }
     }
   }, [error]);
 
