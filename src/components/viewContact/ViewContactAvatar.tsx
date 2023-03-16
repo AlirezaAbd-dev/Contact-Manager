@@ -13,11 +13,11 @@ const ViewContactAvatar = ({
   imageSrc?: string;
   alt: string;
 }) => {
-  const [isImageLoading, setIsImageLoading] = useState<string | null>();
+  const [isImageLoaded, setIsImageLoaded] = useState<string | null>();
 
   return (
     <>
-      {!isImageLoading && imageSrc && (
+      {!isImageLoaded && imageSrc && (
         <Skeleton
           variant="circular"
           sx={{
@@ -34,45 +34,40 @@ const ViewContactAvatar = ({
           }}
         />
       )}
-      <Avatar
-        variant="circular"
-        sx={{
-          display: isImageLoading ? "block" : "none",
-          width: "40%",
-          height: "auto",
-        }}
-      >
-        {imageSrc ? (
-          <Image
-            src={imageSrc}
-            alt={alt}
-            width={300}
-            height={300}
-            priority
-            style={{
-              width: "100%",
-              height: "auto",
-              objectFit: "fill",
-            }}
-            onLoad={() => {
-              setIsImageLoading(imageSrc);
-            }}
-          />
-        ) : (
-          <Image
-            src={avatarPlaceholder.src}
-            alt={alt}
-            width={300}
-            height={300}
-            priority
-            style={{
-              width: "100%",
-              height: "auto",
-              objectFit: "fill",
-            }}
-          />
-        )}
-      </Avatar>
+      {imageSrc ? (
+        <Image
+          src={imageSrc}
+          alt={alt}
+          width={300}
+          height={300}
+          priority
+          style={{
+            display: isImageLoaded ? "block" : "none",
+            borderRadius: "100%",
+            width: "40%",
+            height: "auto",
+            objectFit: "fill",
+          }}
+          onLoad={() => {
+            setIsImageLoaded(imageSrc);
+          }}
+        />
+      ) : (
+        <Image
+          src={avatarPlaceholder.src}
+          alt={alt}
+          width={300}
+          height={300}
+          priority
+          style={{
+            display: "block",
+            borderRadius: "100%",
+            width: "40%",
+            height: "auto",
+            objectFit: "fill",
+          }}
+        />
+      )}
     </>
   );
 };
