@@ -17,6 +17,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "avatars.githubusercontent.com",
       },
+      {
+        protocol: "https",
+        hostname: "contactmanager-avatars.s3.ir-thr-at1.arvanstorage.ir",
+      },
     ],
   },
 };
