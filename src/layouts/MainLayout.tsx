@@ -9,7 +9,6 @@ import { prefixer } from "stylis";
 
 import { theme } from "./theme/theme";
 import Header from "../components/navbar/Header";
-import { contactType } from "../services/contactServices";
 import { ToastContainer } from "react-toastify";
 
 // Create rtl cache

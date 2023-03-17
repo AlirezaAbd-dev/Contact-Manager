@@ -10,9 +10,7 @@ import AddContactButton from "./AddContactButton";
 import MainContainer from "../../containers/MainContainer";
 import DeleteConfirmDialog from "./DeleteConfirmDialog";
 import ContactsPagination from "./ContactsPagination";
-import {
-  getPaginatedContactsFetcher,
-} from "../../services/contactServices";
+import { getPaginatedContactsFetcher } from "../../services/contactServices";
 
 const ContactCard = lazy(() => import("./ContactCard"));
 
@@ -32,6 +30,8 @@ const MainContactPage = () => {
     [`/api/contacts?page=${pageQuery || 1}`, token],
     getPaginatedContactsFetcher
   );
+
+  console.log(data?.contacts);
 
   if (error) {
     toast.error(error.response.data.message);
