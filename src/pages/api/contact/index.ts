@@ -3,6 +3,12 @@ import { NextApiResponse } from "next";
 import { CustomAddContactRequest } from "../../../../types";
 import addContact from "../../../serveruUtils/controllers/addContact";
 
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
+
 const handler = async (req: CustomAddContactRequest, res: NextApiResponse) => {
   // Check Request Method
   if (req.method === "POST") {
