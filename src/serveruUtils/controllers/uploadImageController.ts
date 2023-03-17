@@ -1,11 +1,7 @@
 import { NextApiResponse } from "next";
 import { ObjectId } from "mongodb";
 import formidable from "formidable";
-import {
-  S3Client,
-  PutObjectCommand,
-  DeleteObjectCommand,
-} from "@aws-sdk/client-s3";
+import { PutObjectCommand, DeleteObjectCommand } from "@aws-sdk/client-s3";
 
 import { CustomNextRequest } from "../../../types";
 import client from "../databaseClient/client";
@@ -15,9 +11,6 @@ import imageValidation from "../validations/uploadImageValidation";
 import createReadStream from "../helpers/createReadStream";
 import arvanCloudConnection from "../helpers/arvanCloudConnection";
 
-const accessKey = process.env.ARVAN_ACCESS_KEY!;
-const secretKey = process.env.ARVAN_SECRET_KEY!;
-const endpoint = process.env.ARVAN_ENDPOINT!;
 const bucketName = process.env.ARVAN_BUCKET_NAME!;
 const imageBaseAddress = process.env.ARVAN_IMAGE_BASE_ADDRESS!;
 
