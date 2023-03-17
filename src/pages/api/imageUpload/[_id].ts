@@ -1,6 +1,10 @@
 import { NextApiResponse } from "next";
 import formidable from "formidable";
-import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import {
+  S3Client,
+  PutObjectCommand,
+  DeleteObjectCommand,
+} from "@aws-sdk/client-s3";
 import fs from "fs";
 
 import client from "../../../serveruUtils/databaseClient/client";
@@ -93,6 +97,11 @@ const handler = async (req: CustomNextRequest, res: NextApiResponse) => {
         return res.status(404).send({ message: "مخاطب مورد نظر یافت نشد!" });
       }
 
+      let prevImageAddress: string | null;
+      if (findContact?.image) {
+        prevImageAddress = findContact.image.split("/")[3];
+      }
+
       // @ts-ignore
       const fileStream = fs.createReadStream(files.image.filepath);
       fileStream.on("error", (err) => {
@@ -123,40 +132,53 @@ const handler = async (req: CustomNextRequest, res: NextApiResponse) => {
       try {
         const data = await s3.send(new PutObjectCommand(uploadParams));
         if (data.$metadata.httpStatusCode === 200) {
-          await userCollection
-            .updateOne(
-              {
-                email: verifiedUser?.email,
-                "contacts._id": new ObjectId(_id),
-              },
-              {
-                $set: {
-                  "contacts.$.image": imageBaseAddress + "/" + fileName,
-                },
-              }
-            )
-            .then(async (_response) => {
-              await client.close();
-              return res
-                .status(200)
-                .json({ message: "عکس کابر با موفقیت بارگذاری شد" });
-            })
-            .catch(async (err) => {
-              await client.close();
-              console.log(err);
-
-              return res
-                .status(400)
-                .json({ message: "بارگذاری عکس با خطا مواجه شد!" });
-            });
+          if (findContact.image)
+            try {
+              await s3.send(
+                new DeleteObjectCommand({
+                  Bucket: bucketName,
+                  Key: findContact.image.split("/")[3],
+                  // VersionId: 'version2.2',
+                })
+              );
+            } catch (err) {
+              console.log("Error", err);
+            }
         }
+
+        await userCollection
+          .updateOne(
+            {
+              email: verifiedUser?.email,
+              "contacts._id": new ObjectId(_id),
+            },
+            {
+              $set: {
+                "contacts.$.image": imageBaseAddress + "/" + fileName,
+              },
+            }
+          )
+          .then(async (_response) => {
+            await client.close();
+            return res
+              .status(200)
+              .json({ message: "عکس کابر با موفقیت بارگذاری شد" });
+          })
+          .catch(async (err) => {
+            await client.close();
+            console.log(err);
+
+            return res
+              .status(400)
+              .json({ message: "بارگذاری عکس با خطا مواجه شد!" });
+          });
       } catch (err) {
         await client.close();
-        res.status(500).json({
+        console.log("Error", err);
+        return res.status(500).json({
           message: "بارگذاری عکس با خطا مواجه شد!",
           errorDetails: err,
         });
-        console.log("Error", err);
       }
 
       // end of formidable block
