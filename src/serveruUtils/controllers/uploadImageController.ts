@@ -6,13 +6,14 @@ import {
   PutObjectCommand,
   DeleteObjectCommand,
 } from "@aws-sdk/client-s3";
-import fs from "fs";
 
 import { CustomNextRequest } from "../../../types";
 import client from "../databaseClient/client";
 import verifyToken from "../middleware/verifyToken";
 import userCollection from "../collection/userCollection";
 import imageValidation from "../validations/uploadImageValidation";
+import createReadStream from "../helpers/createReadStream";
+import arvanCloudConnection from "../helpers/arvanCloudConnection";
 
 const accessKey = process.env.ARVAN_ACCESS_KEY!;
 const secretKey = process.env.ARVAN_SECRET_KEY!;
@@ -69,20 +70,10 @@ const UploadImageHandler = async (
     }
 
     // @ts-ignore
-    const fileStream = fs.createReadStream(files.image.filepath);
-    fileStream.on("error", (err) => {
-      console.log(err.message);
-      res.status(500).json({ message: err.message });
-    });
+    const fileStream = createReadStream(files.image.filepath, res);
 
-    const s3 = new S3Client({
-      region: "default",
-      endpoint: endpoint,
-      credentials: {
-        accessKeyId: accessKey,
-        secretAccessKey: secretKey,
-      },
-    });
+    // S3 Client Object
+    const s3 = arvanCloudConnection;
 
     // @ts-ignore
     const fileName = files.image.newFilename + fileFormat;
