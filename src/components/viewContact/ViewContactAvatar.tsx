@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import { Avatar } from "@mui/material";
 import Image from "next/image";
 import Skeleton from "@mui/material/Skeleton";
 
