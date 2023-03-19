@@ -3,10 +3,14 @@ import { useState } from "react";
 import Grid from "@mui/material/Unstable_Grid2";
 import Skeleton from "@mui/material/Skeleton";
 import Image from "next/image";
-import { Button, useMediaQuery, useTheme } from "@mui/material";
+import { CircularProgress, useMediaQuery, useTheme } from "@mui/material";
 import useSWRMutation from "swr/mutation";
 
 import avatarPlaceholder from "../../assets/placeholder-avatar.png";
+import useLocalStorage from "../../hooks/useLocalStorage";
+import { uploadImageMutation } from "../../services/contactServices";
+import { toast } from "react-toastify";
+import { LoadingButton } from "@mui/lab";
 
 const EditContactAvatar = ({
   avatarSrc,
@@ -14,22 +18,39 @@ const EditContactAvatar = ({
   imageUploaded,
   image,
   uploadedFile,
+  userId,
 }: {
   avatarSrc?: string;
   alt?: string;
   imageUploaded: boolean;
   image?: string;
   uploadedFile?: FileList | null;
+  userId: number;
 }) => {
+  const token = useLocalStorage("user-token");
+
   const [isLoadingSrc, setIsLoadingSrc] = useState<string | null>();
 
   const theme = useTheme();
   const isSmDown = useMediaQuery(theme.breakpoints.down("sm"));
 
+  const { trigger, isMutating } = useSWRMutation(
+    [`/api/imageUpload/${userId}`, token],
+    uploadImageMutation
+  );
+
   const onClickHandler = () => {
     const files = new FormData();
     // @ts-ignore
     files.set("image", uploadedFile);
+
+    trigger(files)
+      .then((res) => {
+        toast.success("عکس شما با موفقیت ثبت شد");
+      })
+      .catch((error) => {
+        toast.error(error.response.data.message);
+      });
   };
 
   const skeleton = (
@@ -104,9 +125,14 @@ const EditContactAvatar = ({
         />
       )}
       {imageUploaded && (
-        <Button onClick={onClickHandler} sx={{ borderRadius: "20px" }}>
+        <LoadingButton
+          loadingIndicator={<CircularProgress size={20} />}
+          loading={isMutating}
+          onClick={onClickHandler}
+          sx={{ borderRadius: "20px" }}
+        >
           ثبت عکس پروفایل
-        </Button>
+        </LoadingButton>
       )}
     </Grid>
   );

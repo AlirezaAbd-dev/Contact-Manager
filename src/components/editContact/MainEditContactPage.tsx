@@ -82,6 +82,7 @@ const MainEditContactPage = ({ id }: { id: number }) => {
                 alt={data.contact.fullname!}
                 imageUploaded={imageUploaded}
                 uploadedFile={uploadedFile}
+                userId={id}
               />
 
               {/* FORM */}
