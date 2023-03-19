@@ -47,7 +47,7 @@ const ViewContactAvatar = ({
             width: "40%",
             height: "auto",
             aspectRatio: "1 / 1",
-            objectFit: "fill",
+            objectFit: "cover",
           }}
           onLoad={() => {
             setIsImageLoaded(imageSrc);
