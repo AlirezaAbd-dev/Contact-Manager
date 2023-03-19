@@ -53,7 +53,6 @@ const EditContactForm = ({
       fullname: contact.fullname,
       email: contact.email || undefined,
       job: contact.job || undefined,
-      image: contact.image || undefined,
       phone: +contact.phone,
     },
     validationSchema: toFormikValidationSchema(addContactValidation),
@@ -64,7 +63,6 @@ const EditContactForm = ({
         phone: values.phone.toString(),
         email: values.email || undefined,
         job: values.job || undefined,
-        image: values.image || undefined,
       });
     },
   });
@@ -81,15 +79,6 @@ const EditContactForm = ({
             onBlur={formik.handleBlur}
             error={formik.touched.fullname && !!formik.errors.fullname}
             helperText={formik.touched.fullname && formik.errors.fullname}
-          />
-          <TextField
-            name="image"
-            label="آدرس تصویر"
-            onChange={formik.handleChange}
-            defaultValue={contact?.image}
-            onBlur={formik.handleBlur}
-            error={formik.touched.image && !!formik.errors.image}
-            helperText={formik.touched.image && formik.errors.image}
           />
           <TextField
             name="phone"

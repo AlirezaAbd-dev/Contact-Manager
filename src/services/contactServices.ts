@@ -120,7 +120,6 @@ export const editContactMutation = (
       phone: string;
       email?: string;
       job?: string;
-      image?: string;
     };
   }
 ) => {

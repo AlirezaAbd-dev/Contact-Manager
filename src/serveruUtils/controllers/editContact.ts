@@ -24,12 +24,11 @@ const editContact = async (
       .send({ message: "اتصال با دیتابیس با خطا مواجه شد!" });
   }
 
-  const { fullname, image, phone, email, job } = req.body;
+  const { fullname, phone, email, job } = req.body;
 
   // Validate Request Body
   const isBodyValid = addContactValidation.safeParse({
     fullname,
-    image,
     phone,
     email,
     job,
@@ -73,6 +72,10 @@ const editContact = async (
       .status(400)
       .send({ message: "نام این مخاطب در لیست شما وجود دارد!" });
   }
+
+  const image = findUser?.contacts.find(
+    (contact) => contact._id.toString() === contactId
+  )?.image;
 
   // Update Chosen Contact To New Values
   try {
