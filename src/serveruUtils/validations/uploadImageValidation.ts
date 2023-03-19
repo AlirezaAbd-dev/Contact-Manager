@@ -8,12 +8,10 @@ const imageValidation = async (
   files: formidable.Files
 ) => {
   if (err?.httpCode === 413) {
-    await client.close();
     return { status: 413, message: "حجم عکس باید کمتر از 1 مگابایت باشد!" };
   }
 
   if (!files.image) {
-    await client.close();
     return { status: 400, message: "لطفا مقادیر را به درستی وارد نمایید!" };
   }
 
@@ -25,7 +23,6 @@ const imageValidation = async (
     // @ts-ignore
     files.image.mimetype !== "image/jpg"
   ) {
-    await client.close();
     return {
       status: 400,
       message: "لطفا فایل عکس را با فرمت درست وارد نمایید!",

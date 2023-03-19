@@ -26,7 +26,7 @@ const EditContactForm = ({
   contact: Contact;
   token: string | undefined;
   contactId: number;
-  setUploadedFile: (file: FileList) => void;
+  setUploadedFile: (file: any) => void;
 }) => {
   const { trigger, isMutating, error, data } = useSWRMutation(
     [`/api/contact/${contactId}`, token],
@@ -144,6 +144,9 @@ const EditContactForm = ({
                     e.target.files &&
                       setImageSrc(URL.createObjectURL(e.target.files[0]));
                     setImageUploaded(true);
+                    if (e.target.files) {
+                      setUploadedFile(e.target.files[0]);
+                    }
                   }}
                 />
                 آپلود تصویر

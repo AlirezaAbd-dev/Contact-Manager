@@ -27,6 +27,7 @@ const UploadImageHandler = async (
     const validated = await imageValidation(err, res, files);
 
     if (validated !== null) {
+      await client.close();
       return res.status(validated.status).json({ message: validated.message });
     }
 

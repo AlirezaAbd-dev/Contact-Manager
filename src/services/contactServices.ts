@@ -146,7 +146,7 @@ export const deleteContactMutation = ([url, token]: [string, string]) => {
 
 export const uploadImageMutation = (
   [url, token]: [string, string],
-  { arg }: { arg: FormData }
+  { arg }
 ) => {
   if (token) {
     return axios.post(url, arg, {

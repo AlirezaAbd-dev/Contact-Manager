@@ -22,12 +22,12 @@ const MainEditContactPage = ({ id }: { id: number }) => {
 
   const [imageSrc, setImageSrc] = useState<string>();
   const [imageUploaded, setImageUploaded] = useState<boolean>(false);
-  const [uploadedFile, setUploadedFile] = useState<FileList>();
+  const [uploadedFile, setUploadedFile] = useState<FileList | null>();
 
   const theme = useTheme();
   const router = useRouter();
 
-  const { data, error, isLoading } = useSWR(
+  const { data, error, isLoading, mutate } = useSWR(
     [`/api/contact/${id}`, token],
     getSingleContactFetcher
   );
@@ -84,6 +84,7 @@ const MainEditContactPage = ({ id }: { id: number }) => {
                 setImageUploaded={setImageUploaded}
                 uploadedFile={uploadedFile}
                 contactId={id}
+                mutate={mutate}
               />
 
               {/* FORM */}

@@ -8,9 +8,11 @@ import useSWRMutation from "swr/mutation";
 
 import avatarPlaceholder from "../../assets/placeholder-avatar.png";
 import useLocalStorage from "../../hooks/useLocalStorage";
-import { uploadImageMutation } from "../../services/contactServices";
+import { Contact, uploadImageMutation } from "../../services/contactServices";
 import { toast } from "react-toastify";
 import { LoadingButton } from "@mui/lab";
+import { useRouter } from "next/navigation";
+import { KeyedMutator } from "swr";
 
 const EditContactAvatar = ({
   avatarSrc,
@@ -20,6 +22,7 @@ const EditContactAvatar = ({
   uploadedFile,
   contactId,
   setImageUploaded,
+  mutate,
 }: {
   avatarSrc?: string;
   alt?: string;
@@ -28,6 +31,9 @@ const EditContactAvatar = ({
   uploadedFile?: FileList | null;
   contactId: number;
   setImageUploaded: Dispatch<SetStateAction<boolean>>;
+  mutate: KeyedMutator<{
+    contact: Contact;
+  } | null>;
 }) => {
   const token = useLocalStorage("user-token");
 
@@ -43,21 +49,22 @@ const EditContactAvatar = ({
 
   useEffect(() => {
     if (error) {
-      toast.error(error.response.data.message);
+      toast.error(error?.response?.data?.message);
     }
   }, [error]);
 
   useEffect(() => {
-    if (data) {
+    if (data?.data) {
       toast.success("عکس شما با موفقیت ثبت شد");
       setImageUploaded(false);
+      mutate();
     }
   }, [data]);
 
   const onClickHandler = () => {
     const files = new FormData();
     // @ts-ignore
-    files.set("image", uploadedFile);
+    files.append("image", uploadedFile);
 
     trigger(files);
   };
