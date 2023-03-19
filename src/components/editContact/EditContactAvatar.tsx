@@ -4,6 +4,7 @@ import Grid from "@mui/material/Unstable_Grid2";
 import Skeleton from "@mui/material/Skeleton";
 import Image from "next/image";
 import { Button, useMediaQuery, useTheme } from "@mui/material";
+import useSWRMutation from "swr/mutation";
 
 import avatarPlaceholder from "../../assets/placeholder-avatar.png";
 
@@ -12,16 +13,24 @@ const EditContactAvatar = ({
   alt,
   imageUploaded,
   image,
+  uploadedFile,
 }: {
   avatarSrc?: string;
   alt?: string;
   imageUploaded: boolean;
   image?: string;
+  uploadedFile?: FileList | null;
 }) => {
   const [isLoadingSrc, setIsLoadingSrc] = useState<string | null>();
 
   const theme = useTheme();
   const isSmDown = useMediaQuery(theme.breakpoints.down("sm"));
+
+  const onClickHandler = () => {
+    const files = new FormData();
+    // @ts-ignore
+    files.set("image", uploadedFile);
+  };
 
   const skeleton = (
     <Skeleton
@@ -95,7 +104,9 @@ const EditContactAvatar = ({
         />
       )}
       {imageUploaded && (
-        <Button sx={{ borderRadius: "20px" }}>ثبت عکس پروفایل</Button>
+        <Button onClick={onClickHandler} sx={{ borderRadius: "20px" }}>
+          ثبت عکس پروفایل
+        </Button>
       )}
     </Grid>
   );

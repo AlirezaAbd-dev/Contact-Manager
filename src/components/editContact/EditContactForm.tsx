@@ -19,12 +19,14 @@ const EditContactForm = ({
   setImageUploaded,
   token,
   contactId,
+  setUploadedFile,
 }: {
   setImageSrc: Dispatch<string | undefined>;
   setImageUploaded: Dispatch<boolean>;
   contact: Contact;
   token: string | undefined;
   contactId: number;
+  setUploadedFile: (file: FileList) => void;
 }) => {
   const { trigger, isMutating, error, data } = useSWRMutation(
     [`/api/contact/${contactId}`, token],

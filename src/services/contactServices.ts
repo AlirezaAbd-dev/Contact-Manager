@@ -143,3 +143,18 @@ export const deleteContactMutation = ([url, token]: [string, string]) => {
     return null;
   }
 };
+
+export const uploadImageMutation = (
+  [url, token]: [string, string],
+  { arg }
+) => {
+  if (token) {
+    return axios.post(url, arg, {
+      headers: {
+        "x-authentication-token": token,
+      },
+    });
+  } else {
+    return null;
+  }
+};

@@ -22,6 +22,7 @@ const MainEditContactPage = ({ id }: { id: number }) => {
 
   const [imageSrc, setImageSrc] = useState<string>();
   const [imageUploaded, setImageUploaded] = useState<boolean>(false);
+  const [uploadedFile, setUploadedFile] = useState<FileList>();
 
   const theme = useTheme();
   const router = useRouter();
@@ -30,6 +31,10 @@ const MainEditContactPage = ({ id }: { id: number }) => {
     [`/api/contact/${id}`, token],
     getSingleContactFetcher
   );
+
+  const onUploadFile = (file: FileList) => {
+    setUploadedFile(file);
+  };
 
   useEffect(() => {
     if (data && data.contact.image) {
@@ -76,6 +81,7 @@ const MainEditContactPage = ({ id }: { id: number }) => {
                 avatarSrc={imageSrc!}
                 alt={data.contact.fullname!}
                 imageUploaded={imageUploaded}
+                uploadedFile={uploadedFile}
               />
 
               {/* FORM */}
@@ -85,6 +91,7 @@ const MainEditContactPage = ({ id }: { id: number }) => {
                 contact={data?.contact}
                 token={token}
                 contactId={id}
+                setUploadedFile={onUploadFile}
               />
             </Grid>
           </EditContactCard>
