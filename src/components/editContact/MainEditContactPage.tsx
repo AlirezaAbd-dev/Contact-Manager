@@ -81,8 +81,9 @@ const MainEditContactPage = ({ id }: { id: number }) => {
                 avatarSrc={imageSrc!}
                 alt={data.contact.fullname!}
                 imageUploaded={imageUploaded}
+                setImageUploaded={setImageUploaded}
                 uploadedFile={uploadedFile}
-                userId={id}
+                contactId={id}
               />
 
               {/* FORM */}

@@ -24,16 +24,25 @@ const UploadImageHandler = async (
   const form = formidable({ maxFileSize: 1024 * 1024 });
 
   form.parse(req, async (err, _fields, files) => {
-    await imageValidation(err, res, files);
+    const validated = await imageValidation(err, res, files);
 
-    const fileFormat =
-      // @ts-ignore
-      files.image.mimetype === "image/jpeg"
-        ? ".jpeg"
-        : // @ts-ignore
-        files.image.mimetype === "image/jpg"
-        ? ".jpg"
-        : ".png";
+    if (validated !== null) {
+      return res.status(validated.status).json({ message: validated.message });
+    }
+
+    let fileFormat: string = "";
+    try {
+      fileFormat =
+        // @ts-ignore
+        files?.image?.mimetype === "image/jpeg"
+          ? ".jpeg"
+          : // @ts-ignore
+          files?.image?.mimetype === "image/jpg"
+          ? ".jpg"
+          : ".png";
+    } catch (err) {
+      console.log(err);
+    }
 
     const verifiedUser = verifyToken(req);
 

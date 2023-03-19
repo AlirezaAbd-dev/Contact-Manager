@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Grid from "@mui/material/Unstable_Grid2";
 import Skeleton from "@mui/material/Skeleton";
 import Image from "next/image";
@@ -18,14 +18,16 @@ const EditContactAvatar = ({
   imageUploaded,
   image,
   uploadedFile,
-  userId,
+  contactId,
+  setImageUploaded,
 }: {
   avatarSrc?: string;
   alt?: string;
   imageUploaded: boolean;
   image?: string;
   uploadedFile?: FileList | null;
-  userId: number;
+  contactId: number;
+  setImageUploaded: Dispatch<SetStateAction<boolean>>;
 }) => {
   const token = useLocalStorage("user-token");
 
@@ -34,23 +36,30 @@ const EditContactAvatar = ({
   const theme = useTheme();
   const isSmDown = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const { trigger, isMutating } = useSWRMutation(
-    [`/api/imageUpload/${userId}`, token],
+  const { trigger, data, error, isMutating } = useSWRMutation(
+    [`/api/imageUpload/${contactId}`, token],
     uploadImageMutation
   );
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error.response.data.message);
+    }
+  }, [error]);
+
+  useEffect(() => {
+    if (data) {
+      toast.success("عکس شما با موفقیت ثبت شد");
+      setImageUploaded(false);
+    }
+  }, [data]);
 
   const onClickHandler = () => {
     const files = new FormData();
     // @ts-ignore
     files.set("image", uploadedFile);
 
-    trigger(files)
-      .then((res) => {
-        toast.success("عکس شما با موفقیت ثبت شد");
-      })
-      .catch((error) => {
-        toast.error(error.response.data.message);
-      });
+    trigger(files);
   };
 
   const skeleton = (
