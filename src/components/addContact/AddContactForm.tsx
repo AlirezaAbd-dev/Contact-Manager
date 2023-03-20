@@ -98,16 +98,25 @@ const AddContactForm = () => {
           onSubmit={formik.handleSubmit}
         >
           {imageSrc && (
-            <Image
-              src={imageSrc}
-              alt="image"
-              width={200}
-              height={200}
-              style={{
-                borderRadius: "100%",
-                objectFit: "cover",
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                mb: 2,
               }}
-            />
+            >
+              <Image
+                src={imageSrc}
+                alt="image"
+                width={200}
+                height={200}
+                style={{
+                  borderRadius: "100%",
+                  objectFit: "cover",
+                }}
+              />
+            </Box>
           )}
           <TextField
             label="نام و نام خانوادگی"
