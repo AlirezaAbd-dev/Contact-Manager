@@ -24,22 +24,20 @@ const initialValues = {
   email: "",
   job: "",
   phone: 0,
-  image: "",
 };
 
 const AddContactForm = () => {
   const token = useLocalStorage("user-token");
 
   const [formLoading, setFormLoading] = useState(false);
-  const [imageSrc, setImageSrc] = useState<any>();
+  const [imageSrc, setImageSrc] = useState<string | null>();
+  const [loadedImage, setLoadedImage] = useState<File | null>();
   const router = useRouter();
 
   const { trigger, isMutating, error, data } = useSWRMutation(
     ["/api/contact", token],
     addContactMutation
   );
-
-  const theme = useTheme();
 
   if (data) {
     toast.success("مخاطب جدید با موفقیت ساخته شد");
@@ -56,12 +54,19 @@ const AddContactForm = () => {
     initialValues,
     validationSchema: toFormikValidationSchema(addContactValidation),
     onSubmit: (values) => {
-      trigger({
-        fullname: values.fullname,
-        email: values.email || undefined,
-        job: values.job || undefined,
-        phone: values.phone.toString(),
-      });
+      const data = new FormData();
+
+      data.append("fullname", values.fullname);
+      values.email && data.append("email", values.email);
+      values.job && data.append("job", values.job);
+      data.append("phone", values.phone.toString());
+
+      if (loadedImage) {
+        // @ts-ignore
+        data.append("image", loadedImage);
+      }
+
+      trigger(data);
     },
   });
 
@@ -93,27 +98,16 @@ const AddContactForm = () => {
           onSubmit={formik.handleSubmit}
         >
           {imageSrc && (
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                gap: 2,
+            <Image
+              src={imageSrc}
+              alt="image"
+              width={200}
+              height={200}
+              style={{
+                borderRadius: "100%",
+                objectFit: "cover",
               }}
-            >
-              <Image
-                src={imageSrc}
-                alt="image"
-                width={200}
-                height={200}
-                style={{
-                  borderRadius: "100%",
-                  objectFit: "cover",
-                }}
-              />
-
-              <Button>ثبت عکس پروفایل</Button>
-            </Box>
+            />
           )}
           <TextField
             label="نام و نام خانوادگی"
@@ -122,14 +116,6 @@ const AddContactForm = () => {
             error={formik.touched.fullname && !!formik.errors.fullname}
             onBlur={formik.handleBlur}
             helperText={formik.touched.fullname && formik.errors.fullname}
-          />
-          <TextField
-            label="آدرس تصویر"
-            name="image"
-            onChange={formik.handleChange}
-            error={formik.touched.image && !!formik.errors.image}
-            onBlur={formik.handleBlur}
-            helperText={formik.touched.image && formik.errors.image}
           />
           <TextField
             label="شماره موبایل"
@@ -170,8 +156,10 @@ const AddContactForm = () => {
                   name="image"
                   style={{ display: "none" }}
                   onChange={(e) => {
-                    e.target.files &&
+                    if (e.target.files) {
                       setImageSrc(URL.createObjectURL(e.target.files[0]));
+                      setLoadedImage(e.target.files[0]);
+                    }
                   }}
                 />
                 آپلود تصویر

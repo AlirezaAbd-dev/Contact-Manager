@@ -17,8 +17,4 @@ export default z.object({
     .min(8, {
       message: "شماره تلفن باید حداقل 8 کاراکتر باشد!",
     }),
-  image: z
-    .string()
-    .url({ message: "لطفا آدرس تصویر را به درستی وارد نمایید!" })
-    .optional(),
 });

@@ -89,13 +89,7 @@ export const addContactMutation = (
   {
     arg: data,
   }: {
-    arg: {
-      fullname: string;
-      phone: string;
-      email?: string;
-      job?: string;
-      image?: string;
-    };
+    arg: FormData;
   }
 ): Promise<Contact> | null => {
   if (token) {
