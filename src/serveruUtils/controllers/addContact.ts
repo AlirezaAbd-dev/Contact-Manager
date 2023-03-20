@@ -40,6 +40,23 @@ const addContact = async (
       job: string;
     };
 
+    if (err?.httpCode === 413) {
+      return res
+        .status(413)
+        .json({ message: "حجم عکس باید کمتر از 1 مگابایت باشد!" });
+    }
+
+    if (files.image) {
+      const validatedImage = await uploadImageValidation(files);
+
+      if (validatedImage) {
+        await client.close();
+        return res
+          .status(validatedImage.statusCode)
+          .send({ message: validatedImage.message });
+      }
+    }
+
     // Validate Request Body
     const isBodyValid = addContactValidation.safeParse({
       fullname,
@@ -47,10 +64,6 @@ const addContact = async (
       email,
       job,
     });
-
-    if (files.image) {
-      await uploadImageValidation(err, res, files);
-    }
 
     if (!isBodyValid.success) {
       await client.close();
