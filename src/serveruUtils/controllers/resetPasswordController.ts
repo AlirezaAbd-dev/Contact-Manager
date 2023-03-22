@@ -2,8 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 import resetPasswordValidation from "../validations/resetPasswordValidation";
 import nodemailer from "nodemailer";
-
-import contactManagerLogo from "../../assets/contact-manager-logo.png";
+import jwt from "jsonwebtoken";
 
 interface ResetPasswordRequest extends NextApiRequest {
   body: {
@@ -34,9 +33,17 @@ const resetPasswordController = async (
     },
   });
 
+  const asignedToken = jwt.sign(
+    {
+      email: req.body.email,
+      duty: "reset password",
+    },
+    process.env.JWT_RESET_PASSWORD_SECRET_KEY!
+  );
+
   const HTML = `<section style='direction: rtl; padding: 20px; background-color: #282a36'; color: #fff; border-radius: 25px;'>
-    <center>
-      <img src='${contactManagerLogo}' alt='logo' />
+    <center style='width: 100%;'>
+      <img src='https://github.com/AlirezaAbd-dev/Contact-Manager-client-Remake/blob/c0778ce70666b60d3bb035469e40b5866e1c29d2/src/assets/contact-manager-logo.png?raw=true' alt='logo' width='100%' height='auto' />
     </center>
     <h1 style='text-align: center; font-weight: bold;'>
       سلام کاربر عزیز 🌹
@@ -51,7 +58,9 @@ const resetPasswordController = async (
     </p>
     <br />
     <center>
-      <a href='${req.body.url}' style='padding: 7px 15px 7px 15px; border-radius: 20px; background-color: #BD93F9; color: #000; font-size: 18px; font-weight: bold;'>
+      <a href='${
+        req.body.url + "/" + asignedToken
+      }' style='padding: 7px 15px 7px 15px; border-radius: 20px; background-color: #BD93F9; color: #000; font-size: 18px; font-weight: bold;'>
         تغییر رمز عبور
       </a>
     </center>
@@ -64,16 +73,14 @@ const resetPasswordController = async (
     html: HTML,
   };
 
-  transporter.sendMail(mailOptions, (err, info) => {
+  transporter.sendMail(mailOptions, (err, _info) => {
     if (err) {
       console.log(err.message);
 
-      return res.send(err);
+      return res.status(500).json({ message: "ارسال ایمیل با خطا مواجه شد!" });
     }
-    res.status(200).send({ message: "message sent: %s" + info.messageId });
+    res.status(200).send({ message: "ایمیل با موفقیت ارسال شد" });
   });
-
-  // console.log(req.headers.host);
 };
 
 export default resetPasswordController;
