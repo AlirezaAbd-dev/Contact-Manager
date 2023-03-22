@@ -3,6 +3,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import resetPasswordValidation from "../validations/resetPasswordValidation";
 import nodemailer from "nodemailer";
 import jwt from "jsonwebtoken";
+import SMTPTransport from "nodemailer/lib/smtp-transport";
 
 interface ResetPasswordRequest extends NextApiRequest {
   body: {
@@ -23,22 +24,29 @@ const resetPasswordController = async (
 
   const EMAIL_ADDRESS = process.env.EMAIL_ADDRESS!;
 
-  let transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 587,
-    secure: false,
-    auth: {
-      user: EMAIL_ADDRESS,
-      pass: process.env.EMAIL_PASSWORD!,
-    },
-  });
+  let transporter: nodemailer.Transporter<SMTPTransport.SentMessageInfo>;
+  try {
+    transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 587,
+      secure: false,
+      auth: {
+        user: EMAIL_ADDRESS,
+        pass: process.env.EMAIL_PASSWORD!,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ message: "خطایی در سرور رخ داد!" });
+  }
 
   const asignedToken = jwt.sign(
     {
       email: req.body.email,
       duty: "reset password",
     },
-    process.env.JWT_RESET_PASSWORD_SECRET_KEY!
+    process.env.JWT_RESET_PASSWORD_SECRET_KEY!,
+    { expiresIn: "1h" }
   );
 
   const HTML = `<section style='direction: rtl; padding: 20px; background-color: #282a36'; color: #fff; border-radius: 25px;'>
@@ -49,10 +57,9 @@ const resetPasswordController = async (
       سلام کاربر عزیز 🌹
     </h1>
     <br />
-    <h4>
+    <h3>
       از این که وبسایت ما را برای ذخیره مخاطبین خود انتخاب کرده اید بسیار سپاس گذاریم 🙏🙏
-    </h4>
-    <br />
+    </h3>
     <p>
       برای تغییر رمز عبور خود فقط کافیست روی دکمه ی زیر کلیک کنید و رمز جدید خود را وارد نمایید 👇👇
     </p>
@@ -79,7 +86,7 @@ const resetPasswordController = async (
 
       return res.status(500).json({ message: "ارسال ایمیل با خطا مواجه شد!" });
     }
-    res.status(200).send({ message: "ایمیل با موفقیت ارسال شد" });
+    return res.status(200).send({ message: "ایمیل با موفقیت ارسال شد" });
   });
 };
 
