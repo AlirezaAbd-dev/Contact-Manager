@@ -4,6 +4,7 @@ import client from "../databaseClient/client";
 export interface UserCollectiontype {
   email: string;
   password: string;
+  resetPassAmount: number;
   contacts: {
     _id: ObjectId;
     fullname: string;

@@ -2,10 +2,13 @@ import { NextApiResponse } from "next";
 import bcrypt from "bcrypt";
 
 import { ChangePasswordRequest } from "../../pages/api/password";
-import userCollection from "../collection/userCollection";
+import userCollection, {
+  UserCollectiontype,
+} from "../collection/userCollection";
 import client from "../databaseClient/client";
 import verifyResetPasswordToken from "../middleware/verifyResetPasswordToken";
 import changePasswordValidation from "../validations/changePasswordValidation";
+import { WithId } from "mongodb";
 
 const handler = async (req: ChangePasswordRequest, res: NextApiResponse) => {
   const verifiedUser = verifyResetPasswordToken(req);
@@ -32,8 +35,9 @@ const handler = async (req: ChangePasswordRequest, res: NextApiResponse) => {
       .json({ message: "اتصال با دیتابیس با خطا مواجه شد!" });
   }
 
+  let findUser: WithId<UserCollectiontype> | null;
   try {
-    const findUser = await userCollection.findOne({
+    findUser = await userCollection.findOne({
       email: verifiedUser?.email,
     });
 
@@ -62,6 +66,7 @@ const handler = async (req: ChangePasswordRequest, res: NextApiResponse) => {
         { email: verifiedUser?.email },
         {
           $set: {
+            resetPassAmount: +findUser.resetPassAmount++,
             password: hashedPassword,
           },
         }

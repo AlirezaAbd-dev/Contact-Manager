@@ -1,6 +1,6 @@
 import { NextApiResponse } from "next";
 import bcrypt from "bcrypt";
-import { sign } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 import { NextRequest } from "../../../types";
 import userCollection from "../collection/userCollection";
@@ -55,11 +55,15 @@ const signInController = async (req: NextRequest, res: NextApiResponse) => {
     await userCollection.insertOne({
       email: req.body.email,
       password: hashPassword,
+      resetPassAmount: 0,
       contacts: [],
     });
 
     // Creating JsonWebToken
-    const token = sign(JSON.stringify({ email: req.body.email }), jwtSecret);
+    const token = jwt.sign(
+      JSON.stringify({ email: req.body.email }),
+      jwtSecret
+    );
 
     // Closing Connection With Database
     await client.close();

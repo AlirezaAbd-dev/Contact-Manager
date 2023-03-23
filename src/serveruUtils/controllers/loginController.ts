@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import { sign } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import { NextApiResponse } from "next";
 import { NextRequest } from "../../../types";
 
@@ -8,9 +8,6 @@ import client from "../databaseClient/client";
 import signInValidation from "../validations/signInValidation";
 
 const loginController = async (req: NextRequest, res: NextApiResponse) => {
-  // Environment Variables
-  const jwtSecret = process.env.JWT_SECRET_KEY!;
-
   // Check The Request Method
   if (req.method === "POST") {
     // Database Connection
@@ -56,7 +53,10 @@ const loginController = async (req: NextRequest, res: NextApiResponse) => {
     }
 
     // Creating JsonWebToken
-    const token = sign(JSON.stringify({ email: req.body.email }), jwtSecret);
+    const token = jwt.sign(
+      JSON.stringify({ email: req.body.email }),
+      process.env.JWT_SECRET_KEY!
+    );
 
     // Closing Connection With Database
     await client.close();

@@ -1,9 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import jwt from "jsonwebtoken";
+import nodemailer from "nodemailer";
+import SMTPTransport from "nodemailer/lib/smtp-transport";
 
 import resetPasswordValidation from "../validations/resetPasswordValidation";
-import nodemailer from "nodemailer";
-import jwt from "jsonwebtoken";
-import SMTPTransport from "nodemailer/lib/smtp-transport";
 
 interface ResetPasswordRequest extends NextApiRequest {
   body: {
