@@ -54,7 +54,10 @@ const loginController = async (req: NextRequest, res: NextApiResponse) => {
 
     // Creating JsonWebToken
     const token = jwt.sign(
-      JSON.stringify({ email: req.body.email }),
+      JSON.stringify({
+        email: req.body.email,
+        resetPassAmount: findUser[0].resetPassAmount,
+      }),
       process.env.JWT_SECRET_KEY!
     );
 
