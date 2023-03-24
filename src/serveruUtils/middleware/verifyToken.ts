@@ -1,4 +1,4 @@
-import jwt, { JwtPayload } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 import { CustomNextRequest } from "../../../types";
 import userCollection from "../collection/userCollection";
@@ -22,7 +22,7 @@ export default async function (req: CustomNextRequest) {
     if (user.email) {
       const findUser = await userCollection.findOne({ email: user?.email });
 
-      if (!findUser || findUser.resetPassAmount > user.resetPassAmount) {
+      if (!findUser || +findUser.resetPassAmount > +user.resetPassAmount) {
         return null;
       }
     }

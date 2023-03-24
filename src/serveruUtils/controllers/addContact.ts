@@ -78,7 +78,7 @@ const addContact = async (
     if (!verifiedUser || !verifiedUser.email) {
       await client.close();
       return res
-        .status(500)
+        .status(401)
         .send({ message: "شما به این صفحه درسترسی ندارید!" });
     }
 

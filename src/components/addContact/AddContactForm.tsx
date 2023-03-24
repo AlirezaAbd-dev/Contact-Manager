@@ -47,6 +47,9 @@ const AddContactForm = () => {
   useEffect(() => {
     if (error && !isMutating) {
       toast.error(error.response.data.message);
+      if (error.response.statusCode === 401) {
+        router.replace("/signIn");
+      }
     }
   }, [error]);
 

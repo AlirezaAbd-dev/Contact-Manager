@@ -45,7 +45,7 @@ const DeleteConfirmDialog = () => {
     if (error) {
       toast.error(error.response.data.message);
 
-      if (error.response.status === 404) {
+      if (error.response.status === (404 || 401)) {
         setIsModalClose();
       }
     }

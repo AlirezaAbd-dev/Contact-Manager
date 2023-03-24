@@ -39,7 +39,7 @@ const MainViewContactPage = ({ id }: { id: string }) => {
     if (error) {
       toast.error(error.response.data.message);
 
-      if (error.response.status === 404) {
+      if (error.response.status === 404 || error.response.status === 401) {
         router.replace("/");
       }
     }

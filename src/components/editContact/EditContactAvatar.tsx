@@ -39,6 +39,7 @@ const EditContactAvatar = ({
 
   const [isLoadingSrc, setIsLoadingSrc] = useState<string | null>();
 
+  const router = useRouter();
   const theme = useTheme();
   const isSmDown = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -50,6 +51,10 @@ const EditContactAvatar = ({
   useEffect(() => {
     if (error) {
       toast.error(error?.response?.data?.message);
+
+      if (error.response.statusCode === 401) {
+        router.replace("/signIn");
+      }
     }
   }, [error]);
 
