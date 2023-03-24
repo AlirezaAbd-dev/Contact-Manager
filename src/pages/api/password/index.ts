@@ -7,6 +7,7 @@ export interface ChangePasswordRequest extends NextApiRequest {
   body: {
     email: string;
     password: string;
+    url: string;
   };
   headers: {
     "x-password-token": string;

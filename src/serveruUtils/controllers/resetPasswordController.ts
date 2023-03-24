@@ -6,16 +6,10 @@ import SMTPTransport from "nodemailer/lib/smtp-transport";
 import resetPasswordValidation from "../validations/resetPasswordValidation";
 import client from "../databaseClient/client";
 import userCollection from "../collection/userCollection";
-
-interface ResetPasswordRequest extends NextApiRequest {
-  body: {
-    email: string;
-    url: string;
-  };
-}
+import { ChangePasswordRequest } from "../../pages/api/password";
 
 const resetPasswordController = async (
-  req: ResetPasswordRequest,
+  req: ChangePasswordRequest,
   res: NextApiResponse
 ) => {
   const validatedBody = resetPasswordValidation.safeParse(req.body);
