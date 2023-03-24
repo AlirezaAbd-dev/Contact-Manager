@@ -34,6 +34,21 @@ export const resetPasswordService = async (email: string) => {
   });
 };
 
+export const changePasswordService = async (
+  password: string,
+  token: string
+) => {
+  return await axios.put(
+    "/api/password",
+    { password },
+    {
+      headers: {
+        "x-password-token": token,
+      },
+    }
+  );
+};
+
 // `/api/contacts?page=${pageQuery || 1}`
 export const getPaginatedContactsFetcher = ([url, token]: [
   string,
