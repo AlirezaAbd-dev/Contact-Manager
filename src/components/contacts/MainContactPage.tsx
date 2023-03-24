@@ -3,7 +3,7 @@ import { lazy } from "react";
 import Grid from "@mui/material/Unstable_Grid2";
 import { Box, useTheme } from "@mui/material";
 import useSWR from "swr";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Triangle } from "react-loader-spinner";
 
 import AddContactButton from "./AddContactButton";
@@ -23,6 +23,7 @@ const MainContactPage = () => {
   const token = useLocalStorage("user-token");
 
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   let pageQuery = searchParams?.get("page");
 
@@ -35,6 +36,9 @@ const MainContactPage = () => {
 
   if (error) {
     toast.error(error.response.data.message);
+    if (error.response.status === 401) {
+      router.replace("/signIn");
+    }
   }
 
   return (
