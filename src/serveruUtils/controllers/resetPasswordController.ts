@@ -4,11 +4,13 @@ import nodemailer from "nodemailer";
 import SMTPTransport from "nodemailer/lib/smtp-transport";
 
 import resetPasswordValidation from "../validations/resetPasswordValidation";
+import client from "../databaseClient/client";
+import userCollection from "../collection/userCollection";
 
 interface ResetPasswordRequest extends NextApiRequest {
   body: {
     email: string;
-    url?: string;
+    url: string;
   };
 }
 
@@ -21,6 +23,32 @@ const resetPasswordController = async (
   if (!validatedBody.success) {
     res.status(400).json({ message: validatedBody.error.issues[0].message });
   }
+
+  // Database Connection
+  try {
+    await client.connect();
+  } catch (err) {
+    return res
+      .status(500)
+      .send({ message: "اتصال با دیتابیس با خطا مواجه شد!" });
+  }
+
+  await userCollection
+    .findOne({ email: req.body.email })
+    .then(async (resolve) => {
+      if (!resolve) {
+        return res
+          .status(404)
+          .json({ message: "کاربری با این ایمیل یافت نشد!" });
+      }
+    })
+    .catch(async (err) => {
+      console.log(err);
+      return res.status(404).json({ message: "کاربری با این ایمیل یافت نشد!" });
+    })
+    .finally(async () => {
+      await client.close();
+    });
 
   const EMAIL_ADDRESS = process.env.EMAIL_ADDRESS!;
 
