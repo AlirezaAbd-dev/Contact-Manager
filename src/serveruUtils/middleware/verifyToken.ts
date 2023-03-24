@@ -19,6 +19,10 @@ export default async function (req: CustomNextRequest) {
   try {
     await client.connect();
 
+    if (!user.resetPassAmount) {
+      return null;
+    }
+
     if (user.email) {
       const findUser = await userCollection.findOne({ email: user?.email });
 
