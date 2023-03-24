@@ -15,11 +15,7 @@ export const changePasswordValidation = z
       .string({ required_error: "لطفا فیلد رمز عبور را پر کنید!" })
       .min(8, { message: "رمز عبور باید بیشتر از 8 کاراکتر باشد!" }),
   })
-  .superRefine(({ confirmPassword, password }, ctx) => {
-    if (confirmPassword !== password) {
-      ctx.addIssue({
-        code: "custom",
-        message: "رمز عبور و تکرار رمز عبور باید یکسان باشند!",
-      });
-    }
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "رمز عبور و تکرار رمز عبور باید یکسان باشند!",
+    path: ["confirmPassword"],
   });
