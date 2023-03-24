@@ -9,5 +9,4 @@ export default z.object({
   url: z
     .string()
     .url({ message: "لطفا آدرس را به درستی وارد نمایید!" })
-    .optional(),
 });

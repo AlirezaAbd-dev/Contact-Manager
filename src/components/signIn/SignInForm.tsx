@@ -11,6 +11,8 @@ import { toast } from "react-toastify";
 
 import loginValidation from "../../validations/loginValidation";
 import { loginService, signInService } from "../../services/contactServices";
+import Link from "next/link";
+import { red } from "@mui/material/colors";
 
 const initialValues = { email: "", password: "" };
 
@@ -83,6 +85,7 @@ const SignInForm = ({ page }: { page: number }) => {
       <Box
         width="80%"
         my={2}
+        mb={2}
         display="flex"
         flexDirection="column"
         alignItems="center"
@@ -114,6 +117,14 @@ const SignInForm = ({ page }: { page: number }) => {
             ),
           }}
         />
+        <Box width="100%" textAlign="left">
+          <Link
+            href="/resetPassword"
+            style={{ color: red[300], textDecoration: "none" }}
+          >
+            رمز عبور خود را فراموش کرده اید؟
+          </Link>
+        </Box>
       </Box>
       <Button type="submit" variant="contained" color="secondary">
         {page === 0 ? "ورود" : "ثبت نام"}

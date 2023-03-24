@@ -27,6 +27,13 @@ export const loginService = async (email: string, password: string) => {
   return await axios.post("/api/login", { email, password });
 };
 
+export const resetPasswordService = async (email: string) => {
+  return await axios.post("/api/password", {
+    email,
+    url: process.env.NEXT_PUBLIC_API_URL! + "/resetPassword",
+  });
+};
+
 // `/api/contacts?page=${pageQuery || 1}`
 export const getPaginatedContactsFetcher = ([url, token]: [
   string,

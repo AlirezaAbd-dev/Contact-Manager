@@ -32,8 +32,6 @@ const MainContactPage = () => {
     getPaginatedContactsFetcher
   );
 
-  console.log(data?.contacts);
-
   if (error) {
     toast.error(error.response.data.message);
     if (error.response.status === 401) {

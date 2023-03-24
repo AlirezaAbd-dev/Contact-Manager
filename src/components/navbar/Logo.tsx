@@ -1,6 +1,6 @@
 "use client";
 import { ContactsRounded } from "@mui/icons-material";
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import Link from "next/link";
 
@@ -35,11 +35,18 @@ const Logo = ({ showSearch }: { showSearch: boolean }) => {
         }}
       >
         <Link href="/" style={{ textDecoration: "none", cursor: "pointer" }}>
-          <Typography display="inline" variant="h6" color="text.primary">
+          <h1
+            style={{
+              display: "inline",
+              color: theme.palette.text.primary,
+              fontSize: "20px",
+              fontWeight: "lighter",
+            }}
+          >
             <ContactsRounded fontSize="medium" color="primary" /> وب اپلیکیشن
             مدیریت{" "}
             <span style={{ color: theme.palette.primary.main }}>مخاطبین</span>
-          </Typography>
+          </h1>
         </Link>
       </Box>
     </Grid>

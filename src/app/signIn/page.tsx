@@ -1,4 +1,3 @@
-import axios from "axios";
 import { Metadata } from "next";
 import MainSignInPage from "../../components/signIn/MainSignInPage";
 
