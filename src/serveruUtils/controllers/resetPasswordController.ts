@@ -65,7 +65,7 @@ const resetPasswordController = async (
   const asignedToken = jwt.sign(
     {
       email: req.body.email,
-      duty: "reset password",
+      duty: process.env.PASSWORD_DUTY_KEY!,
     },
     process.env.JWT_RESET_PASSWORD_SECRET_KEY!,
     { expiresIn: "1h" }
