@@ -2,9 +2,9 @@ import { Metadata } from "next";
 import MainChangePasswordPage from "../../../components/changePassword/MainChangePasswordPage";
 
 export const metadata: Metadata = {
-  title: "مدیریت مخاطبین | فراموشی رمز عبور",
+  title: "مدیریت مخاطبین | تغییر رمز عبور",
   description:
-    "از طریق این صفحه میتوانید رمز عبور هود را در صورت فراموشی بازیابی کنید.",
+    "از طریق این صفحه میتوانید رمز عبور خود را در صورت فراموشی بازیابی کنید.",
 };
 export default function ChangePassword({
   params: { token },

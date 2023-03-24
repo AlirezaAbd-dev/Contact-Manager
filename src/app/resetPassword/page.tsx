@@ -4,7 +4,7 @@ import MainResetPasswordPage from "../../components/resetPassword/MainResetPassw
 export const metadata: Metadata = {
   title: "مدیریت مخاطبین | فراموشی رمز عبور",
   description:
-    "از طریق این صفحه میتوانید رمز عبور هود را در صورت فراموشی بازیابی کنید.",
+    "از طریق این صفحه میتوانید رمز عبور خود را در صورت فراموشی بازیابی کنید.",
 };
 
 const ResetPassword = async () => {
