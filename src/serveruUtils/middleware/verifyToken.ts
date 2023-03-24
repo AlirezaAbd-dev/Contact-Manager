@@ -22,11 +22,7 @@ export default async function (req: CustomNextRequest) {
     if (user.email) {
       const findUser = await userCollection.findOne({ email: user?.email });
 
-      if (!findUser) {
-        return null;
-      }
-
-      if (findUser.resetPassAmount > user.resetPassAmount) {
+      if (!findUser || findUser.resetPassAmount > user.resetPassAmount) {
         return null;
       }
     }

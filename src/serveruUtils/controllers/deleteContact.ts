@@ -24,7 +24,7 @@ const deleteContact = async (
   }
 
   // Validate Request JsonWebToken
-  const verifiedUser = verifyToken(req);
+  const verifiedUser = await verifyToken(req);
 
   if (!verifiedUser || !verifiedUser.email) {
     await client.close();
