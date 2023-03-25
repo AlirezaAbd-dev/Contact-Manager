@@ -9,11 +9,7 @@
 <br><br>
 
 <div align="center">
-    <h3>You can see the deployed project just by <a href="https://contact-manager-ecru.vercel.app">clicking here</a> or the button below</h3>
-    <br/>
-    <a href="https://contact-manager-ecru.vercel.app">
-    <button style="border-radius: 20px; padding: 12px; background-color: #BD93F9; cursor: pointer">Visit Website</button>
-    </a>
+    <h3>You can see the deployed project just by <a href="https://contact-manager-ecru.vercel.app">clicking here</a></h3>
 </div>
 
 <br><br><br>
