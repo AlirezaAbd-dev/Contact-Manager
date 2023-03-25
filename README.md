@@ -3,7 +3,7 @@
 </div>
 <br><br><br>
 <h2 align='center'>
-    You can make your account in this website and use it to manage your contacts in it. 
+    You can make your account in this website and use it to manage your contacts in it. this is a fully responsive web app and works perfectly fine on mobile.
 </h2>
 
 <br><br>
