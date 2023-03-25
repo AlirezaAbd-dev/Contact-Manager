@@ -1,38 +1,73 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1 align='center' style="font-size:5rem"><b>Contact Manager</b></h1>
 
-## Getting Started
+</div>
+<br><br><br>
+<h2 align='center'>
+    This website can be used to save your contacts information and manage them. 
+</h2>
 
-First, run the development server:
+<br><br><br>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+<div align='center'>
+    <h2>Main page</h2>
+    <img style='border-radius:5px' src="https://github.com/0AliReza0/MERN-Stack-Typescript-contact-manager/blob/72c943eb975376bfe90f458020a6d683e4348099/image/%D9%85%D8%AF%DB%8C%D8%B1%DB%8C%D8%AA%20%D9%85%D8%AE%D8%A7%D8%B7%D8%A8%DB%8C%D9%86%20-%20Brave%2010_3_2022%204_02_38%20PM.png"></img>
+    <br>
+    <br><br><br>
+    <h2>Edit Page</h2>
+    <img style='border-radius:5px' src="https://github.com/0AliReza0/MERN-Stack-Typescript-contact-manager/blob/72c943eb975376bfe90f458020a6d683e4348099/image/Contact-manager_README.md%20at%20master%20%C2%B7%200AliReza0_Contact-manager%20-%20Brave%2010_3_2022%204_09_30%20PM.png"></img>
+</div>
+<hr>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<br><br><br><br>
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+<h1 align='center'><b>Abilities</b></h1>
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+<ul>
+    <li> Able To Run Server</li>
+    <li> Able To add a contact,edit and remove it</li>
+</ul>
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+<hr>
+<br><br><br><br>
+<h1 align='center'><b>Language and technologies used in This Project</h1>
+<img src="https://img.shields.io/badge/WebStorm-000000?style=for-the-badge&logo=WebStorm&logoColor=white"></img>
+<img src="https://img.shields.io/badge/VSCode-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white"></img>
+<img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white"></img>
+<img src="https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white"></img>
+<img src="https://img.shields.io/badge/NPM-%23000000.svg?style=for-the-badge&logo=npm&logoColor=white"></img>
+<img src="https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white"></img>
+<img src="https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white"></img>
+<img src="https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E"></img>
+<img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB"></img>
+<img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white"></img>
+<img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white"></img>
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+<br><br><br><br>
 
-## Learn More
+<h1 align='center'><b>Requirements</b></h1>
 
-To learn more about Next.js, take a look at the following resources:
+Download and install `NodeJS` from official website <a href="https://nodejs.org/">nodeJS.org</a>
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+<br>
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Download and install `MongoDB` from official website <a href="https://www.mongodb.com/try/download/community">mongoDB.com</a>
 
-## Deploy on Vercel
+<br><br><br><br>
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+<h1 align='center'><b>How To Run</b></h1>
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+At first you have to clone the project and open it in `IDE`
+
+<br>
+
+Open IDE's terminal and then write `~ cd client` and enter
+
+<br>
+
+After that write `~ npm i` and enter
+
+<br>
+
+type `~ npm start` and then enter
+
+Congratulations ,now you can add a contact and manage it.
