@@ -3,18 +3,59 @@
 </div>
 <br><br><br>
 <h2 align='center'>
-    This website can be used to save your contacts information and manage them. 
+    You can make your account in this website and use it to manage your contacts in it. 
 </h2>
+
+<br><br>
+
+<div align="center">
+    <h3>You can see the deployed project just by <a href="https://contact-manager-ecru.vercel.app">clicking here</a> or the button below</h3>
+    <br/>
+    <a href="https://contact-manager-ecru.vercel.app">
+    <button style="border-radius: 20px; padding: 12px; background-color: #BD93F9; cursor: pointer">View Website</button>
+    </a>
+</div>
+
+<br><br><br>
+
+<h1 align='center'><b>Language and technologies used in This Project</h1>
+<img src="https://img.shields.io/badge/WebStorm-000000?style=for-the-badge&logo=WebStorm&logoColor=white"></img>
+<img src="https://img.shields.io/badge/VSCode-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white"></img>
+<img src="https://img.shields.io/badge/NPM-%23000000.svg?style=for-the-badge&logo=npm&logoColor=white"></img>
+<img src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white"></img>
+<img src="https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E"></img>
+<img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white"></img>
+<img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB"></img>
+<img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white"></img>
+<img src="https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white"></img>
+<img src="https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white"></img>
+<img src="https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white"></img>
+<img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white"></img>
+<img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white"></img>
+<img src="https://img.shields.io/badge/Material%20UI-007FFF?style=for-the-badge&logo=mui&logoColor=white"></img>
 
 <br><br><br>
 
 <div align='center'>
-    <h2>Main page</h2>
-    <img style='border-radius:5px' src="https://github.com/0AliReza0/MERN-Stack-Typescript-contact-manager/blob/72c943eb975376bfe90f458020a6d683e4348099/image/%D9%85%D8%AF%DB%8C%D8%B1%DB%8C%D8%AA%20%D9%85%D8%AE%D8%A7%D8%B7%D8%A8%DB%8C%D9%86%20-%20Brave%2010_3_2022%204_02_38%20PM.png"></img>
+    <h1><b>Images</b></h1>
+    <h2>SignIn</h2>
+    <img style='border-radius:5px' src="./images/login.png"></img>
     <br>
     <br><br><br>
-    <h2>Edit Page</h2>
-    <img style='border-radius:5px' src="https://github.com/0AliReza0/MERN-Stack-Typescript-contact-manager/blob/72c943eb975376bfe90f458020a6d683e4348099/image/Contact-manager_README.md%20at%20master%20%C2%B7%200AliReza0_Contact-manager%20-%20Brave%2010_3_2022%204_09_30%20PM.png"></img>
+    <h2>Contacts</h2>
+    <img style='border-radius:5px' src="./images/contacts.png"></img>
+    <br>
+    <br><br><br>
+    <h2>contact</h2>
+    <img style='border-radius:5px' src="./images/contact.png"></img>
+    <br>
+    <br><br><br>
+    <h2>EditContact</h2>
+    <img style='border-radius:5px' src="./images/editContact.png"></img>
+    <br>
+    <br><br><br>
+    <h2>ResetPassword</h2>
+    <img style='border-radius:5px' src="./images/resetPassword.png"></img>
 </div>
 <hr>
 
@@ -23,51 +64,12 @@
 <h1 align='center'><b>Abilities</b></h1>
 
 <ul>
-    <li> Able To Run Server</li>
-    <li> Able To add a contact,edit and remove it</li>
+    <li> Able To SignIn, Log and Logout</li>
+    <li> Able To add contact</li>
+    <li> Able To edit contact</li>
+    <li> Able To view contact's details</li>
+    <li> Able To delete contact</li>
+    <li> Able To paginate when contacts are more than 12</li>
+    <li> Able To upload image for contact's profile</li>
+    <li> Able To send email for reset password when user forgot the password</li>
 </ul>
-
-<hr>
-<br><br><br><br>
-<h1 align='center'><b>Language and technologies used in This Project</h1>
-<img src="https://img.shields.io/badge/WebStorm-000000?style=for-the-badge&logo=WebStorm&logoColor=white"></img>
-<img src="https://img.shields.io/badge/VSCode-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white"></img>
-<img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white"></img>
-<img src="https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white"></img>
-<img src="https://img.shields.io/badge/NPM-%23000000.svg?style=for-the-badge&logo=npm&logoColor=white"></img>
-<img src="https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white"></img>
-<img src="https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white"></img>
-<img src="https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E"></img>
-<img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB"></img>
-<img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white"></img>
-<img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white"></img>
-
-<br><br><br><br>
-
-<h1 align='center'><b>Requirements</b></h1>
-
-Download and install `NodeJS` from official website <a href="https://nodejs.org/">nodeJS.org</a>
-
-<br>
-
-Download and install `MongoDB` from official website <a href="https://www.mongodb.com/try/download/community">mongoDB.com</a>
-
-<br><br><br><br>
-
-<h1 align='center'><b>How To Run</b></h1>
-
-At first you have to clone the project and open it in `IDE`
-
-<br>
-
-Open IDE's terminal and then write `~ cd client` and enter
-
-<br>
-
-After that write `~ npm i` and enter
-
-<br>
-
-type `~ npm start` and then enter
-
-Congratulations ,now you can add a contact and manage it.
