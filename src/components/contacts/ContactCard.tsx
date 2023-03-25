@@ -36,6 +36,9 @@ const ContactCard = ({
 }) => {
   const setIsModalOpen = useStore((state) => state.setIsModalOpen);
   const setSelectedContactId = useStore((state) => state.setSelectedContactId);
+  const setSelectedContactName = useStore(
+    (state) => state.setSelectedContactName
+  );
   const [avatarSrc, setAvatarSrc] = useState<string | null>(null);
 
   return (
@@ -158,6 +161,7 @@ const ContactCard = ({
                 onClick={() => {
                   setIsModalOpen();
                   setSelectedContactId(_id);
+                  setSelectedContactName(fullname);
                 }}
               >
                 <Delete />

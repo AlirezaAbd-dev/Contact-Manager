@@ -24,6 +24,7 @@ const DeleteConfirmDialog = () => {
   const isModalOpen = useStore((state) => state.isModalOpen);
   const setIsModalClose = useStore((state) => state.setIsModalClose);
   const selectedContactId = useStore((state) => state.selectedContactId);
+  const selectedContactName = useStore((state) => state.selectedContactName);
   const searchParams = useSearchParams();
 
   let pageQuery = searchParams?.get("page");
@@ -81,7 +82,7 @@ const DeleteConfirmDialog = () => {
         پاک کردن مخاطب
       </Typography>
       <DialogContent>
-        مطمئنی که میخوای مخاطب علیرضا عابدی رو پاک کنی؟
+        مطمئنی که میخوای مخاطب {selectedContactName} رو پاک کنی؟
       </DialogContent>
       <DialogActions>
         <Button
