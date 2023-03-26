@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { ChangeEvent } from "react";
 import { Box, Tab, Tabs } from "@mui/material";
 
@@ -7,7 +7,7 @@ const SignInTabs = ({
   pageHandler,
 }: {
   page: number;
-  pageHandler: (e:ChangeEvent, newValue: number) => void;
+  pageHandler: (e: ChangeEvent, newValue: number) => void;
 }) => {
   return (
     <Box
@@ -25,6 +25,7 @@ const SignInTabs = ({
       >
         <Tab label="ورود" />
         <Tab label="ثبت نام" />
+        <Tab label="حذف حساب" />
       </Tabs>
     </Box>
   );

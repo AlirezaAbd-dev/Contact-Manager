@@ -21,7 +21,7 @@ const MainSignInPage = () => {
         <SignInTabs page={page} pageHandler={pageHandler} />
 
         <Typography variant="h5" mt={2}>
-          {page === 0 ? "ورود" : "ثبت نام"}
+          {page === 0 ? "ورود" : page === 1 ? "ثبت نام" : "حذف حساب"}
         </Typography>
 
         {/* FORM */}

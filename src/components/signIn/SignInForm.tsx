@@ -49,7 +49,7 @@ const SignInForm = ({ page }: { page: number }) => {
             },
           }
         );
-      } else {
+      } else if (page === 0) {
         toast.promise(
           loginService(values.email, values.password).then((res) => {
             const token = res.headers["x-authentication-token"];
@@ -67,6 +67,7 @@ const SignInForm = ({ page }: { page: number }) => {
             },
           }
         );
+      } else if (page === 2) {
       }
     },
     [page]
@@ -117,17 +118,19 @@ const SignInForm = ({ page }: { page: number }) => {
             ),
           }}
         />
-        <Box width="100%" textAlign="left">
-          <Link
-            href="/resetPassword"
-            style={{ color: red[300], textDecoration: "none" }}
-          >
-            رمز عبور خود را فراموش کرده اید؟
-          </Link>
-        </Box>
+        {page !== 2 && (
+          <Box width="100%" textAlign="left">
+            <Link
+              href="/resetPassword"
+              style={{ color: red[300], textDecoration: "none" }}
+            >
+              رمز عبور خود را فراموش کرده اید؟
+            </Link>
+          </Box>
+        )}
       </Box>
       <Button type="submit" variant="contained" color="secondary">
-        {page === 0 ? "ورود" : "ثبت نام"}
+        {page === 0 ? "ورود" : page === 1 ? "ثبت نام" : "حذف حساب"}
       </Button>
     </form>
   );
