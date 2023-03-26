@@ -2,7 +2,13 @@
 
 import { useState, useCallback } from "react";
 import { RemoveRedEye, VisibilityOff } from "@mui/icons-material";
-import { Box, Button, IconButton } from "@mui/material";
+import {
+  Box,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  IconButton,
+} from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { useFormik } from "formik";
 import { useRouter } from "next/navigation";
@@ -18,6 +24,7 @@ const initialValues = { email: "", password: "" };
 
 const SignInForm = ({ page }: { page: number }) => {
   const [isPassword, setIsPassword] = useState(true);
+  const [isDeleteChecked, setIsDeleteChecked] = useState(false);
 
   const router = useRouter();
 
@@ -118,20 +125,49 @@ const SignInForm = ({ page }: { page: number }) => {
             ),
           }}
         />
-        {page !== 2 && (
-          <Box width="100%" textAlign="left">
+        <Box width="100%" textAlign="left">
+          {page !== 2 && (
             <Link
               href="/resetPassword"
               style={{ color: red[300], textDecoration: "none" }}
             >
               رمز عبور خود را فراموش کرده اید؟
             </Link>
-          </Box>
-        )}
+          )}
+          {page === 2 && (
+            <FormControlLabel
+              sx={{
+                "&.MuiTypography-root": {
+                  fontSize: "18px",
+                },
+              }}
+              control={
+                <Checkbox
+                  checked={isDeleteChecked}
+                  onClick={() => {
+                    setIsDeleteChecked((prev) => !prev);
+                  }}
+                />
+              }
+              label="مطمئنم که میخواهم حساب خود را حذف کنم."
+            />
+          )}
+        </Box>
       </Box>
-      <Button type="submit" variant="contained" color="secondary">
-        {page === 0 ? "ورود" : page === 1 ? "ثبت نام" : "حذف حساب"}
-      </Button>
+      {page !== 2 ? (
+        <Button type="submit" variant="contained" color="secondary">
+          {page === 0 ? "ورود" : "ثبت نام"}
+        </Button>
+      ) : (
+        <Button
+          type="submit"
+          variant="contained"
+          color="secondary"
+          disabled={!isDeleteChecked}
+        >
+          حذف حساب
+        </Button>
+      )}
     </form>
   );
 };
