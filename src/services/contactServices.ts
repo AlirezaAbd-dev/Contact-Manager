@@ -19,6 +19,10 @@ export interface ContactsPaginatedType {
   pagesNumber: number;
 }
 
+export const deleteAccountService = async (email: string, password: string) => {
+  return await axios.put("/api/account", { email, password });
+};
+
 export const signInService = async (email: string, password: string) => {
   return await axios.post("/api/signIn", { email, password });
 };

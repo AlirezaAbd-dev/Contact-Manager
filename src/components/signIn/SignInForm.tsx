@@ -16,7 +16,11 @@ import { toFormikValidationSchema } from "zod-formik-adapter";
 import { toast } from "react-toastify";
 
 import loginValidation from "../../validations/loginValidation";
-import { loginService, signInService } from "../../services/contactServices";
+import {
+  deleteAccountService,
+  loginService,
+  signInService,
+} from "../../services/contactServices";
 import Link from "next/link";
 import { red } from "@mui/material/colors";
 
@@ -75,6 +79,21 @@ const SignInForm = ({ page }: { page: number }) => {
           }
         );
       } else if (page === 2) {
+        toast.promise(
+          deleteAccountService(values.email, values.password).then((res) => {
+            return res.data.message;
+          }),
+          {
+            pending: "در حال حذف حساب",
+            success: "حساب شما با موفقیت حذف شد",
+            error: {
+              render({ data }) {
+                // @ts-ignore
+                return data.response.data.message;
+              },
+            },
+          }
+        );
       }
     },
     [page]

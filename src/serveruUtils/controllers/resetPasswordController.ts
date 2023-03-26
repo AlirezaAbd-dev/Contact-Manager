@@ -15,7 +15,9 @@ const resetPasswordController = async (
   const validatedBody = resetPasswordValidation.safeParse(req.body);
 
   if (!validatedBody.success) {
-    res.status(400).json({ message: validatedBody.error.issues[0].message });
+    return res
+      .status(400)
+      .json({ message: validatedBody.error.issues[0].message });
   }
 
   // Database Connection
