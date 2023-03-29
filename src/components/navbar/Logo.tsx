@@ -6,6 +6,7 @@ import Link from "next/link";
 
 const Logo = ({ showSearch }: { showSearch: boolean }) => {
   const theme = useTheme();
+  const token = useLocalStorage("user-token");
 
   return (
     <Grid
