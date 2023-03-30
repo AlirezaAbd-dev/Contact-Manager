@@ -6,7 +6,7 @@ import Link from "next/link";
 
 const Logo = ({ showSearch }: { showSearch: boolean }) => {
   const theme = useTheme();
-
+ 
   return (
     <Grid
       xs={!showSearch ? 12 : 0}
