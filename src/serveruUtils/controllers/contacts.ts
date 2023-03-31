@@ -1,18 +1,12 @@
 import { NextApiResponse } from "next";
 import { CustomNextRequest } from "../../../types";
-import userCollection from "../collection/userCollection";
-import client from "../databaseClient/client";
+import dbConnect from "../database/dbConnect";
 import verifyToken from "../middleware/verifyToken";
+import UserModel from "../models/userModel";
 
 const contacts = async (req: CustomNextRequest, res: NextApiResponse) => {
   // Database Connection
-  try {
-    await client.connect();
-  } catch (err) {
-    return res
-      .status(500)
-      .send({ message: "اتصال با دیتابیس با خطا مواجه شد!" });
-  }
+  await dbConnect();
 
   // Getting Queries From URL
   const search = req.query.search || "false";
@@ -22,21 +16,16 @@ const contacts = async (req: CustomNextRequest, res: NextApiResponse) => {
   const verifiedUser = await verifyToken(req);
 
   if (!verifiedUser || !verifiedUser.email) {
-    await client.close();
     return res.status(401).json({ message: "شما به این صفحه درسترسی ندارید!" });
   }
 
   const userEmail = verifiedUser.email;
 
   // Find User In Database
-  const user = await userCollection.findOne({ email: userEmail });
+  const user = await UserModel.findOne({ email: userEmail });
   if (!user) {
-    await client.close();
     return res.status(404).send({ message: "کاربر مورد نظر یافت نشد!" });
   }
-
-  // Closing Database Connection
-  await client.close();
 
   // Check If There Is Page Query In URL Or Not
   if (page === "0" || !page || isNaN(+page)) {
