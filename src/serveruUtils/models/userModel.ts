@@ -8,10 +8,10 @@ export interface UserModelType extends mongoose.Document {
   contacts: {
     _id: mongoose.Types.ObjectId;
     fullname: string;
-    job: string;
+    job?: string;
     phone: string;
-    email: string;
-    image: string;
+    email?: string;
+    image?: string;
   }[];
 }
 

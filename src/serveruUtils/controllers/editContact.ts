@@ -1,11 +1,10 @@
 import { ObjectId, WithId } from "mongodb";
+import mongoose from "mongoose";
 import { NextApiResponse } from "next";
 import { CustomAddContactRequest } from "../../../types";
-import userCollection, {
-  UserCollectiontype,
-} from "../collection/userCollection";
-import client from "../databaseClient/client";
+import dbConnect from "../database/dbConnect";
 import verifyToken from "../middleware/verifyToken";
+import UserModel, { UserModelType } from "../models/userModel";
 import addContactValidation from "../validations/addContactValidation";
 
 const editContact = async (
@@ -16,13 +15,7 @@ const editContact = async (
   const contactId = req.query._id;
 
   // Database Connection
-  try {
-    await client.connect();
-  } catch (err) {
-    return res
-      .status(500)
-      .send({ message: "اتصال با دیتابیس با خطا مواجه شد!" });
-  }
+  await dbConnect();
 
   const { fullname, phone, email, job } = req.body;
 
@@ -35,7 +28,6 @@ const editContact = async (
   });
 
   if (!isBodyValid.success) {
-    await client.close();
     return res.status(400).send({ message: "لطفا تمام فیلد ها را پر کنید!" });
   }
 
@@ -43,20 +35,18 @@ const editContact = async (
   const verifiedUser = await verifyToken(req);
 
   if (!verifiedUser || !verifiedUser.email) {
-    await client.close();
     return res.status(401).send({ message: "شما به این صفحه درسترسی ندارید!" });
   }
 
   const userEmail = verifiedUser.email;
 
   // Finding User From Database
-  let findUser: WithId<UserCollectiontype> | null;
-  try {
-    findUser = await userCollection.findOne({ email: userEmail });
-  } catch {
-    await client.close();
+  const findUser = await UserModel.findOne<UserModelType>({ email: userEmail });
+
+  if (!findUser) {
     return res.status(404).send({ message: "کاربر مورد نظر یافت نشد!" });
   }
+
   // Filtering Out Current Contact For Avoiding Conflict
   const popUserout = findUser?.contacts.filter(
     (contact) => contact._id.toString() !== contactId
@@ -67,7 +57,6 @@ const editContact = async (
   );
 
   if (isUserExisted) {
-    await client.close();
     return res
       .status(400)
       .send({ message: "نام این مخاطب در لیست شما وجود دارد!" });
@@ -78,36 +67,26 @@ const editContact = async (
   )?.image;
 
   // Update Chosen Contact To New Values
-  try {
-    await userCollection.updateOne(
-      {
-        email: userEmail,
-        "contacts._id": new ObjectId(contactId),
-      },
-      {
-        $set: {
-          "contacts.$": {
-            _id: new ObjectId(contactId),
-            fullname,
-            job,
-            image,
-            phone,
-            email,
-          },
-        },
-      }
-    );
-  } catch {
-    await client.close();
-    return res.status(404).send({ message: "کاربر مورد نظر یافت نشد!" });
-  }
+  findUser.contacts = findUser.contacts.map((contact) => {
+    if (contact._id.toString() === contactId) {
+      return {
+        _id: contact._id,
+        fullname,
+        job,
+        image,
+        phone,
+        email,
+      };
+    } else {
+      return contact;
+    }
+  });
 
-  // Closing Database Connection
-  await client.close();
+  await findUser.save();
 
   // Sending New Edited Contact As Response
   return res.send({
-    _id: new ObjectId(contactId),
+    _id: contactId?.toString(),
     fullname,
     email,
     phone,
