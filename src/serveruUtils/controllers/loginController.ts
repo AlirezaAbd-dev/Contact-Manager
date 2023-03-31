@@ -1,23 +1,17 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { NextApiResponse } from "next";
-import { NextRequest } from "../../../types";
 
-import userCollection from "../collection/userCollection";
-import client from "../databaseClient/client";
+import { NextRequest } from "../../../types";
+import dbConnect from "../database/dbConnect";
+import UserModel, { UserModelType } from "../models/userModel";
 import signInValidation from "../validations/signInValidation";
 
 const loginController = async (req: NextRequest, res: NextApiResponse) => {
   // Check The Request Method
   if (req.method === "POST") {
     // Database Connection
-    try {
-      await client.connect();
-    } catch (err) {
-      return res
-        .status(500)
-        .send({ message: "اتصال با دیتابیس با خطا مواجه شد!" });
-    }
+    await dbConnect();
 
     // Validating Request Body
     const success = signInValidation.safeParse(req.body)?.success;
@@ -29,12 +23,12 @@ const loginController = async (req: NextRequest, res: NextApiResponse) => {
     }
 
     // Finding User In Database
-    const findUser = await userCollection
-      .find({ email: req.body.email })
-      .toArray();
+    const findUser = await UserModel.findOne<UserModelType>({
+      email: req.body.email,
+    });
 
     // Check If There Isn't A User In Database
-    if (findUser.length === 0) {
+    if (!findUser) {
       return res
         .status(404)
         .send({ message: "ایمیل و یا رمزعبور وارد شده اشتباه است!" });
@@ -43,7 +37,7 @@ const loginController = async (req: NextRequest, res: NextApiResponse) => {
     // Compare Password Of Request Body With Hashed Password
     const isPasswordtrue = await bcrypt.compare(
       req.body.password,
-      findUser[0].password
+      findUser.password
     );
 
     if (!isPasswordtrue) {
@@ -56,13 +50,10 @@ const loginController = async (req: NextRequest, res: NextApiResponse) => {
     const token = jwt.sign(
       JSON.stringify({
         email: req.body.email,
-        resetPassAmount: findUser[0].resetPassAmount,
+        resetPassAmount: findUser.resetPassAmount,
       }),
       process.env.JWT_SECRET_KEY!
     );
-
-    // Closing Connection With Database
-    await client.close();
 
     // Sending Response
     res.setHeader("x-authentication-token", token);

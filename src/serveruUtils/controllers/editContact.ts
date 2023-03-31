@@ -1,5 +1,3 @@
-import { ObjectId, WithId } from "mongodb";
-import mongoose from "mongoose";
 import { NextApiResponse } from "next";
 import { CustomAddContactRequest } from "../../../types";
 import dbConnect from "../database/dbConnect";
@@ -58,7 +56,7 @@ const editContact = async (
 
   if (isUserExisted) {
     return res
-      .status(400)
+      .status(404)
       .send({ message: "نام این مخاطب در لیست شما وجود دارد!" });
   }
 
