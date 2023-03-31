@@ -1,6 +1,5 @@
 import formidable from "formidable";
 import { NextApiResponse } from "next";
-import client from "../databaseClient/client";
 
 const imageValidation = async (
   err: any,
