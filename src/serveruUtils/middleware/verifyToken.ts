@@ -1,8 +1,8 @@
 import jwt from "jsonwebtoken";
 
 import { CustomNextRequest } from "../../../types";
-import userCollection from "../collection/userCollection";
-import client from "../databaseClient/client";
+import dbConnect from "../database/dbConnect";
+import UserModel, { UserModelType } from "../models/userModel";
 
 export default async function (req: CustomNextRequest) {
   const jwtSecret = process.env.JWT_SECRET_KEY!;
@@ -17,17 +17,18 @@ export default async function (req: CustomNextRequest) {
   }
 
   try {
-    await client.connect();
+    await dbConnect();
 
     if (user.email) {
-      const findUser = await userCollection.findOne({ email: user?.email });
+      const findUser = await UserModel.findOne<UserModelType>({
+        email: user.email,
+      });
 
-      if (!findUser || +findUser.resetPassAmount > +user.resetPassAmount) {
+      if (!findUser || findUser.resetPassAmount > +user.resetPassAmount) {
         return null;
       }
     }
   } catch (err) {
-    await client.close();
     console.log(err);
     return null;
   }
