@@ -1,12 +1,12 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
 import SMTPTransport from "nodemailer/lib/smtp-transport";
 
 import resetPasswordValidation from "../validations/resetPasswordValidation";
-import client from "../databaseClient/client";
-import userCollection from "../collection/userCollection";
 import { ChangePasswordRequest } from "../../pages/api/password";
+import dbConnect from "../database/dbConnect";
+import UserModel, { UserModelType } from "../models/userModel";
 
 const resetPasswordController = async (
   req: ChangePasswordRequest,
@@ -21,30 +21,14 @@ const resetPasswordController = async (
   }
 
   // Database Connection
-  try {
-    await client.connect();
-  } catch (err) {
-    return res
-      .status(500)
-      .send({ message: "اتصال با دیتابیس با خطا مواجه شد!" });
-  }
+  await dbConnect();
 
-  await userCollection
-    .findOne({ email: req.body.email })
-    .then(async (resolve) => {
-      if (!resolve) {
-        return res
-          .status(404)
-          .json({ message: "کاربری با این ایمیل یافت نشد!" });
-      }
-    })
-    .catch(async (err) => {
-      console.log(err);
-      return res.status(404).json({ message: "کاربری با این ایمیل یافت نشد!" });
-    })
-    .finally(async () => {
-      await client.close();
-    });
+  const findUser = await UserModel.findOne<UserModelType>({
+    email: req.body.email,
+  });
+  if (!findUser) {
+    return res.status(404).json({ message: "کاربری با این ایمیل یافت نشد!" });
+  }
 
   const EMAIL_ADDRESS = process.env.EMAIL_ADDRESS!;
 
@@ -77,16 +61,16 @@ const resetPasswordController = async (
     <center style='width: 100%;'>
       <img src='https://github.com/AlirezaAbd-dev/Contact-Manager-client-Remake/blob/c0778ce70666b60d3bb035469e40b5866e1c29d2/src/assets/contact-manager-logo.png?raw=true' alt='logo' width='100%' height='auto' />
     </center>
-    <h1 style='text-align: center; font-weight: bold;'>
+    <h1 style='text-align: center; color: #fff; font-weight: bold;'>
       سلام کاربر عزیز 🌹
     </h1>
     <br />
-    <h3>
+    <h3 style='color: #fff;'>
       از این که وبسایت ما را برای ذخیره مخاطبین خود انتخاب کرده اید بسیار سپاس گذاریم 🙏🙏
     </h3>
     <p>
       برای تغییر رمز عبور خود فقط کافیست روی دکمه ی زیر کلیک کنید و رمز جدید خود را وارد نمایید 👇👇
-    </p>
+    </p style='color: #fff;'>
     <br />
     <center>
       <a href='${
