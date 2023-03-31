@@ -1,10 +1,12 @@
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
 
-export interface UserModelType {
+export interface UserModelType extends mongoose.Document {
+  _id: mongoose.Types.ObjectId;
   email: string;
   password: string;
   resetPassAmount: number;
   contacts: {
+    _id: mongoose.Types.ObjectId;
     fullname: string;
     job: string;
     phone: string;
@@ -13,7 +15,9 @@ export interface UserModelType {
   }[];
 }
 
-const userSchema = new mongoose.Schema<UserModelType>({
+interface UserModel extends Model<UserModelType> {}
+
+const userSchema = new mongoose.Schema<UserModelType, UserModel>({
   email: { type: String, required: true },
   password: { type: String, required: true },
   resetPassAmount: { type: Number, required: true },

@@ -10,7 +10,8 @@ import addContactValidation, {
   uploadImageValidation,
 } from "../validations/addContactValidation";
 import dbConnect from "../database/dbConnect";
-import UserModel from "../models/userModel";
+import UserModel, { UserModelType } from "../models/userModel";
+import mongoose from "mongoose";
 
 const bucketName = process.env.ARVAN_BUCKET_NAME!;
 const imageBaseAddress = process.env.ARVAN_IMAGE_BASE_ADDRESS!;
@@ -75,11 +76,15 @@ const addContact = async (
 
     // Finding User From Database
 
-    const findUser = await UserModel.findOne({
+    const findUser = await UserModel.findOne<UserModelType>({
       email: userEmail,
     }).catch(() => {
       return res.status(404).send({ message: "کاربر مورد نظر یافت نشد!" });
     });
+
+    if (!findUser) {
+      return res.status(404).send({ message: "کاربر مورد نظر یافت نشد!" });
+    }
 
     // Checking If Contact Exists Then Client Should Use Another fullname Value Or Continue
     const isUserExisted = findUser?.contacts.find(
@@ -135,6 +140,7 @@ const addContact = async (
     }
     // Add Contact To Contacts
     findUser?.contacts.push({
+      _id: new mongoose.Types.ObjectId(),
       fullname,
       email,
       phone,

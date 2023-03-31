@@ -5,7 +5,7 @@ import { ChangePasswordRequest } from "../../pages/api/password";
 import verifyResetPasswordToken from "../middleware/verifyResetPasswordToken";
 import changePasswordValidation from "../validations/changePasswordValidation";
 import dbConnect from "../database/dbConnect";
-import UserModel from "../models/userModel";
+import UserModel, { UserModelType } from "../models/userModel";
 
 const handler = async (req: ChangePasswordRequest, res: NextApiResponse) => {
   const verifiedUser = verifyResetPasswordToken(req);
@@ -24,7 +24,9 @@ const handler = async (req: ChangePasswordRequest, res: NextApiResponse) => {
 
   await dbConnect();
 
-  const findUser = await UserModel.findOne({ email: verifiedUser.email });
+  const findUser = await UserModel.findOne<UserModelType>({
+    email: verifiedUser.email,
+  });
 
   if (!findUser || !findUser?._id) {
     return res.status(404).json({ message: "کاربر مورد نظر یافت نشد!" });

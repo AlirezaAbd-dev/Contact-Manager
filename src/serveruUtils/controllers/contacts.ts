@@ -2,7 +2,7 @@ import { NextApiResponse } from "next";
 import { CustomNextRequest } from "../../../types";
 import dbConnect from "../database/dbConnect";
 import verifyToken from "../middleware/verifyToken";
-import UserModel from "../models/userModel";
+import UserModel, { UserModelType } from "../models/userModel";
 
 const contacts = async (req: CustomNextRequest, res: NextApiResponse) => {
   // Database Connection
@@ -22,7 +22,7 @@ const contacts = async (req: CustomNextRequest, res: NextApiResponse) => {
   const userEmail = verifiedUser.email;
 
   // Find User In Database
-  const user = await UserModel.findOne({ email: userEmail });
+  const user = await UserModel.findOne<UserModelType>({ email: userEmail });
   if (!user) {
     return res.status(404).send({ message: "کاربر مورد نظر یافت نشد!" });
   }
