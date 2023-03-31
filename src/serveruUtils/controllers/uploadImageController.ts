@@ -1,15 +1,14 @@
 import { NextApiResponse } from "next";
-import { ObjectId } from "mongodb";
 import formidable from "formidable";
 import { PutObjectCommand, DeleteObjectCommand } from "@aws-sdk/client-s3";
 
 import { CustomNextRequest } from "../../../types";
-import client from "../databaseClient/client";
 import verifyToken from "../middleware/verifyToken";
-import userCollection from "../collection/userCollection";
 import imageValidation from "../validations/uploadImageValidation";
 import createReadStream from "../helpers/createReadStream";
 import arvanCloudConnection from "../helpers/arvanCloudConnection";
+import dbConnect from "../database/dbConnect";
+import UserModel, { UserModelType } from "../models/userModel";
 
 const bucketName = process.env.ARVAN_BUCKET_NAME!;
 const imageBaseAddress = process.env.ARVAN_IMAGE_BASE_ADDRESS!;
@@ -18,7 +17,7 @@ const UploadImageHandler = async (
   req: CustomNextRequest,
   res: NextApiResponse
 ) => {
-  await client.connect();
+  await dbConnect();
   const _id = req.query._id;
 
   const form = formidable({ maxFileSize: 1024 * 1024 });
@@ -27,7 +26,6 @@ const UploadImageHandler = async (
     const validated = await imageValidation(err, res, files);
 
     if (validated !== null) {
-      await client.close();
       return res.status(validated.status).json({ message: validated.message });
     }
 
@@ -48,27 +46,24 @@ const UploadImageHandler = async (
     const verifiedUser = await verifyToken(req);
 
     if (!verifiedUser || !verifiedUser.email) {
-      await client.close();
       return res
         .status(401)
         .json({ message: "شما به این صفحه درسترسی ندارید!" });
     }
 
-    const findUser = await userCollection.findOne({
-      email: verifiedUser?.email,
+    const findUser = await UserModel.findOne<UserModelType>({
+      email: verifiedUser.email,
     });
 
     if (!findUser) {
-      await client.close();
       return res.status(404).send({ message: "کاربر مورد نظر یافت نشد!" });
     }
 
-    const findContact = findUser.contacts.find(
+    const findContact = findUser.contacts?.find(
       (contact) => contact._id.toString() === _id
     );
 
     if (!findContact) {
-      await client.close();
       return res.status(404).send({ message: "مخاطب مورد نظر یافت نشد!" });
     }
 
@@ -105,35 +100,21 @@ const UploadImageHandler = async (
             console.log("Error", err);
           }
 
-        await userCollection
-          .updateOne(
-            {
-              email: verifiedUser?.email,
-              "contacts._id": new ObjectId(_id),
-            },
-            {
-              $set: {
-                "contacts.$.image": imageBaseAddress + "/" + fileName,
-              },
-            }
-          )
-          .then(async (_response) => {
-            await client.close();
-            return res
-              .status(200)
-              .json({ message: "عکس کابر با موفقیت بارگذاری شد" });
-          })
-          .catch(async (err) => {
-            await client.close();
-            console.log(err);
+        findUser.contacts = findUser.contacts?.map((contact) => {
+          if (contact._id.toString() === _id) {
+            return { ...contact, image: imageBaseAddress + "/" + fileName };
+          } else {
+            return contact;
+          }
+        });
 
-            return res
-              .status(400)
-              .json({ message: "بارگذاری عکس با خطا مواجه شد!" });
-          });
+        await findUser.save();
+
+        return res
+          .status(200)
+          .json({ message: "عکس کاربر با موفقیت بارگذاری شد" });
       }
     } catch (err) {
-      await client.close();
       console.log("Error", err);
       return res.status(500).json({
         message: "بارگذاری عکس با خطا مواجه شد!",

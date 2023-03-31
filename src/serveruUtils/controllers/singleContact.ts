@@ -1,4 +1,3 @@
-import { WithId } from "mongodb";
 import { NextApiResponse } from "next";
 import { CustomAddContactRequest } from "../../../types";
 import dbConnect from "../database/dbConnect";
