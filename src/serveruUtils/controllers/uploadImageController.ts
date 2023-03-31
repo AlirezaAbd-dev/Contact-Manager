@@ -7,7 +7,6 @@ import verifyToken from "../middleware/verifyToken";
 import imageValidation from "../validations/uploadImageValidation";
 import createReadStream from "../helpers/createReadStream";
 import arvanCloudConnection from "../helpers/arvanCloudConnection";
-import dbConnect from "../database/dbConnect";
 import UserModel, { UserModelType } from "../models/userModel";
 
 const bucketName = process.env.ARVAN_BUCKET_NAME!;
@@ -17,7 +16,6 @@ const UploadImageHandler = async (
   req: CustomNextRequest,
   res: NextApiResponse
 ) => {
-  await dbConnect();
   const _id = req.query._id;
 
   const form = formidable({ maxFileSize: 1024 * 1024 });

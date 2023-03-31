@@ -1,7 +1,6 @@
 import { DeleteObjectCommand } from "@aws-sdk/client-s3";
 import { NextApiResponse } from "next";
 import { CustomAddContactRequest } from "../../../types";
-import dbConnect from "../database/dbConnect";
 import arvanCloudConnection from "../helpers/arvanCloudConnection";
 import verifyToken from "../middleware/verifyToken";
 import UserModel, { UserModelType } from "../models/userModel";
@@ -12,9 +11,6 @@ const deleteContact = async (
 ) => {
   // Getting Queries From URL
   const id = req.query._id;
-
-  // Database Connection
-  await dbConnect();
 
   // Validate Request JsonWebToken
   const verifiedUser = await verifyToken(req);

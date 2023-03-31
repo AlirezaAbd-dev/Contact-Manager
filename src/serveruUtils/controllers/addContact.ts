@@ -9,7 +9,6 @@ import verifyToken from "../middleware/verifyToken";
 import addContactValidation, {
   uploadImageValidation,
 } from "../validations/addContactValidation";
-import dbConnect from "../database/dbConnect";
 import UserModel, { UserModelType } from "../models/userModel";
 import mongoose from "mongoose";
 
@@ -20,9 +19,6 @@ const addContact = async (
   req: CustomAddContactRequest,
   res: NextApiResponse
 ) => {
-  // Database Connection
-  await dbConnect();
-
   const form = formidable({ maxFileSize: 1024 * 1024 });
 
   form.parse(req, async (err, fields, files) => {

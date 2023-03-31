@@ -1,6 +1,5 @@
 import { NextApiResponse } from "next";
 import { CustomAddContactRequest } from "../../../types";
-import dbConnect from "../database/dbConnect";
 import verifyToken from "../middleware/verifyToken";
 import UserModel, { UserModelType } from "../models/userModel";
 import addContactValidation from "../validations/addContactValidation";
@@ -11,9 +10,6 @@ const editContact = async (
 ) => {
   // Getting Queries From URL
   const contactId = req.query._id;
-
-  // Database Connection
-  await dbConnect();
 
   const { fullname, phone, email, job } = req.body;
 

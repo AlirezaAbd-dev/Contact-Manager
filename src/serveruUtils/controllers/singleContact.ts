@@ -1,6 +1,5 @@
 import { NextApiResponse } from "next";
 import { CustomAddContactRequest } from "../../../types";
-import dbConnect from "../database/dbConnect";
 import verifyToken from "../middleware/verifyToken";
 import UserModel, { UserModelType } from "../models/userModel";
 
@@ -10,9 +9,6 @@ const singleContact = async (
 ) => {
   // Getting Queries From URL
   const contactId = req.query._id;
-
-  // Database Connection
-  await dbConnect();
 
   // Validate Request JsonWebToken
   const verifiedUser = await verifyToken(req);

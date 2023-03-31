@@ -1,12 +1,9 @@
 import { NextApiResponse } from "next";
 import { CustomNextRequest } from "../../../types";
-import dbConnect from "../database/dbConnect";
 import verifyToken from "../middleware/verifyToken";
 import UserModel, { UserModelType } from "../models/userModel";
 
 const contacts = async (req: CustomNextRequest, res: NextApiResponse) => {
-  // Database Connection
-  await dbConnect();
 
   // Getting Queries From URL
   const search = req.query.search || "false";
