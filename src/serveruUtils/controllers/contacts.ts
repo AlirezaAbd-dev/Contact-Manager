@@ -35,7 +35,7 @@ const contacts = async (req: CustomNextRequest, res: NextApiResponse) => {
     } else {
       // If There Is Search Query Equal To True Then Just Return Data For Search
       return res.status(200).send({
-        contacts: user.contacts.map((contact) => ({
+        contacts: user?.contacts?.map((contact) => ({
           _id: contact._id,
           fullname: contact.fullname,
         })),
@@ -45,10 +45,10 @@ const contacts = async (req: CustomNextRequest, res: NextApiResponse) => {
     // If There Is Page Query Then Do The Procces For Pagination
     const numberOfItemInEveryPage = 12;
     const amountOfPages = Math.ceil(
-      user.contacts.length / numberOfItemInEveryPage
+      (user?.contacts?.length || 0) / numberOfItemInEveryPage
     );
 
-    const paginatedContacts = user.contacts.slice(
+    const paginatedContacts = user.contacts?.slice(
       (+page - 1) * numberOfItemInEveryPage,
       numberOfItemInEveryPage * +page
     );

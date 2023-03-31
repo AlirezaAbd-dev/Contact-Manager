@@ -3,9 +3,9 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 import { NextRequest } from "../../../types";
-import userCollection from "../collection/userCollection";
-import client from "../databaseClient/client";
 import signInValidation from "../validations/signInValidation";
+import dbConnect from "../database/dbConnect";
+import UserModel, { UserModelType } from "../models/userModel";
 
 const signInController = async (req: NextRequest, res: NextApiResponse) => {
   // Environment Variables
@@ -15,34 +15,25 @@ const signInController = async (req: NextRequest, res: NextApiResponse) => {
   // Check The Request Method
   if (req.method === "POST") {
     // Database Connection
-    try {
-      await client.connect();
-    } catch (err) {
-      // Closing Connection With Database
-      await client.close();
-      return res
-        .status(500)
-        .send({ message: "اتصال با دیتابیس با خطا مواجه شد!" });
-    }
+    await dbConnect();
+
     // Validating Request Body
     const success = signInValidation.safeParse(req.body)?.success;
 
     if (!success) {
       // Closing Connection With Database
-      await client.close();
       return res
         .status(400)
         .send({ message: "لطفا فیلدها را به درستی پر کنید!" });
     }
 
     // Search For User In Database
-    const findUser = await userCollection
-      .find({ email: req.body.email })
-      .toArray();
+    const findUser = await UserModel.findOne<UserModelType>({
+      email: req.body.email,
+    });
 
-    if (findUser.length !== 0) {
+    if (findUser) {
       // Closing Connection With Database
-      await client.close();
       return res
         .status(404)
         .send({ message: "این ایمیل قبلا استفاده شده است!" });
@@ -52,11 +43,10 @@ const signInController = async (req: NextRequest, res: NextApiResponse) => {
     const hashPassword = await bcrypt.hash(req.body.password, saltRound);
 
     // Creating User In Database In case There Is No Similar User
-    await userCollection.insertOne({
+    new UserModel({
       email: req.body.email,
       password: hashPassword,
       resetPassAmount: 0,
-      contacts: [],
     });
 
     // Creating JsonWebToken
@@ -64,9 +54,6 @@ const signInController = async (req: NextRequest, res: NextApiResponse) => {
       JSON.stringify({ email: req.body.email, resetPassAmount: 0 }),
       jwtSecret
     );
-
-    // Closing Connection With Database
-    await client.close();
 
     // Sending Response
     res.setHeader("x-authentication-token", token);

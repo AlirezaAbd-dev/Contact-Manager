@@ -5,7 +5,7 @@ export interface UserModelType extends mongoose.Document {
   email: string;
   password: string;
   resetPassAmount: number;
-  contacts: {
+  contacts?: {
     _id: mongoose.Types.ObjectId;
     fullname: string;
     job?: string;
@@ -20,7 +20,7 @@ interface UserModel extends Model<UserModelType> {}
 const userSchema = new mongoose.Schema<UserModelType, UserModel>({
   email: { type: String, required: true },
   password: { type: String, required: true },
-  resetPassAmount: { type: Number, required: true },
+  resetPassAmount: { type: Number, required: true, default: 0 },
   contacts: [
     {
       fullname: { type: String, required: true },

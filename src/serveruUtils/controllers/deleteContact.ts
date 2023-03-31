@@ -29,7 +29,7 @@ const deleteContact = async (
 
   let userImageURL: string | undefined = "";
   if (user) {
-    userImageURL = user.contacts.find(
+    userImageURL = user.contacts?.find(
       (contact) => contact._id.toString() === id
     )?.image;
   } else {
@@ -52,7 +52,7 @@ const deleteContact = async (
   }
 
   // Delete The Chosen Cintact From Contacts In Database With $pull Query
-  user.contacts = user.contacts.filter(
+  user.contacts = user.contacts?.filter(
     (contact) => contact._id.toString() !== id
   );
   await user.save();

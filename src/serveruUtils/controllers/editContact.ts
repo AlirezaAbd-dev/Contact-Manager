@@ -46,7 +46,7 @@ const editContact = async (
   }
 
   // Filtering Out Current Contact For Avoiding Conflict
-  const popUserout = findUser?.contacts.filter(
+  const popUserout = findUser?.contacts?.filter(
     (contact) => contact._id.toString() !== contactId
   );
   // Checking If There Is Another Contact With The Same Name? Then Return It To Variable And Sending 404 As Response
@@ -60,12 +60,12 @@ const editContact = async (
       .send({ message: "نام این مخاطب در لیست شما وجود دارد!" });
   }
 
-  const image = findUser?.contacts.find(
+  const image = findUser?.contacts?.find(
     (contact) => contact._id.toString() === contactId
   )?.image;
 
   // Update Chosen Contact To New Values
-  findUser.contacts = findUser.contacts.map((contact) => {
+  findUser.contacts = findUser.contacts?.map((contact) => {
     if (contact._id.toString() === contactId) {
       return {
         _id: contact._id,

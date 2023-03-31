@@ -87,7 +87,7 @@ const addContact = async (
     }
 
     // Checking If Contact Exists Then Client Should Use Another fullname Value Or Continue
-    const isUserExisted = findUser?.contacts.find(
+    const isUserExisted = findUser?.contacts?.find(
       (contact) => contact.fullname === fullname
     );
 
@@ -139,7 +139,7 @@ const addContact = async (
       }
     }
     // Add Contact To Contacts
-    findUser?.contacts.push({
+    findUser?.contacts?.push({
       _id: new mongoose.Types.ObjectId(),
       fullname,
       email,
@@ -150,7 +150,9 @@ const addContact = async (
 
     const result = await findUser.save();
 
-    return res.send(result.contacts[result.contacts.length - 1]);
+    return res
+      .status(200)
+      .send(result.contacts && result?.contacts[result.contacts?.length - 1]);
   });
 };
 
