@@ -57,7 +57,7 @@ const resetPasswordController = async (
     { expiresIn: "1h" }
   );
 
-  const HTML = `<section style='direction: rtl; padding: 20px; background-color: #282a36'; color: #fff; border-radius: 25px;'>
+  const HTML = `<section style='direction: rtl; padding: 20px; color: #fff; border-radius: 25px;'>
     <center style='width: 100%;'>
       <img src='https://github.com/AlirezaAbd-dev/Contact-Manager-client-Remake/blob/c0778ce70666b60d3bb035469e40b5866e1c29d2/src/assets/contact-manager-logo.png?raw=true' alt='logo' width='100%' height='auto' />
     </center>
@@ -65,17 +65,17 @@ const resetPasswordController = async (
       سلام کاربر عزیز 🌹
     </h1>
     <br />
-    <h3 style='color: #fff;'>
+    <h3 color="#fff" style='color: #fff;'>
       از این که وبسایت ما را برای ذخیره مخاطبین خود انتخاب کرده اید بسیار سپاس گذاریم 🙏🙏
     </h3>
     <p>
       برای تغییر رمز عبور خود فقط کافیست روی دکمه ی زیر کلیک کنید و رمز جدید خود را وارد نمایید 👇👇
-    </p style='color: #fff;'>
+    </p color="#fff" style='color: #fff;'>
     <br />
     <center>
       <a href='${
         req.body.url + "/" + asignedToken
-      }' style='padding: 7px 15px 7px 15px; border-radius: 20px; background-color: #BD93F9; color: #000; font-size: 18px; font-weight: bold;'>
+      }' color="#fff" style='padding: 7px 15px 7px 15px; border-radius: 20px; background-color: #BD93F9; color: #000; font-size: 18px; font-weight: bold;'>
         تغییر رمز عبور
       </a>
     </center>

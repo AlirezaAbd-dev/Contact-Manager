@@ -43,7 +43,7 @@ const signInController = async (req: NextRequest, res: NextApiResponse) => {
     const hashPassword = await bcrypt.hash(req.body.password, saltRound);
 
     // Creating User In Database In case There Is No Similar User
-    const newUser = await UserModel.create({
+    await UserModel.create({
       email: req.body.email,
       password: hashPassword,
       resetPassAmount: 0,
