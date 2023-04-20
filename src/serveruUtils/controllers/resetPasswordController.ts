@@ -67,7 +67,7 @@ const resetPasswordController = async (
         <h3 color="#fff" style='color: #fff;'>
           از این که وبسایت ما را برای ذخیره مخاطبین خود انتخاب کرده اید بسیار سپاس گذاریم 🙏🙏
         </h3>
-        <p>
+        <p color="#fff" style='color: #fff;'>
           برای تغییر رمز عبور خود فقط کافیست روی دکمه ی زیر کلیک کنید و رمز جدید خود را وارد نمایید 👇👇
         </p color="#fff" style='color: #fff;'>
         <br />
