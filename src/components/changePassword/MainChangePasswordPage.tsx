@@ -6,16 +6,16 @@ import SignInCard from "../signIn/SignInCard";
 import ChangePasswordForm from "./ChangePasswordForm";
 
 export default function MainChangePasswordPage({ token }: { token: string }) {
-  return (
-    <MainContainer>
-      <SignInCard>
-        <Typography variant="h5" mt={2}>
-          تغییر رمز عبور
-        </Typography>
+  return (<></>
+    // <MainContainer>
+    //   <SignInCard>
+    //     <Typography variant="h5" mt={2}>
+    //       تغییر رمز عبور
+    //     </Typography>
 
-        {/* FORM */}
-        <ChangePasswordForm token={token} />
-      </SignInCard>
-    </MainContainer>
+    //     {/* FORM */}
+    //     <ChangePasswordForm token={token} />
+    //   </SignInCard>
+    // </MainContainer>
   );
 }
