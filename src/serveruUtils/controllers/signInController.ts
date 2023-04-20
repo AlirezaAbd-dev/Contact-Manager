@@ -43,25 +43,25 @@ const signInController = async (req: NextRequest, res: NextApiResponse) => {
     const hashPassword = await bcrypt.hash(req.body.password, saltRound);
 
     // Creating User In Database In case There Is No Similar User
-    const newUser = await new UserModel({
+    const newUser = await UserModel.create({
       email: req.body.email,
       password: hashPassword,
       resetPassAmount: 0,
-    });
+    })
+      .then(() => {
+        // Creating JsonWebToken
+        const token = jwt.sign(
+          JSON.stringify({ email: req.body.email, resetPassAmount: 0 }),
+          jwtSecret
+        );
 
-    if (newUser) {
-      // Creating JsonWebToken
-      const token = jwt.sign(
-        JSON.stringify({ email: req.body.email, resetPassAmount: 0 }),
-        jwtSecret
-      );
-
-      // Sending Response
-      res.setHeader("x-authentication-token", token);
-      return res.send({ message: "ثبت نام با موفقیت انجام شد." });
-    } else {
-      res.status(500).send({ message: "خطایی در پایگاه داده به وجود آمد!" });
-    }
+        // Sending Response
+        res.setHeader("x-authentication-token", token);
+        return res.send({ message: "ثبت نام با موفقیت انجام شد." });
+      })
+      .catch(() => {
+        res.status(500).send({ message: "خطایی در پایگاه داده به وجود آمد!" });
+      });
   }
 };
 
