@@ -57,21 +57,21 @@ const resetPasswordController = async (
     { expiresIn: "1h" }
   );
 
-  const HTML = `<section style='direction: rtl; padding: 20px; color: #fff; border-radius: 25px;'>
+  const HTML = `<section style='direction: rtl; padding: 20px; background-color: #282a36'; color: #fff; border-radius: 25px;'>
     <center style='width: 100%;'>
-      <img src='https://github.com/AlirezaAbd-dev/Contact-Manager-client-Remake/blob/c0778ce70666b60d3bb035469e40b5866e1c29d2/src/assets/contact-manager-logo.png?raw=true' alt='logo' width='100%' height='auto' />
-    </center>
-    <h1 style='text-align: center; color: #fff; font-weight: bold;'>
-      سلام کاربر عزیز 🌹
-    </h1>
-    <br />
-    <h3 color="#fff" style='color: #fff;'>
-      از این که وبسایت ما را برای ذخیره مخاطبین خود انتخاب کرده اید بسیار سپاس گذاریم 🙏🙏
-    </h3>
-    <p>
-      برای تغییر رمز عبور خود فقط کافیست روی دکمه ی زیر کلیک کنید و رمز جدید خود را وارد نمایید 👇👇
-    </p color="#fff" style='color: #fff;'>
-    <br />
+        <img src='https://github.com/AlirezaAbd-dev/Contact-Manager-client-Remake/blob/c0778ce70666b60d3bb035469e40b5866e1c29d2/src/assets/contact-manager-logo.png?raw=true' alt='logo' width='100%' height='auto' />
+        <h1 style='text-align: center; color: #fff; font-weight: bold;'>
+          سلام کاربر عزیز 🌹
+        </h1>
+        <br />
+        <h3 color="#fff" style='color: #fff;'>
+          از این که وبسایت ما را برای ذخیره مخاطبین خود انتخاب کرده اید بسیار سپاس گذاریم 🙏🙏
+        </h3>
+        <p>
+          برای تغییر رمز عبور خود فقط کافیست روی دکمه ی زیر کلیک کنید و رمز جدید خود را وارد نمایید 👇👇
+        </p color="#fff" style='color: #fff;'>
+        <br />
+      </center>
     <center>
       <a href='${
         req.body.url + "/" + asignedToken
