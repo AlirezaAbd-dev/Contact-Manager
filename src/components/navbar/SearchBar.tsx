@@ -9,7 +9,6 @@ import useSWR from "swr";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import {
   getContactsForSearchFetcher,
-  SearchContact,
 } from "../../services/contactServices";
 
 const SearchBar = () => {

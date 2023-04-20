@@ -35,7 +35,7 @@ export default function ChangePasswordForm({ token }: { token: string }) {
           render({ data }) {
             // @ts-ignore
             if (data.response.status === 401) {
-              // router.replace("signIn");
+              router.replace("/signIn");
             }
             // @ts-ignore
             return data.response.data.message;

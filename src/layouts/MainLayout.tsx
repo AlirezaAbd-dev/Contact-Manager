@@ -17,11 +17,7 @@ const cacheRtl = createCache({
   stylisPlugins: [prefixer, rtlPlugin],
 });
 
-const MainLayout = ({
-  children,
-}: {
-  children: ReactNode;
-}) => {
+const MainLayout = ({ children }: { children: ReactNode }) => {
   const pathname = usePathname();
 
   return (
@@ -29,8 +25,8 @@ const MainLayout = ({
       <CacheProvider value={cacheRtl}>
         <CssBaseline />
         <Header
-          showSearch={pathname === "/"}
-          showLogout={pathname === "/"}
+          showSearch={pathname === "/" ? true : false}
+          showLogout={pathname === "/" ? true : false}
         />
         <ToastContainer
           position="top-right"
