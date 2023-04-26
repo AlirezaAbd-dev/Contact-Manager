@@ -6,6 +6,7 @@ import MainLayout from "../layouts/MainLayout";
 
 import AnalyticsWrapper from "./Analytics";
 import { Metadata } from "next";
+import envSchema from "../../envSchema";
 
 export const metadata: Metadata = {
   title: "مدیریت مخاطبین",
@@ -18,6 +19,7 @@ export const metadata: Metadata = {
 };
 
 const Layout = async ({ children }) => {
+  envSchema.parse(process.env);
   return (
     <html lang="fa">
       <body dir="rtl">
