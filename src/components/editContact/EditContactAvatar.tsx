@@ -3,7 +3,12 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Grid from "@mui/material/Unstable_Grid2";
 import Skeleton from "@mui/material/Skeleton";
 import Image from "next/image";
-import { CircularProgress, useMediaQuery, useTheme } from "@mui/material";
+import {
+  CircularProgress,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import useSWRMutation from "swr/mutation";
 
 import avatarPlaceholder from "../../assets/placeholder-avatar.png";
@@ -13,6 +18,7 @@ import { toast } from "react-toastify";
 import { LoadingButton } from "@mui/lab";
 import { useRouter } from "next/navigation";
 import { KeyedMutator } from "swr";
+import { AxiosProgressEvent } from "axios";
 
 const EditContactAvatar = ({
   avatarSrc,
@@ -38,19 +44,29 @@ const EditContactAvatar = ({
   const token = useLocalStorage("user-token");
 
   const [isLoadingSrc, setIsLoadingSrc] = useState<string | null>();
+  const [imageUploadedProgress, setImageUploadedProgress] = useState(0);
 
   const router = useRouter();
   const theme = useTheme();
   const isSmDown = useMediaQuery(theme.breakpoints.down("sm"));
 
   const { trigger, data, error, isMutating } = useSWRMutation(
-    [`/api/imageUpload/${contactId}`, token],
+    [
+      `/api/imageUpload/${contactId}`,
+      token,
+      (e: AxiosProgressEvent) => {
+        if (e.total) {
+          setImageUploadedProgress(Math.floor((e.loaded / e.total) * 100));
+        }
+      },
+    ],
     uploadImageMutation
   );
 
   useEffect(() => {
     if (error) {
       toast.error(error?.response?.data?.message);
+      setImageUploadedProgress(0);
 
       if (error.response.statusCode === 401) {
         router.replace("/signIn");
@@ -146,14 +162,19 @@ const EditContactAvatar = ({
         />
       )}
       {imageUploaded && (
-        <LoadingButton
-          loadingIndicator={<CircularProgress size={20} />}
-          loading={isMutating}
-          onClick={onClickHandler}
-          sx={{ borderRadius: "20px" }}
-        >
-          ثبت عکس پروفایل
-        </LoadingButton>
+        <>
+          <LoadingButton
+            loadingIndicator={<CircularProgress size={20} />}
+            loading={isMutating}
+            onClick={onClickHandler}
+            sx={{ borderRadius: "20px" }}
+          >
+            ثبت عکس پروفایل
+          </LoadingButton>
+          <Typography variant="caption" color="primary" sx={{ mt: -2 }}>
+            {imageUploadedProgress !== 0 && imageUploadedProgress + "%"}
+          </Typography>
+        </>
       )}
     </Grid>
   );

@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosProgressEvent } from "axios";
 
 export interface SearchContact {
   contacts: {
@@ -164,7 +164,11 @@ export const deleteContactMutation = ([url, token]: [string, string]) => {
 };
 
 export const uploadImageMutation = (
-  [url, token]: [string, string],
+  [url, token, onUploadProgress]: [
+    string,
+    string,
+    (e: AxiosProgressEvent) => void | undefined
+  ],
   { arg }
 ) => {
   if (token) {
@@ -172,6 +176,7 @@ export const uploadImageMutation = (
       headers: {
         "x-authentication-token": token,
       },
+      onUploadProgress,
     });
   } else {
     return null;
