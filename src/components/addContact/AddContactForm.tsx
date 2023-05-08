@@ -51,7 +51,7 @@ const AddContactForm = () => {
         router.replace("/signIn");
       }
     }
-  }, [error]);
+  }, [error, isMutating, router]);
 
   const formik = useFormik({
     initialValues,

@@ -43,7 +43,7 @@ export default function ChangePasswordForm({ token }: { token: string }) {
         },
       });
     },
-    [token]
+    [router, token]
   );
 
   return (

@@ -40,7 +40,7 @@ const EditContactForm = ({
       toast.success("مخاطب مورد نظر با موفقیت ویرایش شد");
       router.push("/");
     }
-  }, [data]);
+  }, [data, router]);
 
   useEffect(() => {
     if (error) {

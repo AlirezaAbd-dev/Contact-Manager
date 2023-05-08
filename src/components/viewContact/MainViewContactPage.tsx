@@ -43,7 +43,7 @@ const MainViewContactPage = ({ id }: { id: string }) => {
         router.replace("/");
       }
     }
-  }, [error]);
+  }, [error, router]);
 
   return (
     <MainContainer>

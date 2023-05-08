@@ -50,7 +50,7 @@ const MainEditContactPage = ({ id }: { id: number }) => {
         router.push("/");
       }
     }
-  }, [error]);
+  }, [error, router]);
 
   return (
     <MainContainer>

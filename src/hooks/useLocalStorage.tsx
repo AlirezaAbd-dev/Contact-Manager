@@ -13,7 +13,7 @@ export default function useLocalStorage(tokenName: string) {
     } else {
       router.replace("/signIn");
     }
-  }, []);
+  }, [router, tokenName]);
 
   return token;
 }

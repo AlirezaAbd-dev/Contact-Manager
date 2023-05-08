@@ -4,7 +4,7 @@ import { CustomNextRequest } from "../../../types";
 import dbConnect from "../database/dbConnect";
 import UserModel, { UserModelType } from "../models/userModel";
 
-export default async function (req: CustomNextRequest) {
+async function verifyToken(req: CustomNextRequest) {
   const jwtSecret = process.env.JWT_SECRET_KEY!;
 
   const token = req.headers["x-authentication-token"];
@@ -39,3 +39,5 @@ export default async function (req: CustomNextRequest) {
 
   return null;
 }
+
+export default verifyToken;

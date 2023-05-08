@@ -96,7 +96,7 @@ const SignInForm = ({ page }: { page: number }) => {
         );
       }
     },
-    [page]
+    [page, router]
   );
 
   return (

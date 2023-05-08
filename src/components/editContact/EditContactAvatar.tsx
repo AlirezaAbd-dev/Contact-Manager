@@ -72,7 +72,7 @@ const EditContactAvatar = ({
         router.replace("/signIn");
       }
     }
-  }, [error]);
+  }, [error, router]);
 
   useEffect(() => {
     if (data?.data) {
@@ -80,7 +80,7 @@ const EditContactAvatar = ({
       setImageUploaded(false);
       mutate();
     }
-  }, [data]);
+  }, [data, router, mutate, setImageUploaded]);
 
   const onClickHandler = () => {
     const files = new FormData();

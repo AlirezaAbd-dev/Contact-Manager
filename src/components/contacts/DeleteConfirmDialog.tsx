@@ -40,7 +40,7 @@ const DeleteConfirmDialog = () => {
       setIsModalClose();
       mutate([`/api/contacts?page=${pageQuery || 1}`, token]);
     }
-  }, [data]);
+  }, [data, pageQuery, setIsModalClose, token]);
 
   useEffect(() => {
     if (error) {
@@ -50,7 +50,7 @@ const DeleteConfirmDialog = () => {
         setIsModalClose();
       }
     }
-  }, [error]);
+  }, [error, setIsModalClose]);
 
   const deleteHandler = () => {
     trigger();
